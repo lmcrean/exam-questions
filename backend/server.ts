@@ -137,8 +137,8 @@ if (!isDevelopment && process.env.CORS_ORIGINS) {
 // Fallback Firebase patterns if CORS_ORIGINS not set
 if (allowedPatterns.length === 0 && !isDevelopment) {
   allowedPatterns = [
-    /^https:\/\/dottie-app-37930\.web\.app$/,  // Firebase main URL
-    /^https:\/\/dottie-app-37930--[a-zA-Z0-9-]+\.web\.app$/,  // Firebase preview URLs
+    /^https:\/\/product-one-477118\.web\.app$/,  // Firebase main URL
+    /^https:\/\/product-one-477118--[a-zA-Z0-9-]+\.web\.app$/,  // Firebase preview URLs
   ];
   console.log('⚠️ Using fallback Firebase CORS patterns');
 }
