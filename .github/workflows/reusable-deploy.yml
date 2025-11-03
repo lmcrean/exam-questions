@@ -194,8 +194,8 @@ jobs:
           fi
 
           # Deploy the service with environment variables
-          # CORS_ORIGINS is set from project-config.yml
-          CORS_ORIGINS=$(yq -o=json '.project.app.api.cors_origins' .github/project-config.yml)
+          # CORS_ORIGINS is set from project-config.yml (compact JSON, no newlines)
+          CORS_ORIGINS=$(yq -o=json -I=0 '.project.app.api.cors_origins' .github/project-config.yml)
           echo "🔗 CORS Origins: $CORS_ORIGINS"
 
           gcloud run deploy $SERVICE_NAME \
