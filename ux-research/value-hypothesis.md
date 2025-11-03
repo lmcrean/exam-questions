@@ -17,6 +17,7 @@ Set Exam Question on google classroom with Wooclap link
 Review answers on Wooclap
 - Allow voting.
 - Chars are unlimited.
+- This is very close to the Starter Hero idea, only without AI heatmap.
 
 ## Key Questions
 - Do students care about seeing peer responses? Is it fun? Motivating?
