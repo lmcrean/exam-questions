@@ -50,17 +50,17 @@ jobs:
 
       - name: 📥 Install API Dependencies
         run: |
-          cd backend
+          cd apps/api
           npm ci
 
       - name: 🔧 Build API
         run: |
-          cd backend
+          cd apps/api
           npm run build || echo "No build step configured"
 
       - name: 🗄️ Initialize Database Schema
         run: |
-          cd backend
+          cd apps/api
           npm run db:init
         env:
           NODE_ENV: production
@@ -68,7 +68,7 @@ jobs:
 
       - name: 🧪 Run API Tests
         run: |
-          cd backend
+          cd apps/api
           npm test
         # Tests use SQLite with isolated database (not Neon production DB)
 
@@ -165,7 +165,7 @@ jobs:
           echo "🔖 Service name: $SERVICE_NAME"
 
           # Build and push the image from repository root with correct context
-          docker build -t $IMAGE_NAME -f backend/Dockerfile .
+          docker build -t $IMAGE_NAME -f apps/api/Dockerfile .
           docker push $IMAGE_NAME
 
           # Store values for next step

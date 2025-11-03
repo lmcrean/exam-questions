@@ -12,7 +12,7 @@ echo "================================================"
 echo "🔒 Performing safety checks..."
 
 # Check if we're in the right directory
-if [ ! -f "frontend/package.json" ]; then
+if [ ! -f "apps/web/package.json" ]; then
     echo "❌ Error: Run this script from the project root directory"
     exit 1
 fi
@@ -42,13 +42,13 @@ if ! $FIREBASE_CMD projects:list &> /dev/null; then
 fi
 
 # Check project configuration
-if [ ! -f "frontend/.firebaserc" ]; then
+if [ ! -f "apps/web/.firebaserc" ]; then
     echo "❌ Error: .firebaserc not found. Please configure your Firebase project first."
     exit 1
 fi
 
 # Navigate to web app directory
-cd frontend
+cd apps/web
 
 # Check if build directory exists and is reasonable size
 if [ -d "dist" ]; then

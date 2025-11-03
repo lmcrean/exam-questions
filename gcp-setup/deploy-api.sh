@@ -12,7 +12,7 @@ echo "======================================="
 echo "🔒 Performing safety checks..."
 
 # Check if we're in the right directory
-if [ ! -f "backend/package.json" ]; then
+if [ ! -f "apps/api/package.json" ]; then
     echo "❌ Error: Run this script from the project root directory"
     exit 1
 fi
@@ -47,11 +47,11 @@ if [ -z "$BILLING_ACCOUNT" ]; then
 fi
 
 # Navigate to API directory
-cd backend
+cd apps/api
 
 # Check if Dockerfile exists
 if [ ! -f "Dockerfile" ]; then
-    echo "❌ Error: Dockerfile not found in backend/"
+    echo "❌ Error: Dockerfile not found in apps/api/"
     exit 1
 fi
 
