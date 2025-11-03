@@ -208,7 +208,7 @@ Continue to help them explore and understand their results in the context of our
  * Initialize Vertex AI client
  */
 const initVertexAI = () => {
-  const projectId = process.env.GCP_PROJECT_ID || 'lauriecrean-free-38256';
+  const projectId = process.env.GCP_PROJECT_ID || 'product-one-477118';
   const location = process.env.GCP_LOCATION || 'us-central1';
 
   return new VertexAI({
@@ -235,7 +235,7 @@ const callGeminiAPI = async (
     // Initialize Vertex AI
     const vertexAI = initVertexAI();
     const model = vertexAI.getGenerativeModel({
-      model: 'gemini-1.5-flash', // Using Flash for speed and cost-efficiency
+      model: 'gemini-1.5-flash-002', // Using Flash for speed and cost-efficiency
       generationConfig: {
         maxOutputTokens: 2048,
         temperature: 0.7,

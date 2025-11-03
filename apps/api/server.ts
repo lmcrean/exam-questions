@@ -5,7 +5,6 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import { initializeDatabase } from "./services/runtime-db-setup.js";
 
 // Load environment variables FIRST
 dotenv.config();
@@ -40,12 +39,7 @@ function validateEnvironment(): void {
 
   // Production-only requirements
   if (isProduction) {
-    if (isVercel) {
-      required['SUPABASE_URL'] = 'Database connection will fail';
-      required['SUPABASE_ANON_PUBLIC'] = 'Database queries will fail';
-    } else {
-      // Add other production database requirements if needed
-    }
+    // Add production database requirements if needed
   }
 
   // Optional but recommended
@@ -213,11 +207,6 @@ async function startServer(): Promise<void> {
   try {
     console.log('🚀 Starting Dottie server...\n');
 
-    // Initialize database (must succeed)
-    console.log('📦 Initializing database...');
-    await initializeDatabase();
-    console.log('✅ Database initialized successfully\n');
-
     // Import refresh token store for cleanup scheduling
     const { refreshTokens } = await import('./services/refreshTokenStore.js');
 
@@ -287,16 +276,6 @@ if (isMainModule) {
   startServer();
 } else {
   console.log("Exporting server app for serverless deployment");
-
-  // For serverless deployment, initialize database when module is imported
-  // But also fail fast if initialization fails in production
-  initializeDatabase().catch((error: any) => {
-    console.error("❌ Database initialization failed:", error.message);
-    if (isProduction) {
-      console.error('💀 Exiting due to database initialization failure in production');
-      process.exit(1);
-    }
-  });
 }
 
 export default app;

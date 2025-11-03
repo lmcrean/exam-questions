@@ -52,13 +52,7 @@
     "test:prod:verbose": "npx playwright test e2e/dev/master-integration.api.pw.spec.ts -c playwright.prod.config.js --reporter=list --headed",
     "test:prod:keep": "npx playwright test e2e/dev/master-integration-no-cleanup.api.pw.spec.ts -c playwright.prod.config.js",
     "test:prod:deployed": "vercel --prod; npx playwright test e2e/dev/master-integration.api.pw.spec.ts -c playwright.prod.config.js",
-    "deploy:vercel": "vercel deploy --prod",
-    "supabase:init": "tsx db/supabase/scripts/init-supabase.ts",
-    "migrate:to-supabase": "tsx db/supabase/scripts/migrateToSupabase.ts",
-    "cleanup:azure": "tsx db/supabase/scripts/cleanupAzure.ts",
-    "test:supabase": "tsx db/supabase/scripts/test-connection.ts",
-    "check:tables": "tsx db/supabase/scripts/check-tables.ts",
-    "initialize:db": "tsx db/supabase/scripts/initialize-db.ts"
+    "deploy:vercel": "vercel deploy --prod"
   },
   "keywords": [],
   "author": "",
@@ -67,7 +61,6 @@
     "@google-cloud/vertexai": "^1.10.0",
     "@google/genai": "^0.7.0",
     "@google/generative-ai": "^0.24.0",
-    "@supabase/supabase-js": "^2.49.4",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

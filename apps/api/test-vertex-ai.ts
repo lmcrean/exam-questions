@@ -19,7 +19,7 @@ async function testVertexAI() {
 
   try {
     // Initialize Vertex AI
-    const projectId = process.env.GCP_PROJECT_ID || 'lauriecrean-free-38256';
+    const projectId = process.env.GCP_PROJECT_ID || 'product-one-477118';
     const location = process.env.GCP_LOCATION || 'us-central1';
 
     console.log(`📍 Project: ${projectId}`);
@@ -31,9 +31,10 @@ async function testVertexAI() {
       location: location
     });
 
-    // Try gemini-pro first (stable version)
+    // Use gemini-1.5-flash (cheapest and fastest)
+    console.log('Using gemini-1.5-flash...\n');
     const model = vertexAI.getGenerativeModel({
-      model: 'gemini-pro',
+      model: 'gemini-1.5-flash',
       generationConfig: {
         maxOutputTokens: 1024,
         temperature: 0.7,
