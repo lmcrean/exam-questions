@@ -78,28 +78,15 @@ jobs:
 
                 const botComment = comments.find(comment =>
                   comment.user.type === 'Bot' &&
-                  comment.body.includes('<!-- DEPLOY_AUTHORIZATION_NEEDED -->')
+                  comment.body.includes('DEPLOY_AUTHORIZATION_NEEDED')
                 );
-
-                const commentBody = `## Deployment Authorization Required
-
-Thank you for your contribution!
-
-As an external contributor, your PR requires manual approval before deployment previews are created.
-
-**For maintainers:** Add the \`deploy-preview\` label to this PR to trigger the deployment workflow.
-
----
-*This is an automated security measure to prevent abuse of CI/CD resources.*
-
-<!-- DEPLOY_AUTHORIZATION_NEEDED -->`;
 
                 if (!botComment) {
                   await github.rest.issues.createComment({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: prNumber,
-                    body: commentBody
+                    body: 'Deployment Authorization Required\n\nThank you for your contribution! As an external contributor, your PR requires manual approval before deployment previews are created.\n\nFor maintainers: Add the deploy-preview label to this PR to trigger the deployment workflow.\n\nDEPLOY_AUTHORIZATION_NEEDED'
                   });
                 }
               } catch (error) {
