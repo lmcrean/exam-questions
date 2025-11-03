@@ -1,7 +1,7 @@
 # Project Iteration Roadmap
 
 ## Iteration 1: Live Response Display
-Basic teacher-hosted session where students can upload answers and see them displayed live on the board.
+BBasic teacher-hosted session where students can upload answers and see them displayed live on the board. 
 
 **Essential Features:**
 - Students can submit text-based answers to questions
@@ -101,6 +101,11 @@ Intelligent marking system using Gemini API to provide instant feedback and clas
 
 - review exam question/markscheme and generate keyword flashcards
 - teacher can customise
+
+## Iteration N: Extension activity
+
+- stretch and challenge activity
+- AI-drafted.
 
 ## Technical Notes
 
