@@ -1,15 +1,17 @@
 # Comparison Component
 
-## Feature Comparison Table
+## Feature Comparison Table for OEQs (open ended exam-style questions)
 
-| Platform | Host exam questions | Long format answers | Instant feedback | Instant whole-class insights with heatmap | Students see peer responses | Students vote | **Final Score** |
-|----------|---------------------|----------------------------------|----------------------------------|------------------------------------------------------------------|-----------------------------| --------------|-----------------|
-| **Starter Hero** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **6** |
-| **Printed exam papers (done by hand)** | ☑️ | ☑️ | teacher-dependent. 30 students = requires selective approach | teacher-dependent. 30 students = requires selective approach | peer review, limited to 1v1 | 30 students = impossible to organise| **4** |
-| **Mentimeter** | ☑️ |  | limited anwer length, vague overview | short-answers, no AI marking, no heatmap | ☑️ | ☑️ | **3.5** |
-| **Google Classroom** | ☑️ | ☑️ | MCQ-only | MCQ-only | Cumbersome, MCQ only |  | **3** |
-| **LLMs** | Custom Gem via Google Classroom? Cumbersome, not sustainable. | ☑️ | ☑️ | || | **2.5** |
-| **Seneca** | no customisation, limited to seneca curriculum |  | ☑️ | ☑️ |  |  | **2** |
+| Platform/ Quality | Pre-Question (output) |  Teacher sets Question (Input) | Student Responds to Question (Input) | Post-response (Output) | **Final Rank** | notes |
+|----------|-----------|-------------|----------------------------------|----------------------------------|------------------------------------------------------------------|-------------------------|
+| **Starter Hero** | ✅ Flashcards <br> ✅ AI-drafting <br> Downlad/Preview PDFs | ✅ 2000+ chars <br> ✅ Share images smoothly <br> ✅ dynamic formatting  | ✅ 2000+ chars <br> ✅ Share images smoothly <br> ✅ dynamic formatting <br> coming soon: OCR recognition for hand written | ✅ 300% thorough- teacher, AI, student perspectives <br> ✅ dynamic formatting, color coding <br> ✅ AI assessment for instant feedback <br> ✅ Clean mark scheme interface  | **1** 🏆 | pros: highly optimised for OEQs; more organised than handwritten notes; cleaner feedback <br> cons: requires computers, input effort is extra 2-3m compared to handwritten notes |
+| **Handwritten notes** | Powerpoints available <br> printouts | simple <br> no tech hassle | simple <br> unlimited chars <br> printouts <br> Powerpoints <br> less tech hassle  | students have limited ability to see peers work <br> very dependant on teacher orchestration <br> 30 students = inconsistent <br> so... much... paper... <br> limited ability to see student work  <br> simplicity can be effective <br> no tech hassle | 2 | Pros: Quicker than software; Truer to exam format <br> Cons: so... much... paper |
+| **wooclap** | limited    | unlimited chars <br> good formatting <br> images are awkward | unlimited chars <br> good formatting <br> images are awkward | dynamic <br> voting <br> no formal assessment | **3** |
+| **ahaSlides** |  limited | limited <br> 1 line | limited <br> 500 chars
+| **Mentimeter** | limited | limited <br> 1 line | limited <br> 200 chars
+| **Google Classroom** | Share Google Slides | unlimited chars <br> Google Forms <br> dynamic  | | instant feedback with MCQs <br> no automation with OEQs
+| **LLMs** | - | impractical -- LLM needs mark scheme from... student? <br> Pre-train a customised AI e.g. Gem on google Classroom? Awkward.| dynamic | AI Marking | | best AI-powered option, but awkward to set work formally
+| **Seneca** | limited to Seneca Curriculum   | limited to Seneca Curriculum  |  | AI Marking | | quick to set but limited to seneca curriculum; MCQs have to be covered with PPts.
 
 
 
