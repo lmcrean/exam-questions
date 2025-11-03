@@ -31,15 +31,41 @@ async function testVertexAI() {
       location: location
     });
 
-    // Use gemini-1.5-flash (cheapest and fastest)
-    console.log('Using gemini-1.5-flash...\n');
-    const model = vertexAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
-      generationConfig: {
-        maxOutputTokens: 1024,
-        temperature: 0.7,
+    // Try different model versions
+    const modelNames = [
+      'gemini-1.5-flash-002',
+      'gemini-1.5-flash-001',
+      'gemini-1.0-pro',
+      'gemini-pro'
+    ];
+
+    let model;
+    let workingModel;
+
+    for (const modelName of modelNames) {
+      try {
+        console.log(`Trying model: ${modelName}...`);
+        model = vertexAI.getGenerativeModel({
+          model: modelName,
+          generationConfig: {
+            maxOutputTokens: 1024,
+            temperature: 0.7,
+          }
+        });
+
+        // Try a quick test
+        const testResult = await model.generateContent('Say hi');
+        workingModel = modelName;
+        console.log(`✅ SUCCESS! ${modelName} works!\n`);
+        break;
+      } catch (error: any) {
+        console.log(`❌ ${modelName} failed: ${error.message?.substring(0, 80)}...`);
       }
-    });
+    }
+
+    if (!workingModel) {
+      throw new Error('No working model found. Please check Vertex AI Studio console.');
+    }
 
     // Test 1: Simple generation
     console.log('Test 1: Simple generation');
