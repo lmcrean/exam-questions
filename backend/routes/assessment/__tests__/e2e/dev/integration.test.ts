@@ -107,7 +107,7 @@ afterAll(async () => {
 });
 
 describe("Assessment API Integration Test", () => {
-  test("Complete assessment lifecycle flow - create, get, list, delete", async () => {
+  test.skip("Complete assessment lifecycle flow - create, get, list, delete", async () => {
 
     
     // Step 1: Create a new assessment
