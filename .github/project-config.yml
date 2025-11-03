@@ -5,10 +5,10 @@
 project:
   # Google Cloud Platform Configuration
   gcp:
-    project_id: "dottie-app-37930"
+    project_id: "product-one-477118"
     region: "europe-west2"
-    service_account: "github-actions@dottie-app-37930.iam.gserviceaccount.com"
-    
+    service_account: "github-actions-cloudrun@product-one-477118.iam.gserviceaccount.com"
+
     # Artifact Registry Configuration
     artifact_registry:
       repository: "dottie-api-images"
@@ -26,10 +26,10 @@ project:
 
   # Firebase Configuration
   firebase:
-    project_id: "dottie-app-37930"
+    project_id: "product-one-477118"
     hosting:
-      main_url: "https://dottie-app-37930.web.app"
-      branch_url_pattern: "https://dottie-app-37930--branch-{pr_number}-{hash}.web.app"
+      main_url: "https://product-one-477118.web.app"
+      branch_url_pattern: "https://product-one-477118--branch-{pr_number}-{hash}.web.app"
 
   # Application Configuration
   app:
@@ -39,8 +39,8 @@ project:
       service_name_pattern: "dottie-api-{branch}"
       health_endpoint: "/api/health"
       cors_origins:
-        - "https://dottie-app-37930.web.app"
-        - "https://dottie-app-37930--*.web.app"
+        - "https://product-one-477118.web.app"
+        - "https://product-one-477118--*.web.app"
       build_command: "npm install --production"
       test_command: "npm test"
       start_command: "npm start"
