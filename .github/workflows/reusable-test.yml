@@ -37,17 +37,17 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: backend/package-lock.json
+          cache-dependency-path: apps/api/package-lock.json
 
       - name: 📥 Install Backend Dependencies
         run: |
-          cd backend
+          cd apps/api
           npm ci
 
       - name: 🧪 Run Backend Unit Tests
         run: |
           echo "🧪 Running backend unit tests..."
-          cd backend
+          cd apps/api
           npm test
         env:
           NODE_ENV: test
@@ -99,7 +99,7 @@ jobs:
       - name: 🎯 Run Backend Integration Tests
         run: |
           echo "🧪 Running backend integration tests..."
-          cd backend
+          cd apps/api
           npm run test:integration || echo "⚠️ No integration tests found or tests failed"
         env:
           API_BASE_URL: ${{ inputs.api_url }}
@@ -115,8 +115,8 @@ jobs:
         with:
           name: api-test-results-${{ inputs.deployment_type }}-${{ inputs.pr_number || 'main' }}
           path: |
-            backend/test-results/
-            backend/coverage/
+            apps/api/test-results/
+            apps/api/coverage/
           retention-days: 7
           if-no-files-found: ignore
 
@@ -295,17 +295,17 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
 
       - name: 📥 Install E2E Dependencies
         run: |
           echo "📦 Installing frontend dependencies for E2E tests..."
-          cd frontend
+          cd apps/web
           npm ci
 
       - name: 🎭 Install Playwright Browsers
         run: |
-          cd frontend
+          cd apps/web
           npx playwright install chromium firefox webkit
           npx playwright install-deps
 
@@ -367,7 +367,7 @@ jobs:
 
       - name: 🧪 Run E2E Tests
         run: |
-          cd frontend
+          cd apps/web
 
           # Run e2e tests against deployed services
           echo "🎭 Running e2e tests against deployed services..."
@@ -397,7 +397,7 @@ jobs:
         if: always()
         with:
           name: e2e-test-results-${{ inputs.deployment_type }}-${{ inputs.pr_number || 'main' }}
-          path: frontend/playwright-report/
+          path: apps/web/playwright-report/
           retention-days: 30
           if-no-files-found: ignore
 
@@ -406,7 +406,7 @@ jobs:
         if: failure()
         with:
           name: e2e-screenshots-${{ inputs.deployment_type }}-${{ inputs.pr_number || 'main' }}
-          path: frontend/test-results/
+          path: apps/web/test-results/
           retention-days: 7
           if-no-files-found: ignore
 

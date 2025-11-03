@@ -35,7 +35,7 @@ project:
   app:
     name: "dottie"
     api:
-      entry_point: "backend"
+      entry_point: "apps/api"
       service_name_pattern: "dottie-api-{branch}"
       health_endpoint: "/api/health"
       cors_origins:
@@ -46,7 +46,7 @@ project:
       start_command: "npm start"
     
     web:
-      entry_point: "frontend"
+      entry_point: "apps/web"
       build_command: "npm run build"
       test_command: "npm test"
       dist_directory: "dist"

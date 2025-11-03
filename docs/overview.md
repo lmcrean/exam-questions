@@ -7,7 +7,7 @@ Dottie is a full-stack web application providing AI-powered menstrual health gui
 ### Iteration 1 (i1) - Hello World Foundation ✅ COMPLETED
 **Goal**: Establish basic React-to-Node.js API communication and deployment pipeline
 
-#### Backend (backend/) - Node.js/Express API
+#### Backend (apps/api/) - Node.js/Express API
 - ✅ Project structure with routes, models, middleware directories
 - ✅ Health endpoints with `/api/health` (simple string) and `/api/health/status` (structured JSON)
 - ✅ Additional `/health` endpoint for workflow compatibility
@@ -17,7 +17,7 @@ Dottie is a full-stack web application providing AI-powered menstrual health gui
 - ✅ Environment-specific settings (Development/Production)
 - ✅ Database integration with SQLite (dev) and Azure SQL/Supabase (prod)
 
-#### Frontend (frontend/) - React/Vite
+#### Frontend (apps/web/) - React/Vite
 - ✅ React components with TypeScript
 - ✅ API client layer for HTTP communication with backend
 - ✅ Component-based architecture with pages and reusable components
@@ -42,7 +42,7 @@ Dottie is a full-stack web application providing AI-powered menstrual health gui
 ## Docker Configuration ✅ UPDATED
 **Configuration**: Node.js Alpine-based production container
 
-**Docker Configuration** (`backend/Dockerfile`):
+**Docker Configuration** (`apps/api/Dockerfile`):
 - Multi-stage Node.js build with Alpine Linux
 - Security-focused with non-root user
 - Proper signal handling with dumb-init

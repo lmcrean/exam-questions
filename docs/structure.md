@@ -1,7 +1,7 @@
 # Project Structure
 
 ```
-backend/                   # Node.js/Express API
+apps/api/                   # Node.js/Express API
 ├── routes/               # API endpoints
 │   ├── auth/            # Authentication routes
 │   ├── assessment/      # Assessment CRUD operations
@@ -13,7 +13,7 @@ backend/                   # Node.js/Express API
 ├── services/            # Business logic services
 └── Dockerfile           # Multi-stage Node.js build
 
-frontend/                 # React/Vite frontend
+apps/web/                 # React/Vite frontend
 ├── src/
 │   ├── api/            # API client layer
 │   ├── components/     # Reusable UI components
@@ -31,17 +31,17 @@ shared/                   # Shared utilities and types
     └── assessment.ts   # Assessment types
 
 tests/                    # Integration tests
-├── backend/             # Node.js API integration tests
+├── apps/api/             # Node.js API integration tests
 │   ├── auth/           # Authentication tests
 │   ├── api/            # API endpoint tests
 │   └── setup/          # Test setup and utilities
-└── frontend/            # React integration tests
+└── apps/web/            # React integration tests
     ├── components/     # Component tests
     ├── hooks/          # Hook tests
     └── utils/          # Test utilities
 
 e2e/                      # Playwright E2E tests (unified structure)
-├── frontend/             # Frontend E2E tests
+├── apps/web/             # Frontend E2E tests
 │   ├── README-Operations-Architecture.md
 │   ├── master-integration-operations.spec.ts
 │   ├── runners/          # Test runners organized by feature
@@ -51,7 +51,7 @@ e2e/                      # Playwright E2E tests (unified structure)
 │   │   ├── landing/      # Landing page tests
 │   │   └── user/         # User profile tests
 │   └── utils/            # Frontend test utilities
-├── backend/              # Backend API E2E tests
+├── apps/api/              # Backend API E2E tests
 │   ├── dev/              # Development environment tests
 │   │   └── runners/      # API test runners by feature
 │   ├── prod/             # Production environment tests

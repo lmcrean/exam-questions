@@ -2,6 +2,7 @@ import type { MessageRecord } from '../../../../../types.js';
 import logger from '../../../../../../../services/logger.js';
 import { buildAIResponse, buildFallbackResponse } from '../../../../shared/utils/responseBuilders.js';
 import { formatMessagesForAI } from '../../../../shared/utils/messageFormatters.js';
+import { VertexAI } from '@google-cloud/vertexai';
 
 /**
  * Assessment data interface
@@ -82,7 +83,7 @@ export const generateAIResponse = async (
       }
       aiResponse = await generateInitialAIResponse(messageText, assessmentData);
       metadata = {
-        model: 'gemini-pro',
+        model: 'vertex-ai-gemini-1.5-flash',
         assessment_pattern: assessmentData.pattern,
         assessment_data: assessmentData,
         is_initial: true,
@@ -92,7 +93,7 @@ export const generateAIResponse = async (
     } else {
       aiResponse = await generateFollowUpAIResponse(messageText, conversationHistory, assessmentPattern);
       metadata = {
-        model: 'gemini-pro',
+        model: 'vertex-ai-gemini-1.5-flash',
         assessment_pattern: assessmentPattern,
         conversation_length: conversationHistory.length,
         is_follow_up: true,
@@ -204,7 +205,20 @@ Continue to help them explore and understand their results in the context of our
 };
 
 /**
- * Call Gemini API (placeholder implementation)
+ * Initialize Vertex AI client
+ */
+const initVertexAI = () => {
+  const projectId = process.env.GCP_PROJECT_ID || 'lauriecrean-free-38256';
+  const location = process.env.GCP_LOCATION || 'us-central1';
+
+  return new VertexAI({
+    project: projectId,
+    location: location
+  });
+};
+
+/**
+ * Call Vertex AI Gemini API
  * @param prompt - System prompt or formatted conversation history
  * @param userPrompt - User prompt for initial conversations
  * @returns AI response
@@ -213,51 +227,82 @@ const callGeminiAPI = async (
   prompt: string | any[],
   userPrompt: string | null = null
 ): Promise<AIResponse> => {
+  const startTime = Date.now();
+
   try {
-    // TODO: Implement actual Gemini API integration
-    // const { GoogleGenerativeAI } = await import('@google/generative-ai');
-    // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    logger.info('Calling Vertex AI Gemini API');
 
-    logger.warn('Using placeholder AI response - implement actual Gemini integration');
+    // Initialize Vertex AI
+    const vertexAI = initVertexAI();
+    const model = vertexAI.getGenerativeModel({
+      model: 'gemini-1.5-flash', // Using Flash for speed and cost-efficiency
+      generationConfig: {
+        maxOutputTokens: 2048,
+        temperature: 0.7,
+        topP: 0.8,
+      }
+    });
 
-    // Simulate AI processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    let responseContent: string;
+    let result;
+    let fullPrompt: string;
 
     if (userPrompt) {
-      // Initial conversation
-      responseContent = "Thank you for starting this conversation! I'm here to help you explore your thoughts and questions. Based on what you've shared, I'd love to learn more about what's on your mind and how I can best support you today.";
+      // Initial conversation - combine system and user prompts
+      fullPrompt = `${prompt}\n\nUser: ${userPrompt}`;
+      result = await model.generateContent(fullPrompt);
+    } else if (Array.isArray(prompt)) {
+      // Follow-up conversation - format as chat history
+      const chatHistory = prompt.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }));
+
+      // Start chat with history
+      const chat = model.startChat({
+        history: chatHistory.slice(0, -1) // All but last message
+      });
+
+      // Send last message
+      const lastMessage = chatHistory[chatHistory.length - 1];
+      result = await chat.sendMessage(lastMessage.parts[0].text);
     } else {
-      // Follow-up conversation - analyze the last message for context
-      const lastUserMessage = Array.isArray(prompt)
-        ? prompt.filter(msg => msg.role === 'user').slice(-1)[0]?.content || ''
-        : '';
-
-      responseContent = "That's a really interesting perspective! I appreciate you sharing that with me. ";
-
-      if (lastUserMessage.toLowerCase().includes('question')) {
-        responseContent += "Let me help address your question and explore this topic further with you.";
-      } else if (lastUserMessage.toLowerCase().includes('confused')) {
-        responseContent += "I can understand how this might feel confusing. Let's break it down step by step.";
-      } else {
-        responseContent += "What are your thoughts on this, and how does it connect to what we've been discussing?";
-      }
+      throw new Error('Invalid prompt format');
     }
+
+    const response = result.response;
+    const responseContent = response.candidates?.[0]?.content?.parts?.[0]?.text ||
+      'I apologize, but I was unable to generate a response. Please try again.';
+
+    const responseTime = Date.now() - startTime;
+
+    logger.info('Vertex AI response generated successfully', {
+      responseTime,
+      tokenCount: response.usageMetadata?.totalTokenCount || 0
+    });
 
     return {
       content: responseContent,
       metadata: {
-        tokens_used: userPrompt ? 45 : 65,
-        response_time: 1000,
-        confidence: 0.8,
-        context_used: Array.isArray(prompt) ? prompt.length : 0
+        tokens_used: response.usageMetadata?.totalTokenCount || 0,
+        response_time: responseTime,
+        confidence: response.candidates?.[0]?.finishReason === 'STOP' ? 0.9 : 0.7,
+        context_used: Array.isArray(prompt) ? prompt.length : 1
       }
     };
 
   } catch (error) {
-    logger.error('Error calling Gemini API:', error);
+    const responseTime = Date.now() - startTime;
+    logger.error('Error calling Vertex AI Gemini API:', error);
+
+    // Provide more specific error information
+    if (error instanceof Error) {
+      logger.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        responseTime
+      });
+    }
+
     throw error;
   }
 };
@@ -346,7 +391,7 @@ export const generateContextualAIResponse = async (
     const aiResponse = await callGeminiAPI(formattedHistory);
 
     const metadata: AIResponseMetadata = {
-      model: 'gemini-pro',
+      model: 'vertex-ai-gemini-1.5-flash',
       conversation_patterns: patterns,
       enhanced_context: true,
       assessment_pattern: assessmentPattern,

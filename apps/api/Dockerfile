@@ -15,14 +15,14 @@ RUN apt-get update && apt-get install -y \
 RUN groupadd --gid 1001 nodejs && \
     useradd --uid 1001 --gid nodejs --shell /bin/bash --create-home nextjs
 
-# Copy package files from backend directory
-COPY backend/package*.json ./
+# Copy package files from apps/api directory
+COPY apps/api/package*.json ./
 
 # Install dependencies (native modules will compile correctly on Debian)
 RUN npm ci --only=production && npm cache clean --force
 
-# Copy source code from backend directory (exclude node_modules)
-COPY backend/ ./
+# Copy source code from apps/api directory (exclude node_modules)
+COPY apps/api/ ./
 
 # Create directories and set ownership
 RUN mkdir -p logs && \

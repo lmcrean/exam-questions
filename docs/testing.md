@@ -29,8 +29,8 @@
 **Organization Strategy**: Centralized e2e testing with clear separation between frontend and backend tests to improve maintainability and reduce refactoring pain.
 
 ### Directory Structure
-- `e2e/frontend/` - Frontend E2E tests (moved from frontend/e2e/)
-- `e2e/backend/` - Backend API E2E tests (moved from backend/e2e/)
+- `e2e/frontend/` - Frontend E2E tests (moved from apps/web/e2e/)
+- `e2e/backend/` - Backend API E2E tests (moved from apps/api/e2e/)
 
 ### Playwright Configurations (Split by Service)
 **Local Development:**
@@ -83,8 +83,8 @@
 
 ## Testing Commands
 - **All Tests**: `npm run test:all`
-- **Backend Unit Tests**: `npm run test` (from backend/ directory) - Vitest
-- **Frontend Unit Tests**: `npm run test` (from frontend/ directory) - Vitest
+- **Backend Unit Tests**: `npm run test` (from apps/api/ directory) - Vitest
+- **Frontend Unit Tests**: `npm run test` (from apps/web/ directory) - Vitest
 
 ### E2E Testing Commands (from e2e/ directory)
 **Local Development:**
@@ -100,5 +100,5 @@
 - `npx playwright test --config=playwright.backend.production.main.ts` - Backend production tests
 
 ### Legacy Commands
-- **E2E Development**: `npm run test:dev` (from frontend/ directory) - Playwright headed mode
+- **E2E Development**: `npm run test:dev` (from apps/web/ directory) - Playwright headed mode
 - **Custom Runner**: `node test-runner.js [api|web|e2e|integration|all]`

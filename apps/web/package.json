@@ -6,8 +6,8 @@
   "scripts": {
     "dev:frontend": "vite",
     "dev:frontend:e2e": "vite --mode e2e",
-    "dev": "concurrently \"cd ../backend && npm run dev\" \"npm run dev:frontend\"",
-    "dev:e2e": "concurrently \"cd ../backend && npm run dev:e2e\" \"npm run dev:frontend:e2e\"",
+    "dev": "concurrently \"cd ../api && npm run dev\" \"npm run dev:frontend\"",
+    "dev:e2e": "concurrently \"cd ../api && npm run dev:e2e\" \"npm run dev:frontend:e2e\"",
     "build": "tsc -p tsconfig.build.json && vite build",
     "vercel-build": "npm run build",
     "preview": "vite preview",

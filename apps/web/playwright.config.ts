@@ -96,7 +96,7 @@ export default defineConfig({
     ? undefined
     : [
         {
-          command: 'cd ../backend && npm run dev:e2e',
+          command: 'cd ../api && npm run dev:e2e',
           url: 'http://localhost:5005/api/setup/health/hello',
           reuseExistingServer: true,
           stdout: 'pipe',
