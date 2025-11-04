@@ -5,7 +5,7 @@
  * Supports both development (local Redis) and production (Redis hosting service)
  */
 
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import * as dotenv from 'dotenv';
 
 dotenv.config();

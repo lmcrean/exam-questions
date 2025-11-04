@@ -37,7 +37,6 @@ export const aiProcessingQueueConfig: QueueOptions = {
       type: 'exponential',
       delay: 2000,
     },
-    timeout: 30000, // 30 second timeout for AI generation
   },
 };
 
@@ -47,7 +46,6 @@ export const documentProcessingQueueConfig: QueueOptions = {
   defaultJobOptions: {
     ...baseQueueConfig.defaultJobOptions,
     attempts: 3,
-    timeout: 60000, // 60 second timeout for document conversion
   },
 };
 
@@ -61,7 +59,6 @@ export const webhookDeliveryQueueConfig: QueueOptions = {
       type: 'exponential',
       delay: 1000,
     },
-    timeout: 15000, // 15 second timeout for webhook delivery
   },
 };
 
@@ -71,7 +68,6 @@ export const emailDeliveryQueueConfig: QueueOptions = {
   defaultJobOptions: {
     ...baseQueueConfig.defaultJobOptions,
     attempts: 3,
-    timeout: 10000,
   },
 };
 
