@@ -133,12 +133,20 @@ if (!isDevelopment && process.env.CORS_ORIGINS) {
 
 // Fallback Firebase patterns if CORS_ORIGINS not set
 if (allowedPatterns.length === 0 && !isDevelopment) {
-  const firebaseProjectId = process.env.FIREBASE_PROJECT_ID || 'product-one-477118';
+  const firebaseProjectId = process.env.FIREBASE_PROJECT_ID;
+
+  if (!firebaseProjectId) {
+    throw new Error(
+      '❌ FIREBASE_PROJECT_ID environment variable is required in production. ' +
+      'Please set it in your deployment configuration or .env file.'
+    );
+  }
+
   allowedPatterns = [
     new RegExp(`^https://${firebaseProjectId.replace(/\./g, '\\.')}\\.web\\.app$`),  // Firebase main URL
     new RegExp(`^https://${firebaseProjectId.replace(/\./g, '\\.')}--[a-zA-Z0-9-]+\\.web\\.app$`),  // Firebase preview URLs
   ];
-  console.log('⚠️ Using fallback Firebase CORS patterns for project:', firebaseProjectId);
+  console.log('✅ Using Firebase CORS patterns for project:', firebaseProjectId);
 }
 
 const corsOptions: cors.CorsOptions = {

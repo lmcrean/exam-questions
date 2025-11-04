@@ -44,9 +44,9 @@ project:
       entry_point: "apps/api"
       service_name_pattern: "dottie-api-{branch}"
       health_endpoint: "/api/health"
-      cors_origins:
-        - "https://product-one-477118.web.app"
-        - "https://product-one-477118--*.web.app"
+      # Note: CORS origins are auto-derived from FIREBASE_PROJECT_ID at runtime:
+      # - https://{project_id}.web.app
+      # - https://{project_id}--*.web.app
       build_command: "npm install --production"
       test_command: "npm test"
       start_command: "npm start"

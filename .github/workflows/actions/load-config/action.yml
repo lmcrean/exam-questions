@@ -24,9 +24,6 @@ outputs:
   firebase-project-id:
     description: 'Firebase project ID'
     value: ${{ steps.config.outputs.firebase-project-id }}
-  firebase-main-url:
-    description: 'Firebase main hosting URL'
-    value: ${{ steps.config.outputs.firebase-main-url }}
   app-name:
     description: 'Application name'
     value: ${{ steps.config.outputs.app-name }}
@@ -36,9 +33,6 @@ outputs:
   api-health-endpoint:
     description: 'API health endpoint'
     value: ${{ steps.config.outputs.api-health-endpoint }}
-  api-cors-origins:
-    description: 'API CORS origins (JSON array)'
-    value: ${{ steps.config.outputs.api-cors-origins }}
   api-entry-point:
     description: 'API application entry point'
     value: ${{ steps.config.outputs.api-entry-point }}
@@ -121,12 +115,10 @@ runs:
         ARTIFACT_REGISTRY_LOCATION=$(yq '.project.gcp.artifact_registry.location' "$CONFIG_FILE")
         
         FIREBASE_PROJECT_ID=$(yq '.project.firebase.project_id' "$CONFIG_FILE")
-        FIREBASE_MAIN_URL=$(yq '.project.firebase.hosting.main_url' "$CONFIG_FILE")
-        
+
         APP_NAME=$(yq '.project.app.name' "$CONFIG_FILE")
         API_SERVICE_NAME_PATTERN=$(yq '.project.app.api.service_name_pattern' "$CONFIG_FILE")
         API_HEALTH_ENDPOINT=$(yq '.project.app.api.health_endpoint' "$CONFIG_FILE")
-        API_CORS_ORIGINS=$(yq -o=json -I=0 '.project.app.api.cors_origins' "$CONFIG_FILE")
         API_ENTRY_POINT=$(yq '.project.app.api.entry_point' "$CONFIG_FILE")
         
         WEB_ENTRY_POINT=$(yq '.project.app.web.entry_point' "$CONFIG_FILE")
@@ -152,7 +144,6 @@ runs:
         ARTIFACT_REGISTRY_REPOSITORY=${ARTIFACT_REGISTRY_REPOSITORY//\"/}
         ARTIFACT_REGISTRY_LOCATION=${ARTIFACT_REGISTRY_LOCATION//\"/}
         FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID//\"/}
-        FIREBASE_MAIN_URL=${FIREBASE_MAIN_URL//\"/}
         APP_NAME=${APP_NAME//\"/}
         API_SERVICE_NAME_PATTERN=${API_SERVICE_NAME_PATTERN//\"/}
         API_HEALTH_ENDPOINT=${API_HEALTH_ENDPOINT//\"/}
@@ -179,11 +170,9 @@ runs:
         echo "artifact-registry-repository=$ARTIFACT_REGISTRY_REPOSITORY" >> $GITHUB_OUTPUT
         echo "artifact-registry-location=$ARTIFACT_REGISTRY_LOCATION" >> $GITHUB_OUTPUT
         echo "firebase-project-id=$FIREBASE_PROJECT_ID" >> $GITHUB_OUTPUT
-        echo "firebase-main-url=$FIREBASE_MAIN_URL" >> $GITHUB_OUTPUT
         echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
         echo "api-service-name-pattern=$API_SERVICE_NAME_PATTERN" >> $GITHUB_OUTPUT
         echo "api-health-endpoint=$API_HEALTH_ENDPOINT" >> $GITHUB_OUTPUT
-        echo "api-cors-origins=$API_CORS_ORIGINS" >> $GITHUB_OUTPUT
         echo "api-entry-point=$API_ENTRY_POINT" >> $GITHUB_OUTPUT
         echo "web-entry-point=$WEB_ENTRY_POINT" >> $GITHUB_OUTPUT
         echo "web-build-command=$WEB_BUILD_COMMAND" >> $GITHUB_OUTPUT
