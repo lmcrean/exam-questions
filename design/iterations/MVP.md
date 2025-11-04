@@ -24,6 +24,7 @@ MVP plan
 
 *legal/safety*: 
 Q: how can student PII be protected? For data drop, teacher at least needs to see first name.
+A: extract first word of docs filename as name id (neutral, not looking for names)
 A: Onus on teacher to clean sensitive data before sending to AI.
 A: No longterm storage: mark-review-download-clean data after 3 days, files are kept on localstorage, never saved online.
 A: make this a localhost application
