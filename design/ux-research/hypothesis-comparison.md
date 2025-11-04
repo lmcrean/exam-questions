@@ -21,10 +21,10 @@ Three hypotheses all lead to a similar technical product (student submission →
 - **Hypothesis 2:** Bulk marking automation for summative assessments (data drops, Google Classroom extension with added automation)
 - **Hypothesis 3:** All-in-one flexible assessment platform (better Mentimeter + AI marking in one tool)
 
-**The Gut Feeling:**
+**Initial Assessment:**
 Hypothesis 2 (marking workflow) represents the bigger, more urgent pain point, but Hypothesis 1 (Mentimeter-style starters) offers better engagement and retention. Hypothesis 3 combines both by positioning as "one tool for all assessment types."
 
-**The Questions:**
+**Key Questions:**
 1. Should we build primarily for data drops (H2) and add starters (H1) as secondary?
 2. Or build a unified "one tool" platform (H3) that handles both seamlessly from the start?
 3. Is "one tool for everything" compelling enough to overcome switching costs from specialized tools?
@@ -174,8 +174,8 @@ Export Grades for Data Drop
 
 ## The "Why Not Google Classroom?" Question
 
-**User's Question:**
-> "The real question is why not just get the students to upload their work to Google Classroom and just mark it manually? It's still quite quick, but you just don't get these auto-assigned grades."
+**Common Question:**
+"Why not just use Google Classroom for submissions and mark manually? It's relatively quick, just without auto-assigned grades."
 
 **Analysis:**
 
@@ -193,7 +193,7 @@ Export Grades for Data Drop
 - ❌ **No peer learning:** Responses are private (can't see peers)
 - ❌ **No consistency support:** Teacher must maintain standards manually across days
 
-### Your Product's Differentiation:
+### Product Differentiation:
 1. **AI first-pass marking** → Teacher reviews in 1/10th the time
 2. **Instant student feedback** → WWW/EBI within minutes of submission
 3. **Pattern analysis** → AI highlights common mistakes (don't read all 330)
@@ -201,7 +201,7 @@ Export Grades for Data Drop
 5. **Dynamic workflow** → Can set marking criteria *after* submission
 
 **Insight:**
-Google Classroom is a *submission system*. Your product is a **marking assistant + formative feedback engine**. They're complementary, not competitors. (You could even integrate with Google Classroom for submissions!)
+Google Classroom is a *submission system*. This product is a **marking assistant + formative feedback engine**. They're complementary, not competitors. (Google Classroom integration for submissions could be beneficial.)
 
 ---
 
@@ -416,58 +416,36 @@ But don't ignore Hypothesis 1—it's a **retention driver** (frequent use) and *
 
 ---
 
-## Your Gut Check: Personal Experience
+## Google Classroom Comparison
 
-**You wrote:**
-> "The biggest pain point I have actually found is that marking workflow for Key Stage 3. Even though they're not my most important classes, they are the biggest most time consuming thing."
+**Common Question:**
+"Why not just use Google Classroom for submissions and mark manually?"
 
-**Analysis:**
-Your lived experience validates Hypothesis 2 as the **core pain**. The marking burden is:
-- **Frequent enough** to hurt (KS3 classes are large, numerous)
-- **Time-consuming** (hours of your evening/weekend)
-- **Emotionally draining** (not your most important classes, but most of your time)
-
-**But you also said:**
-> "I'm very much feeling I want a Mentimeter sort of alternative that has some really seamless integration... really dynamic and flexible."
-
-**Analysis:**
-You're attracted to the **user experience** of Hypothesis 1 (flexibility, dynamic workflow, seamless), but the **pain solved** by Hypothesis 2 is greater.
-
-**Insight:**
-Build for the pain (Hypothesis 2), but design with the UX philosophy of Hypothesis 1 (flexible, dynamic, seamless).
-
----
-
-## The "Google Classroom" Differentiation
-
-**Your Question:**
-> "Why not just get the students to upload their work to Google Classroom and just mark it manually?"
-
-**Answer: You're solving a different problem.**
+**Answer: This product solves a different problem.**
 
 ### Google Classroom Workflow:
 1. Students upload → 2. Teacher marks manually (55 hours) → 3. Grades recorded → 4. Feedback given (1-2 weeks later)
 
 **Pain:** Still 55 hours of manual marking
 
-### Your Product (Hypothesis 2) Workflow:
+### This Product (Hypothesis 2) Workflow:
 1. Students upload → 2. **AI marks in 5 minutes** → 3. Teacher reviews (2-4 hours) → 4. Feedback instant
 
 **Value:** 80%+ time savings, instant feedback
 
-### Your Product (Hypothesis 1) Workflow:
+### This Product (Hypothesis 1) Workflow:
 1. Students submit → 2. **Live display on board** → 3. Peer review/voting → 4. Class discussion
 
 **Value:** Pattern-spotting, peer learning, engagement (impossible with Google Classroom)
 
 **Conclusion:**
-Google Classroom is a **submission tool**. Your product is a **marking + feedback + engagement tool**. You're not competing—you're complementary. (Consider Google Classroom integration for submissions!)
+Google Classroom is a **submission tool**. This product is a **marking + feedback + engagement tool**. They're not competing—they're complementary. (Consider Google Classroom integration for submissions!)
 
 ---
 
-## What Makes Your Product Different from Manual Marking?
+## What Makes This Product Different from Manual Marking?
 
-| Feature | Manual (Google Classroom) | Your Product |
+| Feature | Manual (Google Classroom) | This Product |
 |---------|--------------------------|--------------|
 | **Submission** | ✅ Easy | ✅ Easy (or integrate with GC) |
 | **Marking time** | 55 hours (330 students) | 4-10 hours (AI + teacher review) |
@@ -479,8 +457,8 @@ Google Classroom is a **submission tool**. Your product is a **marking + feedbac
 | **Dynamic rubrics** | Must set upfront | Can adjust criteria after submission |
 | **Auto-grading** | ❌ No | ✅ Yes (with teacher review) |
 
-**Your Differentiation:**
-"**The marking assistant that saves you 45+ hours per data drop while giving students instant feedback.**"
+**Product Differentiation:**
+"**The marking assistant that saves 45+ hours per data drop while giving students instant feedback.**"
 
 ---
 
@@ -554,11 +532,6 @@ Google Classroom is a **submission tool**. Your product is a **marking + feedbac
 - Building H2 first validates AI accuracy (high bar) → if it works for high-stakes, it works for low-stakes
 - Adding H1 second creates **frequent touchpoints** (weekly starters) to retain users between data drops
 
-### Your Gut Feeling Validated:
-> "It's possible that we might just want to prioritize the data drop as the primary target and then secondarily as a sort of nice to have we have the mentometer workflow for starters."
-
-**Yes—this is the right approach.**
-
 ---
 
 ## Key Questions to Resolve
@@ -630,5 +603,3 @@ Before committing to build, validate:
 5. ⏳ If successful: Add Hypothesis 1 features (2-3 weeks)
 6. ⏳ Test with 3-5 lessons (starters)
 7. ⏳ Decide: Full build or pivot based on validation
-
-**Your gut was right: Data drops first, starters second. Now go validate it.**
