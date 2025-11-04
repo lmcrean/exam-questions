@@ -121,6 +121,8 @@ All secrets are now consolidated in the root `.env` file for shared access acros
 
 ## GitHub Actions Setup
 
+🔒 **Security Note**: See [.github/SECURITY.md](.github/SECURITY.md) for complete security setup including CODEOWNERS protection and cost controls.
+
 For CI/CD to work, configure these secrets in your GitHub repository:
 
 1. Go to: **Settings → Secrets and variables → Actions**
@@ -136,7 +138,17 @@ For CI/CD to work, configure these secrets in your GitHub repository:
    | `APP_NAME` | Your app name | Same as in .env |
    | `APP_DISPLAY_NAME` | Your app display name | Same as in .env |
 
-3. Optional secrets (if you override defaults):
+3. **Cost-Critical Secrets** (Recommended for security):
+
+   These override `.github/project-config.yml` to prevent cost attacks:
+
+   | Secret Name | Recommended Value | Purpose |
+   |-------------|-------------------|---------|
+   | `CLOUD_RUN_MAX_INSTANCES` | `3` | Prevents runaway costs from attackers |
+   | `CLOUD_RUN_MEMORY` | `512Mi` | Limits memory per instance |
+   | `CLOUD_RUN_CPU` | `1` | Limits CPU per instance |
+
+4. Optional secrets (if you override defaults):
    - `API_URL_MAIN`
    - `WEB_URL_MAIN`
    - Any other custom environment variables

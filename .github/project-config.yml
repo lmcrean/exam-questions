@@ -1,10 +1,15 @@
 # Project Configuration
 # This file contains all project-specific variables used in GitHub Actions workflows
 #
+# 🔒 SECURITY NOTES:
+# - This file is protected by CODEOWNERS (requires owner approval for changes)
+# - Cost-critical values (max_instances, memory, etc.) can be overridden via GitHub Secrets
+# - Recommended: Set MAX_INSTANCES and MEMORY as repository secrets for extra protection
+#
 # WHEN CLONING THIS REPO:
 # 1. Update all values below to match your new project
-# 2. OR use GitHub Secrets to override these values dynamically
-# 3. See project-config.yml.template for placeholder examples
+# 2. Set GitHub Secrets to override sensitive/cost-critical values
+# 3. Enable branch protection rules to enforce CODEOWNERS
 #
 # Copy this file to other projects and update the values as needed
 
@@ -21,12 +26,14 @@ project:
       location: "europe-west2"
     
     # Cloud Run Configuration
+    # 💰 COST CONTROL: Override via GitHub Secrets for extra protection
+    # Set secrets: CLOUD_RUN_MAX_INSTANCES, CLOUD_RUN_MEMORY, CLOUD_RUN_CPU
     cloud_run:
       region: "europe-west2"
-      memory: "512Mi"
-      cpu: "1"
-      min_instances: 0        # COST SAVINGS: Scale to zero when idle (prevents 24/7 charges)
-      max_instances: 3        # COST CONTROL: Reduced from 10 to limit max concurrent instances
+      memory: "512Mi"           # Override with secret: CLOUD_RUN_MEMORY
+      cpu: "1"                  # Override with secret: CLOUD_RUN_CPU
+      min_instances: 0          # COST SAVINGS: Scale to zero when idle (prevents 24/7 charges)
+      max_instances: 3          # 🔒 COST CONTROL: Override with secret: CLOUD_RUN_MAX_INSTANCES
       timeout: "60s"
       concurrency: 100
 

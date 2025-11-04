@@ -1,1 +1,13 @@
-* @lmcrean @josephk-O @violaberg @adi-ray
+# Code Owners - Require approval for critical files
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Configuration files that affect deployment and costs
+/.github/project-config.yml @OWNER_USERNAME
+/.github/workflows/*.yml @OWNER_USERNAME
+
+# Environment configuration
+.env.example @OWNER_USERNAME
+
+# Security-critical files
+/gcp-setup/*.sh @OWNER_USERNAME
+/setup-project.sh @OWNER_USERNAME
