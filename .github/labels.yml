@@ -1,0 +1,170 @@
+# GitHub Labels Configuration for Automated Issue Triage
+# This file defines all labels used by the automated triage system
+
+# Type Labels - What kind of issue is this?
+- name: "type: bug"
+  description: "Something isn't working correctly"
+  color: "d73a4a"
+
+- name: "type: feature"
+  description: "New feature request"
+  color: "0e8a16"
+
+- name: "type: enhancement"
+  description: "Improvement to existing feature"
+  color: "a2eeef"
+
+- name: "type: refactor"
+  description: "Code refactoring or reorganization"
+  color: "d4c5f9"
+
+- name: "type: documentation"
+  description: "Documentation updates or improvements"
+  color: "d1d5db"
+
+- name: "type: security"
+  description: "Security-related issue or vulnerability"
+  color: "b60205"
+
+- name: "type: performance"
+  description: "Performance improvement or optimization"
+  color: "fbca04"
+
+# Component Labels - Which part of the codebase?
+- name: "component: api"
+  description: "Backend API (apps/api)"
+  color: "c5def5"
+
+- name: "component: web"
+  description: "Frontend web app (apps/web)"
+  color: "bfdadc"
+
+- name: "component: auth"
+  description: "Authentication system"
+  color: "fef2c0"
+
+- name: "component: assessment"
+  description: "Assessment/exam features"
+  color: "c2e0c6"
+
+- name: "component: chat"
+  description: "Chat and AI response features"
+  color: "f9d0c4"
+
+- name: "component: deployment"
+  description: "CI/CD, deployment, infrastructure"
+  color: "e4e669"
+
+- name: "component: database"
+  description: "Database schema, migrations, queries"
+  color: "bfd4f2"
+
+- name: "component: ai"
+  description: "AI/Gemini integration"
+  color: "ff69b4"
+
+# Status Labels - What's the current state?
+- name: "needs-spec"
+  description: "Issue lacks clear specification or requirements"
+  color: "fbca04"
+
+- name: "needs-info"
+  description: "Waiting for more information from reporter"
+  color: "fbca04"
+
+- name: "needs-triage"
+  description: "Awaiting initial triage and labeling"
+  color: "ff9800"
+
+- name: "status: confirmed"
+  description: "Issue has been confirmed and accepted"
+  color: "0e8a16"
+
+- name: "status: in-progress"
+  description: "Currently being worked on"
+  color: "1d76db"
+
+- name: "status: blocked"
+  description: "Blocked by another issue or external dependency"
+  color: "d73a4a"
+
+# Priority Labels - How urgent is this?
+- name: "priority: critical"
+  description: "Critical issue requiring immediate attention"
+  color: "b60205"
+
+- name: "priority: high"
+  description: "High priority, should be addressed soon"
+  color: "ff9800"
+
+- name: "priority: medium"
+  description: "Medium priority, normal queue"
+  color: "fbca04"
+
+- name: "priority: low"
+  description: "Low priority, nice to have"
+  color: "d1d5db"
+
+# Size Labels - How much work is this?
+- name: "size: epic"
+  description: "Large multi-week project requiring milestone"
+  color: "8b5cf6"
+
+- name: "size: large"
+  description: "Multiple days of work"
+  color: "ff9800"
+
+- name: "size: medium"
+  description: "1-2 days of work"
+  color: "fbca04"
+
+- name: "size: small"
+  description: "Few hours of work"
+  color: "0e8a16"
+
+# Special Labels - Additional classifications
+- name: "good-first-issue"
+  description: "Good for newcomers to the project"
+  color: "7057ff"
+
+- name: "help-wanted"
+  description: "Extra attention needed from community"
+  color: "008672"
+
+- name: "question"
+  description: "Question about the project"
+  color: "d876e3"
+
+- name: "wontfix"
+  description: "Won't be fixed or implemented"
+  color: "ffffff"
+
+- name: "duplicate"
+  description: "Duplicate of another issue"
+  color: "cfd3d7"
+
+# Testing Labels - Testing-related issues
+- name: "test: e2e"
+  description: "E2E testing issues"
+  color: "c5def5"
+
+- name: "test: integration"
+  description: "Integration testing issues"
+  color: "c5def5"
+
+- name: "test: unit"
+  description: "Unit testing issues"
+  color: "c5def5"
+
+# Gemini-Specific Labels
+- name: "gemini: rate-limit"
+  description: "Gemini API rate limiting issues"
+  color: "ff1744"
+
+- name: "gemini: api-error"
+  description: "Gemini API errors"
+  color: "ff5722"
+
+- name: "gemini: response-quality"
+  description: "AI response quality issues"
+  color: "ff9800"

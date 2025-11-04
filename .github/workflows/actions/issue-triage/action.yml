@@ -1,0 +1,49 @@
+name: 'Issue Triage with Gemini'
+description: 'Automatically triage GitHub issues using Gemini AI'
+author: 'exam-questions'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  gemini-api-key:
+    description: 'Gemini API key for AI analysis'
+    required: true
+  issue-number:
+    description: 'Issue number to triage'
+    required: true
+
+outputs:
+  labels:
+    description: 'Comma-separated list of labels applied'
+  reasoning:
+    description: 'Reasoning for the triage decision'
+  should-create-milestone:
+    description: 'Whether a milestone should be created (true/false)'
+  milestone-name:
+    description: 'Name of the milestone if one should be created'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd ${{ github.action_path }}
+        npm install @google/generative-ai
+
+    - name: Run triage
+      shell: bash
+      id: triage
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        GEMINI_API_KEY: ${{ inputs.gemini-api-key }}
+        ISSUE_NUMBER: ${{ inputs.issue-number }}
+      run: |
+        cd ${{ github.action_path }}
+        node triage.js
