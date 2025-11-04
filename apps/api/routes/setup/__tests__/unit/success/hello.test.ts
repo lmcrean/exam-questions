@@ -12,7 +12,9 @@ describe('GET /api/setup/health/hello', () => {
     const response = await request(app).get('/api/setup/health/hello');
     expect(response.headers['content-type']).toMatch(/json/);
     expect(response.body).toHaveProperty('message');
-    expect(response.body.message).toBe('Hello World from Dottie API!');
+    // Message includes app name from APP_DISPLAY_NAME env var
+    expect(response.body.message).toContain('Hello World from');
+    expect(response.body.message).toContain('API!');
   });
 
   it('should only include the message property in the response', async () => {

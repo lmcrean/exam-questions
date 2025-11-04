@@ -14,7 +14,7 @@ function detectEnvironment() {
   console.log(`   process.env.TEST_ENV: ${process.env.TEST_ENV}`);
   console.log(`   process.env.NODE_ENV: ${process.env.NODE_ENV}`);
   console.log(`   process.env.PLAYWRIGHT_BASE_URL: ${process.env.PLAYWRIGHT_BASE_URL}`);
-  console.log(`   globalThis.DOTTIE_TEST_ENV: ${globalThis.DOTTIE_TEST_ENV}`);
+  console.log(`   globalThis.APP_TEST_ENV: ${globalThis.APP_TEST_ENV}`);
   
   // Check for environment variables first
   if (process.env.TEST_ENV === 'prod' || process.env.NODE_ENV === 'production') {
@@ -31,9 +31,9 @@ function detectEnvironment() {
   }
   
   // Check global test context if available
-  if (typeof globalThis !== 'undefined' && globalThis.DOTTIE_TEST_ENV) {
-    console.log(`✅ Environment detected as: ${globalThis.DOTTIE_TEST_ENV} (from global)`);
-    return globalThis.DOTTIE_TEST_ENV;
+  if (typeof globalThis !== 'undefined' && globalThis.APP_TEST_ENV) {
+    console.log(`✅ Environment detected as: ${globalThis.APP_TEST_ENV} (from global)`);
+    return globalThis.APP_TEST_ENV;
   }
   
   console.log('✅ Environment detected as: dev (default)');
@@ -99,7 +99,7 @@ export function isProdEnvironment() {
  * @param {string} env - Environment ('dev' or 'prod')
  */
 export function setTestEnvironment(env) {
-  globalThis.DOTTIE_TEST_ENV = env;
+  globalThis.APP_TEST_ENV = env;
 }
 
 /**

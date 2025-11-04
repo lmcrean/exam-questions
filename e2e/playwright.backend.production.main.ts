@@ -18,7 +18,7 @@ export default defineConfig({
   ],
   
   use: {
-    baseURL: 'https://api-main.dottie-app.a.run.app',
+    baseURL: process.env.API_URL_MAIN || 'https://api-main.dottie-app.a.run.app',
     extraHTTPHeaders: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

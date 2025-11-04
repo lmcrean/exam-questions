@@ -9,7 +9,7 @@ export default function globalSetup() {
 
   // Only set PLAYWRIGHT_BASE_URL if not already set (CI or manual override)
   if (!process.env.PLAYWRIGHT_BASE_URL) {
-    process.env.PLAYWRIGHT_BASE_URL = 'https://dottie-api-v7hdajoteq-nw.a.run.app';
+    process.env.PLAYWRIGHT_BASE_URL = process.env.API_URL_MAIN || 'http://localhost:5000';
   }
 
   console.log('🚀 Production test environment configured');

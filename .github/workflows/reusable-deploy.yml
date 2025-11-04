@@ -197,8 +197,8 @@ jobs:
           fi
 
           # Deploy the service with environment variables
-          # CORS_ORIGINS is handled by fallback pattern in server.ts
-          echo "🔗 CORS will use fallback patterns from server.ts for ${{ steps.config.outputs.firebase-main-url }}"
+          # CORS origins are auto-derived from FIREBASE_PROJECT_ID in server.ts
+          echo "🔗 CORS will use auto-derived patterns from FIREBASE_PROJECT_ID: ${{ steps.config.outputs.firebase-project-id }}"
 
           gcloud run deploy $SERVICE_NAME \
             --image $IMAGE_NAME \
@@ -211,7 +211,7 @@ jobs:
             --max-instances=${{ steps.config.outputs.cloud-run-max-instances }} \
             --timeout=${{ steps.config.outputs.cloud-run-timeout }} \
             --concurrency=${{ steps.config.outputs.cloud-run-concurrency }} \
-            --set-env-vars="NODE_ENV=production,JWT_SECRET=${{ secrets.JWT_SECRET }},REFRESH_SECRET=${{ secrets.REFRESH_SECRET }},GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }},NEON_DATABASE_URL=${{ secrets.NEON_DATABASE_URL }}"
+            --set-env-vars="NODE_ENV=production,JWT_SECRET=${{ secrets.JWT_SECRET }},REFRESH_SECRET=${{ secrets.REFRESH_SECRET }},GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }},NEON_DATABASE_URL=${{ secrets.NEON_DATABASE_URL }},FIREBASE_PROJECT_ID=${{ steps.config.outputs.firebase-project-id }}"
 
           # Get the service URL
           SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --platform managed --region ${{ steps.config.outputs.cloud-run-region }} --format 'value(status.url)')
@@ -251,8 +251,9 @@ jobs:
 
           # Test CORS
           echo "🌐 Testing CORS configuration..."
+          FIREBASE_URL="https://${{ steps.config.outputs.firebase-project-id }}.web.app"
           CORS_RESPONSE=$(curl -s -X OPTIONS "$API_URL${{ steps.config.outputs.api-health-endpoint }}" \
-            -H "Origin: ${{ steps.config.outputs.firebase-main-url }}" \
+            -H "Origin: $FIREBASE_URL" \
             -H "Access-Control-Request-Method: GET" \
             -H "Access-Control-Request-Headers: Content-Type" \
             -w "%{http_code}" -o /dev/null)
@@ -360,8 +361,8 @@ jobs:
               DEPLOYMENT_URL=$(echo "$URLS_OUTPUT" | head -n1 | sed 's/,.*$//')
               echo "✅ Using first URL from Firebase action: $DEPLOYMENT_URL"
             else
-              # Fallback to predictable Firebase main URL
-              DEPLOYMENT_URL="${{ steps.config.outputs.firebase-main-url }}"
+              # Fallback to predictable Firebase main URL derived from project ID
+              DEPLOYMENT_URL="https://${{ steps.config.outputs.firebase-project-id }}.web.app"
               echo "⚠️ Firebase action outputs empty, using fallback URL: $DEPLOYMENT_URL"
             fi
           else

@@ -33,11 +33,15 @@ echo "🏗️  Setting up Google Cloud project..."
 read -p "Enter your Google Cloud Project ID (or press Enter to create a new one): " PROJECT_ID
 
 if [ -z "$PROJECT_ID" ]; then
+    # Get app name from environment or use default
+    APP_NAME="${APP_NAME:-dottie}"
+    APP_DISPLAY_NAME="${APP_DISPLAY_NAME:-Dottie AI Health App}"
+
     # Generate a unique project ID
     RANDOM_SUFFIX=$(date +%s | tail -c 6)
-    PROJECT_ID="dottie-app-${RANDOM_SUFFIX}"
+    PROJECT_ID="${APP_NAME}-app-${RANDOM_SUFFIX}"
     echo "Creating new project: $PROJECT_ID"
-    gcloud projects create $PROJECT_ID --name="Dottie AI Health App"
+    gcloud projects create $PROJECT_ID --name="$APP_DISPLAY_NAME"
 fi
 
 # Set the project

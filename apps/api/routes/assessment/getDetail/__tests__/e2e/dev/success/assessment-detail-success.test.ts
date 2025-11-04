@@ -21,16 +21,25 @@ beforeAll(async () => {
     server = setup.server;
     request = supertest(setup.app);
 
-    // Create a test user
-    testUserId = `test-user-${Date.now()}`;
+    // Create unique IDs with timestamp + random to avoid collisions
+    const uniqueId = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
+    testUserId = `test-user-${uniqueId}`;
+
     const userData = {
       id: testUserId,
-      username: `testuser_${Date.now()}`,
-      email: `test_${Date.now()}@example.com`,
+      username: `testuser_${uniqueId}`,
+      email: `test_${uniqueId}@example.com`,
       password_hash: "test-hash",
       age: "18-24",
       created_at: new Date().toISOString(),
     };
+
+    // Clean up any existing test data with this ID (in case previous test failed to cleanup)
+    try {
+      await db("users").where("id", testUserId).orWhere("email", userData.email).delete();
+    } catch (e) {
+      // Ignore cleanup errors
+    }
 
     await db("users").insert(userData);
 
@@ -42,8 +51,8 @@ beforeAll(async () => {
       { expiresIn: "1h" }
     );
 
-    // Create a test assessment
-    testAssessmentId = `test-assessment-${Date.now()}`;
+    // Create a test assessment with same unique ID
+    testAssessmentId = `test-assessment-${uniqueId}`;
     const assessmentData = {
       id: testAssessmentId,
       user_id: testUserId,
@@ -62,6 +71,13 @@ beforeAll(async () => {
         }
       ])
     };
+
+    // Clean up any existing assessment with this ID
+    try {
+      await db("assessments").where("id", testAssessmentId).delete();
+    } catch (e) {
+      // Ignore cleanup errors
+    }
 
     await db("assessments").insert(assessmentData);
   } catch (error) {

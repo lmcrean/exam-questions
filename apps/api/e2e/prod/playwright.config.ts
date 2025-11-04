@@ -13,7 +13,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html'], ['list']],
   use: {
-    baseURL: 'http://dottie-backend.vercel.app',
+    baseURL: process.env.API_URL_MAIN || 'http://localhost:5000',
     trace: 'on-first-retry',
   },
   

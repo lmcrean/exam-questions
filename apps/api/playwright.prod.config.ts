@@ -18,8 +18,8 @@ export default defineConfig({
   reporter: [['html'], ['list']],
   use: {
     // CI sets PLAYWRIGHT_BASE_URL for branch-specific deployments
-    // Default to main production API for local testing
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'https://dottie-api-v7hdajoteq-nw.a.run.app',
+    // Or use API_URL_MAIN from .env, or fallback to hardcoded default
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || process.env.API_URL_MAIN || 'https://dottie-api-v7hdajoteq-nw.a.run.app',
     trace: 'on-first-retry',
     extraHTTPHeaders: {
       'x-test-env': 'prod'

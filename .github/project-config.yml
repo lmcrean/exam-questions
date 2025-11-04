@@ -1,5 +1,11 @@
 # Project Configuration
 # This file contains all project-specific variables used in GitHub Actions workflows
+#
+# WHEN CLONING THIS REPO:
+# 1. Update all values below to match your new project
+# 2. OR use GitHub Secrets to override these values dynamically
+# 3. See project-config.yml.template for placeholder examples
+#
 # Copy this file to other projects and update the values as needed
 
 project:
@@ -27,9 +33,9 @@ project:
   # Firebase Configuration
   firebase:
     project_id: "product-one-477118"
-    hosting:
-      main_url: "https://product-one-477118.web.app"
-      branch_url_pattern: "https://product-one-477118--branch-{pr_number}-{hash}.web.app"
+    # Note: Hosting URLs are auto-derived from project_id:
+    # - Main: https://{project_id}.web.app
+    # - Branches: https://{project_id}--{channel-id}.web.app
 
   # Application Configuration
   app:
@@ -38,9 +44,9 @@ project:
       entry_point: "apps/api"
       service_name_pattern: "dottie-api-{branch}"
       health_endpoint: "/api/health"
-      cors_origins:
-        - "https://product-one-477118.web.app"
-        - "https://product-one-477118--*.web.app"
+      # Note: CORS origins are auto-derived from FIREBASE_PROJECT_ID at runtime:
+      # - https://{project_id}.web.app
+      # - https://{project_id}--*.web.app
       build_command: "npm install --production"
       test_command: "npm test"
       start_command: "npm start"

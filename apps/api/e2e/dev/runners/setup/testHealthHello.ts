@@ -22,7 +22,9 @@ export async function testHealthHello(request, expect) {
     
     // Verify response structure and content
     expect(responseData).toHaveProperty('message');
-    expect(responseData.message).toBe('Hello World from Dottie API!');
+    // Message includes app name from APP_DISPLAY_NAME env var
+    expect(responseData.message).toContain('Hello World from');
+    expect(responseData.message).toContain('API!');
     
     console.log('✅ Health hello endpoint working correctly');
     return responseData;

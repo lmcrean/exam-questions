@@ -55,14 +55,17 @@ if [ ! -f "Dockerfile" ]; then
     exit 1
 fi
 
+# Get app name from environment or use default
+APP_NAME="${APP_NAME:-dottie}"
+
 # Build the container image using Cloud Build
 echo "🏗️  Building container image..."
-IMAGE_NAME="gcr.io/${PROJECT_ID}/dottie-api"
+IMAGE_NAME="gcr.io/${PROJECT_ID}/${APP_NAME}-api"
 gcloud builds submit --tag ${IMAGE_NAME} .
 
 # Deploy to Cloud Run with strict free tier limits
 echo "📤 Deploying to Cloud Run with FREE TIER limits..."
-gcloud run deploy dottie-api \
+gcloud run deploy ${APP_NAME}-api \
     --image ${IMAGE_NAME} \
     --platform managed \
     --region us-central1 \
@@ -78,7 +81,7 @@ gcloud run deploy dottie-api \
     --execution-environment gen2
 
 # Get the service URL
-SERVICE_URL=$(gcloud run services describe dottie-api --platform managed --region us-central1 --format="value(status.url)")
+SERVICE_URL=$(gcloud run services describe ${APP_NAME}-api --platform managed --region us-central1 --format="value(status.url)")
 
 echo "✅ Deployment completed successfully!"
 echo "🌐 Your API is live at: $SERVICE_URL"

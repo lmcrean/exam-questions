@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   
   use: {
-    baseURL: 'https://dottie-app.web.app',
+    baseURL: process.env.WEB_URL_MAIN || 'https://dottie-app.web.app',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

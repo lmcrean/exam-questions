@@ -1,6 +1,14 @@
 import fetch from 'node-fetch';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 
-const API_BASE = 'https://dottie-backend.vercel.app';
+// Load environment variables from root
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, '../../.env') });
+
+const API_BASE = process.env.API_URL_MAIN || 'https://dottie-backend.vercel.app';
 
 interface TestResult {
   success: boolean;

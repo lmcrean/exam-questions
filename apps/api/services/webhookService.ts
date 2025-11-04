@@ -70,11 +70,12 @@ class WebhookService {
         data: payload
       };
 
+      const appName = process.env.APP_DISPLAY_NAME || 'Dottie';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'Dottie-Webhook/1.0'
+          'User-Agent': `${appName}-Webhook/1.0`
         },
         body: JSON.stringify(webhookPayload),
         signal: AbortSignal.timeout(5000) // 5 second timeout

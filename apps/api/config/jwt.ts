@@ -1,4 +1,13 @@
 import * as crypto from 'crypto';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Load environment variables from root .env FIRST
+// This ensures env vars are available when this module is imported
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+dotenv.config({ path: join(__dirname, '../../../.env') }); // Go up to root from config/ dir
 
 /**
  * JWT Configuration and Secret Validation

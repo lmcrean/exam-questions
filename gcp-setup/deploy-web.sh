@@ -78,7 +78,7 @@ echo "📤 Deploying to Firebase Hosting..."
 $FIREBASE_CMD deploy --only hosting
 
 # Get the hosting URL
-PROJECT_ID=$(gcloud config get-value project 2>/dev/null || echo "dottie")
+PROJECT_ID="${FIREBASE_PROJECT_ID:-$(gcloud config get-value project 2>/dev/null || echo 'dottie')}"
 HOSTING_URL="https://${PROJECT_ID}.web.app"
 
 echo "✅ Deployment completed successfully!"

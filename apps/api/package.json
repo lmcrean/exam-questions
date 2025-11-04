@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Dottie is a user-friendly application designed to help individuals understand their menstrual health better. Through a series of simple questions, Dottie collects information about your menstrual cycle and provides personalized analysis and recommendations.",
+  "description": "Backend API server for the application. Provides REST API endpoints for authentication, assessments, chat, and user management.",
   "main": "server.js",
   "type": "module",
   "engines": {
