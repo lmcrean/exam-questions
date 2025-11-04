@@ -44,7 +44,6 @@ template provided [here](/pull_request_template.md).
 
 - Everyone is a contributor.
 - The Code owners have the additional role to review + merge the pull requests.
-- Our current code owners are Laurie, Joseph, Aznim and Viola -- feel free to reach out to us on the Discord channel :)
 - As per the branch rules, 1 code owner approval is sufficent to merge a Pull Request.
 
 # Code owner guidance for reviewing Pull Requests.
@@ -73,10 +72,3 @@ A: If someone has started on the [Pull Requests Tab](https://github.com/lmcrean/
 # Using the issues tab
 
 Please read [CONTRIBUTING_issues_tab.md](/CONTRIBUTING_issues_tab.md) for further guidance on using the issues tab.
-
-# join our discord channel 
-
-![image](https://github.com/user-attachments/assets/a48395c9-d892-440b-9882-537a16f8531e)
-
-if you haven't already:
-- https://discord.gg/FRxFFgU4cq

@@ -1,0 +1,273 @@
+name: Automated Issue Triage
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  schedule:
+    # Run daily at 2 AM UTC (matches cleanup workflow pattern)
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  triage-issue:
+    name: Triage Issues with Gemini
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install @google/generative-ai
+
+      - name: Triage single issue (event-triggered)
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        with:
+          script: |
+            const { GoogleGenerativeAI } = require('@google/generative-ai');
+            const fs = require('fs');
+            const path = require('path');
+
+            // Load the triage functions
+            const triageModule = require('./triage.js');
+            const { triageIssue, formatTriageComment } = triageModule;
+
+            const issue = context.payload.issue;
+
+            console.log(`🔍 Triaging issue #${issue.number}: ${issue.title}`);
+
+            // Check if issue already has type label (skip re-triage for minor edits)
+            const hasTypeLabel = issue.labels.some(label =>
+              label.name.startsWith('type:')
+            );
+
+            if (hasTypeLabel && context.payload.action === 'edited') {
+              console.log('⏭️ Issue already triaged and this is an edit. Skipping re-triage.');
+              return;
+            }
+
+            try {
+              // Run triage
+              const result = await triageIssue({
+                issueTitle: issue.title,
+                issueBody: issue.body || '',
+                issueNumber: issue.number.toString(),
+                apiKey: process.env.GEMINI_API_KEY,
+                existingLabels: issue.labels.map(l => l.name)
+              });
+
+              console.log('📊 Triage result:', result);
+
+              // Apply labels
+              if (result.labels.length > 0) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: result.labels
+                });
+                console.log(`✅ Applied ${result.labels.length} labels`);
+              }
+
+              // Create milestone if needed
+              if (result.shouldCreateMilestone && result.milestoneName) {
+                try {
+                  const milestone = await github.rest.issues.createMilestone({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    title: result.milestoneName,
+                    description: `Epic-sized issue: #${issue.number}`
+                  });
+
+                  // Assign issue to milestone
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    milestone: milestone.data.number
+                  });
+
+                  console.log(`📍 Created milestone: ${result.milestoneName}`);
+                } catch (error) {
+                  console.error('Error creating milestone:', error.message);
+                }
+              }
+
+              // Post comment with triage results
+              const comment = formatTriageComment(result);
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: comment
+              });
+
+              console.log('💬 Posted triage comment');
+
+            } catch (error) {
+              console.error('❌ Triage failed:', error);
+
+              // Post error comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `## ⚠️ Automated Triage Failed\n\nThe automated triage system encountered an error. A maintainer will review this issue manually.\n\nError: ${error.message}`
+              });
+
+              // Apply needs-triage label
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['needs-triage']
+              });
+            }
+
+      - name: Triage all untriaged issues (scheduled)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: actions/github-script@v7
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        with:
+          script: |
+            const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+            // Load the triage functions
+            const triageModule = require('./triage.js');
+            const { triageIssue, formatTriageComment } = triageModule;
+
+            console.log('🔍 Running scheduled triage for all open issues');
+
+            // Get all open issues
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            console.log(`📋 Found ${issues.data.length} open issues`);
+
+            let triaged = 0;
+            let skipped = 0;
+            let failed = 0;
+
+            for (const issue of issues.data) {
+              // Skip pull requests
+              if (issue.pull_request) {
+                continue;
+              }
+
+              // Check if issue needs triage
+              const hasTypeLabel = issue.labels.some(label =>
+                label.name.startsWith('type:')
+              );
+
+              const needsTriage = issue.labels.some(label =>
+                label.name === 'needs-triage'
+              );
+
+              // Skip if already triaged (unless explicitly marked needs-triage)
+              if (hasTypeLabel && !needsTriage) {
+                skipped++;
+                continue;
+              }
+
+              console.log(`\n🔍 Triaging issue #${issue.number}: ${issue.title}`);
+
+              try {
+                // Run triage
+                const result = await triageIssue({
+                  issueTitle: issue.title,
+                  issueBody: issue.body || '',
+                  issueNumber: issue.number.toString(),
+                  apiKey: process.env.GEMINI_API_KEY,
+                  existingLabels: issue.labels.map(l => l.name)
+                });
+
+                // Remove needs-triage label if present
+                if (needsTriage) {
+                  try {
+                    await github.rest.issues.removeLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      name: 'needs-triage'
+                    });
+                  } catch (e) {
+                    // Label might not exist, ignore
+                  }
+                }
+
+                // Apply new labels
+                if (result.labels.length > 0) {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: result.labels
+                  });
+                }
+
+                // Create milestone if needed
+                if (result.shouldCreateMilestone && result.milestoneName) {
+                  try {
+                    const milestone = await github.rest.issues.createMilestone({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      title: result.milestoneName,
+                      description: `Epic-sized issue: #${issue.number}`
+                    });
+
+                    await github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      milestone: milestone.data.number
+                    });
+                  } catch (error) {
+                    console.error('Error creating milestone:', error.message);
+                  }
+                }
+
+                triaged++;
+                console.log(`✅ Triaged issue #${issue.number}`);
+
+                // Add delay to respect rate limits
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+              } catch (error) {
+                console.error(`❌ Failed to triage issue #${issue.number}:`, error.message);
+                failed++;
+
+                // Apply needs-triage label on failure
+                try {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: ['needs-triage']
+                  });
+                } catch (e) {
+                  console.error('Failed to add needs-triage label:', e.message);
+                }
+              }
+            }
+
+            console.log(`\n📊 Scheduled triage summary:`);
+            console.log(`  ✅ Triaged: ${triaged}`);
+            console.log(`  ⏭️ Skipped: ${skipped}`);
+            console.log(`  ❌ Failed: ${failed}`);

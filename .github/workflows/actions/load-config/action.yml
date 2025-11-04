@@ -1,10 +1,23 @@
 name: 'Load Project Configuration'
-description: 'Loads project-specific configuration from project-config.yml'
+description: 'Loads project-specific configuration from project-config.yml with GitHub Secrets override'
 inputs:
   config-path:
     description: 'Path to the project configuration file'
     required: false
     default: '.github/project-config.yml'
+  # 🔒 Cost-critical overrides (GitHub Secrets take priority)
+  cloud-run-max-instances-secret:
+    description: 'Override max instances from GitHub Secret (SECURITY: prevents cost attacks)'
+    required: false
+    default: ''
+  cloud-run-memory-secret:
+    description: 'Override memory from GitHub Secret (SECURITY: prevents cost attacks)'
+    required: false
+    default: ''
+  cloud-run-cpu-secret:
+    description: 'Override CPU from GitHub Secret (SECURITY: prevents cost attacks)'
+    required: false
+    default: ''
 outputs:
   gcp-project-id:
     description: 'Google Cloud project ID'
@@ -130,12 +143,35 @@ runs:
         WEB_ENVIRONMENT_PREFIX=$(yq '.project.app.web.environment_prefix' "$CONFIG_FILE")
         
         CLOUD_RUN_REGION=$(yq '.project.gcp.cloud_run.region' "$CONFIG_FILE")
-        CLOUD_RUN_MEMORY=$(yq '.project.gcp.cloud_run.memory' "$CONFIG_FILE")
-        CLOUD_RUN_CPU=$(yq '.project.gcp.cloud_run.cpu' "$CONFIG_FILE")
         CLOUD_RUN_MIN_INSTANCES=$(yq '.project.gcp.cloud_run.min_instances' "$CONFIG_FILE")
-        CLOUD_RUN_MAX_INSTANCES=$(yq '.project.gcp.cloud_run.max_instances' "$CONFIG_FILE")
         CLOUD_RUN_TIMEOUT=$(yq '.project.gcp.cloud_run.timeout' "$CONFIG_FILE")
         CLOUD_RUN_CONCURRENCY=$(yq '.project.gcp.cloud_run.concurrency' "$CONFIG_FILE")
+
+        # 🔒 SECURITY: GitHub Secrets override config file (prevents cost attacks)
+        # These values come from repository secrets set by admins only
+        if [[ -n "${{ inputs.cloud-run-max-instances-secret }}" ]]; then
+          CLOUD_RUN_MAX_INSTANCES="${{ inputs.cloud-run-max-instances-secret }}"
+          echo "🔒 Using MAX_INSTANCES from GitHub Secret: $CLOUD_RUN_MAX_INSTANCES"
+        else
+          CLOUD_RUN_MAX_INSTANCES=$(yq '.project.gcp.cloud_run.max_instances' "$CONFIG_FILE")
+          echo "⚠️  Using MAX_INSTANCES from config file: $CLOUD_RUN_MAX_INSTANCES (Set CLOUD_RUN_MAX_INSTANCES secret for protection)"
+        fi
+
+        if [[ -n "${{ inputs.cloud-run-memory-secret }}" ]]; then
+          CLOUD_RUN_MEMORY="${{ inputs.cloud-run-memory-secret }}"
+          echo "🔒 Using MEMORY from GitHub Secret: $CLOUD_RUN_MEMORY"
+        else
+          CLOUD_RUN_MEMORY=$(yq '.project.gcp.cloud_run.memory' "$CONFIG_FILE")
+          echo "⚠️  Using MEMORY from config file: $CLOUD_RUN_MEMORY"
+        fi
+
+        if [[ -n "${{ inputs.cloud-run-cpu-secret }}" ]]; then
+          CLOUD_RUN_CPU="${{ inputs.cloud-run-cpu-secret }}"
+          echo "🔒 Using CPU from GitHub Secret: $CLOUD_RUN_CPU"
+        else
+          CLOUD_RUN_CPU=$(yq '.project.gcp.cloud_run.cpu' "$CONFIG_FILE")
+          echo "⚠️  Using CPU from config file: $CLOUD_RUN_CPU"
+        fi
         
         # Remove quotes from values
         GCP_PROJECT_ID=${GCP_PROJECT_ID//\"/}
