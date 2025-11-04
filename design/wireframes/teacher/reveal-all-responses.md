@@ -271,6 +271,96 @@ Teacher view for monitoring all student responses in real-time. Available during
 
 ---
 
+## Assessment Stage (After Marking Complete)
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  📝 ASSESSMENT STAGE                                          │
+│  Big O Notation - Exam Question 5                             │
+│                                                               │
+│  📊 15 Responses • All marking complete                       │
+│                                                               │
+│          [🖥️ Present Results]  [📊 View Analytics]           │
+│                                [End Session]                  │
+│                                                               │
+│  ────────────────────────────────────────────────────────    │
+│                                                               │
+│  📝 All Responses with Marks                                  │
+│                                                               │
+│  [Search responses...                ] 🔍                     │
+│  Sort by: [Teacher Mark ▼] [AI Mark] [Self Mark] [Peer Mark] │
+│  Filter: [All ▼] [High Performers] [Needs Support]           │
+│                                                               │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │ 🐧 Dancing Penguin 42            🔴 85 🟢 78 🔵 82 🟣 90 │ │
+│  │                                                         │ │
+│  │ The time complexity of this algorithm is O(n²)...      │ │
+│  │                                         [View Full]     │ │
+│  │ 📎 2 images • 📊 842 words                              │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                                                               │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │ 🦁 Brave Lion 17                 🔴 78 🟢 65 🔵 70 🟣 68 │ │
+│  │                                                         │ │
+│  │ Looking at the nested for loops...                     │ │
+│  │                                         [View Full]     │ │
+│  │ 📎 No images • 📊 1,203 words                           │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                                                               │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │ 🚀 Cosmic Rocket 88              🔴 92 🟢 88 🔵 90 🟣 97 │ │
+│  │                                                         │ │
+│  │ This is a quadratic time complexity...                 │ │
+│  │                                         [View Full]     │ │
+│  │ 📎 3 images • 📊 567 words                              │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                                                               │
+│  [Load More]                                                  │
+│                                                               │
+│  Legend: 🔴 Teacher  🟢 Self  🔵 Peer  🟣 AI                  │
+│                                                               │
+│  Export: [PDF with Marks] [JSON] [CSV] [Analytics Report]   │
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Analytics Dashboard Button (Prominent When Available)
+
+When clicking **[📊 View Analytics]**, opens full analytics view with AI heatmap:
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  ← Back to Responses                                          │
+│                                                               │
+│  📊 AI Analytics & Insights                                   │
+│  Big O Notation - Exam Question 5                             │
+│                                                               │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │ 📈 Class Performance Summary                            │ │
+│  │                                                         │ │
+│  │ Average Marks:                                          │ │
+│  │ 🔴 Teacher: 78.3/100  🟢 Self: 74.1/100                │ │
+│  │ 🔵 Peer:    76.8/100  🟣 AI:   81.2/100                │ │
+│  │                                                         │ │
+│  │ Key Insights:                                           │ │
+│  │ ✓ Strong understanding of nested loops (93%)           │ │
+│  │ ⚠ 3 students confused O(n²) with O(2n)                 │ │
+│  │ ⚠ Only 13% included code examples                       │ │
+│  │                                                         │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                                                               │
+│  [View Full Heatmap →]  [See Concept Coverage →]            │
+│  [Common Errors →]      [Download Report]                    │
+│                                                               │
+│  ────────────────────────────────────────────────────────    │
+│                                                               │
+│  [Full AI Heatmap component from ai-heatmap.md loads here]   │
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## Results Presentation Mode
 
 ```
@@ -340,10 +430,11 @@ Teacher view for monitoring all student responses in real-time. Available during
 - Last submission timestamp
 - Search and filter capabilities
 - Sort by multiple criteria
+- Multi-source marking display (teacher, self, peer, AI)
 
 ### View Modes
-- **List View**: Detailed cards with preview
-- **Grid View**: Compact tiles
+- **List View**: Detailed cards with preview and colored mark dots
+- **Grid View**: Compact tiles with marks
 - **Presentation Mode**: Full-screen for projection
 
 ### Stage Controls
@@ -351,12 +442,23 @@ Teacher view for monitoring all student responses in real-time. Available during
 - Stage transition confirmations
 - Stage indicator always visible
 - Cannot go backwards (one-way progression)
+- Assessment stage unlocks analytics dashboard
+
+### AI Analytics (After Marking Complete)
+- **Response Quality Heatmap**: Visual matrix of student × criteria performance
+- **Concept Coverage Map**: Which students understood which concepts
+- **Common Error Patterns**: AI-identified misconceptions
+- **Mark Distribution Analysis**: Compare teacher, self, peer, and AI marks
+- **Similarity Clusters**: Group students by approach/understanding
+- **Actionable Insights**: Specific recommendations for intervention
+- **Student View Option**: Teachers can enable anonymized analytics for students
 
 ### Data Export
 - Export as PDF (formatted responses)
 - Export as JSON (full data)
 - Export as CSV (spreadsheet format)
-- Includes all metadata and timestamps
+- Export analytics report (PDF/Excel)
+- Includes all metadata, timestamps, and marks
 
 ### Presentation Features
 - Keyboard navigation (arrow keys)
