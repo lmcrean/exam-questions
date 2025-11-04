@@ -10,7 +10,7 @@
  */
 
 import bcrypt from 'bcrypt';
-import { db } from '../db/database.js';
+import { db } from '@repo/db';
 
 /**
  * Number of salt rounds for bcrypt hashing

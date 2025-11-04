@@ -3,7 +3,7 @@
  * For direct database validation in production tests
  */
 
-import { db } from '../../../../../db/index.js';
+import { db } from '@repo/db';
 
 /**
  * Directly check the database to verify if a conversation's preview is actually saved

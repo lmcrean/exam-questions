@@ -4,8 +4,8 @@
  * conversations to specific assessments
  */
 
-import db from '../db/index.js';
-import { addAssessmentFieldsToConversations } from '../db/migrations/addAssessmentFieldsToConversations.js';
+import { db } from '@repo/db';
+import { addAssessmentFieldsToConversations } from '@repo/db';
 
 async function runMigration() {
   try {

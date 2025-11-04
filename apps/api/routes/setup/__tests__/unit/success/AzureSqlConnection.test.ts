@@ -28,7 +28,7 @@ vi.mock('../../../../../db/index.js', () => {
 });
 
 // Import the database module - will use the mock
-import db from '../../../../../db/index.js';
+import { db } from '@repo/db';
 
 // This file tests Azure SQL connection in a TDD approach
 describe('Azure SQL Connection Tests', () => {

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import db from "../../../db/index.js";
+import { db } from '@repo/db';
 import Assessment from '../../../models/assessment/Assessment.js';
 import { AuthenticatedRequest } from '../../types.js';
 

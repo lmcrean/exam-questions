@@ -3,7 +3,7 @@
  * Handles assessment ID retrieval and validation for chat testing
  */
 
-import { db } from '../../../../../db/index.js';
+import { db } from '@repo/db';
 
 /**
  * Collect the most recent assessment ID for testing

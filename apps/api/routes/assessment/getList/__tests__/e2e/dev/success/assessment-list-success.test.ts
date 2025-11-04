@@ -1,7 +1,7 @@
 // @ts-check
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
 import supertest from "supertest";
-import db from "../../../../../../../db/index.js";
+import { db } from '@repo/db';
 import {
   setupTestServer,
   closeTestServer,

@@ -1,4 +1,4 @@
-import db from '../db/index.js';
+import { db } from '@repo/db';
 import { createConversation, getAssessmentPattern } from '../models/chat/chat.js';
 
 async function testAssessmentLinking() {
