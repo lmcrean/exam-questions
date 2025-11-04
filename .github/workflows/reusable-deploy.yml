@@ -71,6 +71,7 @@ jobs:
           cd apps/api
           npm test
         env:
+          TEST_MODE: true
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           REFRESH_SECRET: ${{ secrets.REFRESH_SECRET }}
           FIREBASE_PROJECT_ID: ${{ steps.config.outputs.firebase-project-id }}
