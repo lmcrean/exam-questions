@@ -15,14 +15,24 @@ RUN apt-get update && apt-get install -y \
 RUN groupadd --gid 1001 nodejs && \
     useradd --uid 1001 --gid nodejs --shell /bin/bash --create-home nextjs
 
-# Copy package files from apps/api directory
-COPY apps/api/package*.json ./
+# Copy monorepo package files for workspace setup
+COPY package*.json ./
+COPY packages/db/package*.json ./packages/db/
+COPY packages/db/tsconfig.json ./packages/db/
+COPY apps/api/package*.json ./apps/api/
 
-# Install dependencies (native modules will compile correctly on Debian)
-RUN npm ci --only=production && npm cache clean --force
+# Install workspace dependencies (needed for building)
+RUN npm ci --workspaces --include-workspace-root
 
-# Copy source code from apps/api directory (exclude node_modules)
-COPY apps/api/ ./
+# Copy and build @repo/db package source
+COPY packages/db/src ./packages/db/src
+RUN cd packages/db && npm run build && npm cache clean --force
+
+# Copy API source code
+COPY apps/api/ ./apps/api/
+
+# Set working directory to API
+WORKDIR /app/apps/api
 
 # Create directories and set ownership
 RUN mkdir -p logs && \
