@@ -22,6 +22,7 @@ import { webhookDeliveryQueue } from '../queues/index.js';
 async function processAIJob(job: Job<AIProcessingJobData>): Promise<AIProcessingJobResult> {
   const startTime = Date.now();
   const { conversationId, userId, prompt, context, options, webhookUrl } = job.data;
+  const userMessageId = (job.data as any).userMessageId; // Get userMessageId from job data
 
   console.log(`📝 Processing AI job for conversation ${conversationId}`);
 
@@ -51,6 +52,7 @@ async function processAIJob(job: Job<AIProcessingJobData>): Promise<AIProcessing
       tokensUsed: aiResult.tokensUsed,
       processingTime,
       model: aiResult.model,
+      userMessageId, // Link to the user message
     });
 
     console.log(`✅ AI job completed for conversation ${conversationId} in ${processingTime}ms`);
@@ -80,8 +82,12 @@ async function processAIJob(job: Job<AIProcessingJobData>): Promise<AIProcessing
   } catch (error) {
     console.error(`❌ Error processing AI job for conversation ${conversationId}:`, error);
 
-    // Log error to database
-    await logAIError(conversationId, error);
+    // Log error to database (don't fail the job if logging fails)
+    try {
+      await logAIError(conversationId, error);
+    } catch (logError) {
+      console.error('Failed to log error:', logError);
+    }
 
     throw error; // BullMQ will handle retry logic
   }
@@ -97,23 +103,31 @@ async function saveAIResponse(
     tokensUsed?: number;
     processingTime: number;
     model: string;
+    userMessageId?: string;
   }
 ): Promise<void> {
   try {
-    // Insert message into conversations table
-    await db('messages').insert({
+    // Generate message ID (simple UUID-like format)
+    const messageId = `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Insert message into chat_messages table
+    await db('chat_messages').insert({
+      id: messageId,
       conversation_id: conversationId,
       role: 'assistant',
       content,
-      metadata: JSON.stringify({
-        tokens_used: metadata.tokensUsed,
-        response_time: metadata.processingTime,
-        model: metadata.model,
-        generated_at: new Date().toISOString(),
-        processed_by_worker: true,
-      }),
+      parent_message_id: metadata.userMessageId || null,
       created_at: new Date().toISOString(),
+      // Store metadata in separate fields or JSON column if available
     });
+
+    // Update conversation preview with this assistant message
+    await db('conversations')
+      .where('id', conversationId)
+      .update({
+        preview: content.substring(0, 100),
+        updated_at: new Date().toISOString(),
+      });
 
     console.log(`💾 AI response saved to database for conversation ${conversationId}`);
   } catch (error) {

@@ -10,6 +10,7 @@ import { createDocumentWorker } from './workers/document-worker.js';
 import { createWebhookWorker } from './workers/webhook-worker.js';
 import { createSchedulerWorker } from './workers/scheduler-worker.js';
 import { closeAllQueues } from './queues/index.js';
+import { initializeScheduler, stopAllJobs } from './services/scheduler.js';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -39,13 +40,19 @@ async function startWorkers() {
     console.log('Starting Document Processing Worker...');
     workers.push(createDocumentWorker());
 
-    // Start Scheduler Worker (Phase 5 - placeholder)
+    // Start Scheduler Worker (Phase 5)
     console.log('Starting Scheduler Worker...');
     workers.push(createSchedulerWorker());
+
+    // Initialize cron scheduler (Phase 5)
+    console.log('');
+    console.log('Initializing cron scheduler...');
+    initializeScheduler();
 
     console.log('');
     console.log('✅ All workers started successfully!');
     console.log('📊 Workers are now processing jobs from queues...');
+    console.log('⏰ Cron scheduler is running scheduled tasks...');
     console.log('');
     console.log('Press Ctrl+C to gracefully shutdown');
   } catch (error) {
@@ -63,6 +70,9 @@ async function shutdown() {
   console.log('🔄 Shutting down workers...');
 
   try {
+    // Stop cron jobs
+    stopAllJobs();
+
     // Close all workers
     await Promise.all(workers.map((worker) => worker.close()));
     console.log('✅ All workers closed');

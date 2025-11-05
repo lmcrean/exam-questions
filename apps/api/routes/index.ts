@@ -5,6 +5,8 @@ import userRoutes from './user/index.js';
 import setupRoutes from './setup/index.js';
 import chatRoutes from './chat/index.js';
 import adminGeminiUsage from './admin/gemini-usage.js';
+import adminQueueMetrics from './admin/queue-metrics.js';
+import jobRoutes from './jobs/index.js';
 
 const router = express.Router();
 
@@ -15,5 +17,7 @@ router.use('/user', userRoutes);
 router.use('/setup', setupRoutes);
 router.use('/chat', chatRoutes);
 router.use('/admin', adminGeminiUsage);
+router.use('/admin', adminQueueMetrics); // Queue metrics and monitoring
+router.use('/jobs', jobRoutes); // Job status endpoints
 
 export default router;
