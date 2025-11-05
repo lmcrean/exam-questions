@@ -43,12 +43,50 @@ Starter Hero is the only platform that combines all six critical features:
 5. **Students see peer responses** - Collaborative learning through peer visibility
 6. **Students vote** - Engagement through peer voting mechanisms
 
-## Deep Dive - Starter Hero vs Printed exam papers (done by hand)
+## Deep Dive - Printed exam papers (done by hand)
 
-By hand:
-Pros: quicker, less tech required
-Cons: paper printouts requires 3 mins, dependent on teacher's feedback, delayed response, lack of... fun?
+**Pros:**
+quicker
+less tech required
 
-Starter hero:
-Pros: seeing peer responses adds sense of community and accountability.
-Cons: time commitment to set up (3 minutes -- authorise, handwrite, hand type).
+**Cons:**
+paper printouts requires 3 mins
+dependent on teacher's feedback, delayed response
+lack of... fun?
+
+**Differentiator opportunity:**
+- seeing peer responses adds sense of community and accountability.
+- Be wary of time commitment to set up (3 minutes -- authorise, handwrite, hand type).
+
+
+## Deep Dive - WooClap
+
+**Pros:** 
+Easy integration with google classroom
+Offload image, mark scheme to
+Voting system is casual and smooth
+Navigating UI
+Unlimited student input length.
+
+**Cons:**
+2 Questions in Free tier
+can integrate slides, but limited to teacher IWB. Cannot share with students.
+UI Overload -- word cloud, messages, timer, list view
+Link view just needs to be a URL for regular users
+Customisation overload.
+
+**Differentiating opportunity:**
+Instant feedback loop.
+Instant mark scheme reveal.
+Self-assess.
+20 questions in free tier.
+
+## Deep Dive - MentiMeter
+
+Pros:
+Slick UI
+Smooth Hosting experience
+
+Cons:
+limited Q/A length; not good for OEQs
+Cannot host content easily.
