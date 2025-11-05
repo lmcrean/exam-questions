@@ -47,6 +47,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.x'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: 📥 Install Dependencies (Monorepo)
         run: |
