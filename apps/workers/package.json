@@ -1,0 +1,50 @@
+{
+  "name": "workers",
+  "version": "1.0.0",
+  "description": "Background job processing workers for the ed-tech application. Handles asynchronous tasks like AI generation, document conversion, webhooks, and scheduled jobs.",
+  "main": "dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "dev:watch": "nodemon --exec tsx src/index.ts",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "worker:ai": "tsx src/workers/ai-worker.ts",
+    "worker:document": "tsx src/workers/document-worker.ts",
+    "worker:webhook": "tsx src/workers/webhook-worker.ts",
+    "worker:scheduler": "tsx src/workers/scheduler-worker.ts",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "workers",
+    "background-jobs",
+    "bullmq",
+    "redis",
+    "queue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bullmq": "^5.34.0",
+    "ioredis": "^5.4.2",
+    "dotenv": "^16.4.7",
+    "knex": "^3.1.0",
+    "pg": "^8.16.3",
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "@types/pg": "^8.11.10",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.1.2"
+  }
+}
