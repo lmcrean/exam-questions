@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { createTables } from '../../../db/migrations/initialSchema.js';
-import db from '../../../db/database.js';
+import { createTables } from '@repo/db';
+import { db } from '@repo/db';
 
 const router = express.Router();
 

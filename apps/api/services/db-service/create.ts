@@ -1,4 +1,4 @@
-import { db } from '../../db/index.js';
+import { db } from '@repo/db';
 import { findById } from './findById.js';
 import { DbRecord, PartialDbRecord } from './types.js';
 

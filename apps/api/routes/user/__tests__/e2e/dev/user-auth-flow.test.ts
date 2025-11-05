@@ -1,7 +1,7 @@
 // @ts-check
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import supertest from "supertest";
-import db from "../../../../../db/index.js";
+import { db } from '@repo/db';
 import app from "../../../../../server.js";
 import { createServer } from "http";
 import jwt from "jsonwebtoken";

@@ -32,6 +32,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/db": "*",
     "bullmq": "^5.34.0",
     "ioredis": "^5.4.2",
     "dotenv": "^16.4.7",

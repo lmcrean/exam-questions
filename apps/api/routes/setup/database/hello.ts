@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import db, { dbType } from '../../../db/database.js';
+import { db, dbType } from '@repo/db';
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import { db } from '../../db/index.js';
+import { db } from '@repo/db';
 
 /**
  * Check if a record exists in a table by ID

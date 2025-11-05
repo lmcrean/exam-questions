@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import supertest, { SuperTest, Test } from "supertest";
-import db from "../../../../../db/index.js";
+import { db } from '@repo/db';
 import app from "../../../../../server.js";
 import { createServer, Server } from "http";
 

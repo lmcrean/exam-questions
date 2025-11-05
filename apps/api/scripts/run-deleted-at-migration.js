@@ -1,8 +1,8 @@
 /**
  * Script to run the migration that adds the deleted_at column to the users table
  */
-import { addDeletedAtToUsers } from '../db/migrations/addDeletedAtToUsers.js';
-import { db } from '../db/index.js';
+import { addDeletedAtToUsers } from '@repo/db';
+import { db } from '@repo/db';
 
 async function runMigration() {
   console.log('Starting deleted_at column migration...');
