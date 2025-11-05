@@ -39,10 +39,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: apps/api/package-lock.json
 
-      - name: 📥 Install Backend Dependencies
+      - name: 📥 Install Dependencies (Monorepo)
         run: |
-          cd apps/api
           npm ci
+
+      - name: 🔧 Build Shared Packages
+        run: |
+          cd packages/db
+          npm run build
 
       - name: 🧪 Run Backend Unit Tests
         run: |
