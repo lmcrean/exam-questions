@@ -42,8 +42,8 @@ vi.mock('../../../validators/index.js', () => {
   };
 });
 
-// Mock the db
-vi.mock('../../../../../../db/index.js', () => {
+// Mock the db - use @repo/db path
+vi.mock('@repo/db', () => {
   return {
     db: vi.fn(() => ({
       insert: vi.fn().mockReturnThis()
