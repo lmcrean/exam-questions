@@ -26,10 +26,16 @@ RUN npm ci --workspaces --include-workspace-root
 
 # Copy and build @repo/db package source
 COPY packages/db/src ./packages/db/src
-RUN cd packages/db && npm run build && npm cache clean --force
+RUN cd packages/db && npm run build
 
 # Copy API source code
 COPY apps/api/ ./apps/api/
+
+# Build the API TypeScript code
+RUN cd apps/api && npm run build
+
+# Clean npm cache to reduce image size
+RUN npm cache clean --force
 
 # Set working directory to API
 WORKDIR /app/apps/api
