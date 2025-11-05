@@ -1,37 +1,45 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { db } from '@repo/db';
+
+// Create mock functions outside of the mock definition
+const mockRaw = vi.fn();
+const mockDestroy = vi.fn();
 
 // Mock the database module - use @repo/db path since we're now using the monorepo package
 vi.mock('@repo/db', () => {
   return {
     db: {
-      raw: vi.fn(),
+      raw: mockRaw,
       client: {
         config: {
           client: 'mssql'
         }
       },
-      destroy: vi.fn()
+      destroy: mockDestroy
     }
   };
 });
 
+// Import after mocking
+import { db } from '@repo/db';
+
 describe('Database Connection Error Tests', () => {
   beforeEach(() => {
     // Reset mocks
-    vi.clearAllMocks();
+    mockRaw.mockClear();
+    mockDestroy.mockClear();
   });
 
   afterEach(() => {
     // Clean up
-    vi.restoreAllMocks();
+    mockRaw.mockReset();
+    mockDestroy.mockReset();
   });
 
   it('should handle database connection failures gracefully', async () => {
     // Setup the mock to simulate a connection error
     const errorMessage = 'Connection timeout: could not connect to database';
-    db.raw.mockRejectedValueOnce(new Error(errorMessage));
-    
+    mockRaw.mockRejectedValueOnce(new Error(errorMessage));
+
     try {
       await db.raw('SELECT 1 as testValue');
       // Should not reach here
@@ -40,16 +48,16 @@ describe('Database Connection Error Tests', () => {
       expect(error).toBeDefined();
       expect(error.message).toBe(errorMessage);
     }
-    
+
     // Verify the raw method was called
-    expect(db.raw).toHaveBeenCalledWith('SELECT 1 as testValue');
+    expect(mockRaw).toHaveBeenCalledWith('SELECT 1 as testValue');
   });
 
   it('should handle SQL query errors properly', async () => {
     // Setup the mock to simulate a SQL syntax error
     const errorMessage = 'SQL syntax error: invalid syntax in query';
-    db.raw.mockRejectedValueOnce(new Error(errorMessage));
-    
+    mockRaw.mockRejectedValueOnce(new Error(errorMessage));
+
     try {
       await db.raw('INVALID SQL QUERY');
       // Should not reach here
@@ -58,8 +66,8 @@ describe('Database Connection Error Tests', () => {
       expect(error).toBeDefined();
       expect(error.message).toBe(errorMessage);
     }
-    
+
     // Verify the raw method was called
-    expect(db.raw).toHaveBeenCalledWith('INVALID SQL QUERY');
+    expect(mockRaw).toHaveBeenCalledWith('INVALID SQL QUERY');
   });
 }); 
