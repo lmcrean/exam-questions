@@ -1,5 +1,5 @@
-import ValidateEmail from './ValidateEmail.ts';
-import type { ValidationResult, LoginCredentials } from '../types.ts';
+import ValidateEmail from './ValidateEmail.js';
+import type { ValidationResult, LoginCredentials } from '../types.js';
 
 /**
  * Credentials validation utilities for login

@@ -1,6 +1,6 @@
-import { update } from './update.ts';
-import { findByIdWithJson } from './findByIdWithJson.ts';
-import { DbRecord, PartialDbRecord } from '../types.ts';
+import { update } from './update.js';
+import { findByIdWithJson } from './findByIdWithJson.js';
+import { DbRecord, PartialDbRecord } from '../types.js';
 
 /**
  * Update records with JSON fields

@@ -4,8 +4,8 @@
  */
 
 import type { Page } from '@playwright/test';
-import { signUpTestUser } from './sign-up.spec.ts';
-import { signInUser } from './sign-in.spec.ts';
+import { signUpTestUser } from './sign-up.spec.js';
+import { signInUser } from './sign-in.spec.js';
 
 interface TestState {
   userId: string | null;

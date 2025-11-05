@@ -1,4 +1,4 @@
-import logger from '../../../../../services/logger.ts';
+import logger from '../../../../../services/logger.js';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 

@@ -1,5 +1,5 @@
-import { db } from '../database.ts';
-import { DbRecord } from '../types.ts';
+import { db } from '../database.js';
+import { DbRecord } from '../types.js';
 
 /**
  * Get all records from a table

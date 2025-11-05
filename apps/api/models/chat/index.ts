@@ -7,36 +7,36 @@
 // ===================================
 // IMPORTS
 // ===================================
-import { Message as OriginalMessage } from './message/message.ts';
-import { Conversation as OriginalConversation } from './conversation/conversation.ts';
-import { getUserConversations as originalGetUserConversations } from './list/chatGetList.ts';
-import { deleteConversation as originalDeleteConversation } from './conversation/delete-conversation/chatDelete.ts';
-import { createAssessmentConversation as originalCreateAssessmentConversation } from './conversation/create-new-conversation/createFlow.ts';
+import { Message as OriginalMessage } from './message/message.js';
+import { Conversation as OriginalConversation } from './conversation/conversation.js';
+import { getUserConversations as originalGetUserConversations } from './list/chatGetList.js';
+import { deleteConversation as originalDeleteConversation } from './conversation/delete-conversation/chatDelete.js';
+import { createAssessmentConversation as originalCreateAssessmentConversation } from './conversation/create-new-conversation/createFlow.js';
 import {
   getConversation as originalGetConversation,
   getConversationForUser as originalGetConversationForUser,
   getConversationSummary as originalGetConversationSummary
-} from './conversation/read-conversation/getConversation.ts';
+} from './conversation/read-conversation/getConversation.js';
 import {
   addUserMessage as originalAddUserMessage,
   sendMessage as originalSendMessage,
   type SendUserMessageOptions,
   type UserMessageResult
-} from './message/1-user-message/add-message/sendUserMessage.ts';
-import { insertChatMessage as originalInsertChatMessage } from './message/1-user-message/add-message/database/sendUserMessage.ts';
-import { generateAndSaveResponse as originalGenerateAndSaveResponse } from './message/2-chatbot-message/generateResponse.ts';
+} from './message/1-user-message/add-message/sendUserMessage.js';
+import { insertChatMessage as originalInsertChatMessage } from './message/1-user-message/add-message/database/sendUserMessage.js';
+import { generateAndSaveResponse as originalGenerateAndSaveResponse } from './message/2-chatbot-message/generateResponse.js';
 import {
   sendChatbotMessage as originalSendChatbotMessage,
   type SendChatbotMessageOptions,
   type ChatbotMessageResult
-} from './message/2-chatbot-message/database/sendChatbotMessage.ts';
-import { updateConversationAssessmentLinks as originalUpdateConversationAssessmentLinks } from './conversation/update-conversation/updateAssessmentLinks.ts';
+} from './message/2-chatbot-message/database/sendChatbotMessage.js';
+import { updateConversationAssessmentLinks as originalUpdateConversationAssessmentLinks } from './conversation/update-conversation/updateAssessmentLinks.js';
 
 // Re-export types
 export type { SendUserMessageOptions, UserMessageResult, SendChatbotMessageOptions, ChatbotMessageResult };
 
 // TEMPORARY: Comment out sendMessageFlow import to fix initialization issue
-// import { sendMessageFlow as importedSendMessageFlow } from './message/send-message-flow/sendMessageFlow.ts';
+// import { sendMessageFlow as importedSendMessageFlow } from './message/send-message-flow/sendMessageFlow.js';
 
 // ===================================
 // ENTITY MODELS
@@ -163,4 +163,4 @@ export type {
   PreviewHookData,
   ChatErrorType,
   ChatError
-} from './types.ts';
+} from './types.js';

@@ -8,7 +8,7 @@ import {
   dropTables,
 } from '@repo/db';
 import bcrypt from "bcrypt";
-import { generateUser } from "../../../test-utilities/testFixtures.ts";
+import { generateUser } from "../../../test-utilities/testFixtures.js";
 
 /**
  * Initialize the test database

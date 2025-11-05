@@ -6,11 +6,11 @@
  */
 
 // Import dev-specific workflows
-import { runChatWithAssessmentWorkflow, deleteAndVerifyConversation } from './chat-workflow.ts';
-import { runAuthWorkflow, runAuthErrorTest } from './auth-workflow.ts';
-import { runAssessmentCreationWorkflow, runCleanupWorkflow } from './assessment-workflow.ts';
-import { runUserManagementWorkflow, runUserDeletionWorkflow } from './user-workflow.ts';
-import { runSetupWorkflow, runIndividualSetupTests } from './setup-workflow.ts';
+import { runChatWithAssessmentWorkflow, deleteAndVerifyConversation } from './chat-workflow.js';
+import { runAuthWorkflow, runAuthErrorTest } from './auth-workflow.js';
+import { runAssessmentCreationWorkflow, runCleanupWorkflow } from './assessment-workflow.js';
+import { runUserManagementWorkflow, runUserDeletionWorkflow } from './user-workflow.js';
+import { runSetupWorkflow, runIndividualSetupTests } from './setup-workflow.js';
 
 // Export all scenarios
 export {

@@ -1,8 +1,8 @@
 // include updateAssessmentToJsonSchema.ts - updated assessment table to use JSON
-import { updateAssessmentToJsonSchema } from "./updateAssessmentToJsonSchema.ts";
+import { updateAssessmentToJsonSchema } from "./updateAssessmentToJsonSchema.js";
 
 //for test - TODO: remove
-import { updateAssessmentSchema } from "./assessmentSchema.ts";
+import { updateAssessmentSchema } from "./assessmentSchema.js";
 import type { Knex } from 'knex';
 
 /**

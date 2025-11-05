@@ -1,6 +1,6 @@
-import DbService from '../../../services/db-service/dbService.ts';
-import UserBase from '../base/UserBase.ts';
-import type { ValidationResult, UserRecord } from '../types.ts';
+import DbService from '../../../services/db-service/dbService.js';
+import UserBase from '../base/UserBase.js';
+import type { ValidationResult, UserRecord } from '../types.js';
 
 /**
  * Username validation utilities

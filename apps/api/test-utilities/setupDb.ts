@@ -1,6 +1,6 @@
 // Global setup file for test database
-import { getEnvironment } from './urls.ts';
-import { runAllMigrations } from '../db/runAllMigrations.ts';
+import { getEnvironment } from './urls.js';
+import { runAllMigrations } from '../db/runAllMigrations.js';
 
 // Set test mode
 process.env.TEST_MODE = 'true';

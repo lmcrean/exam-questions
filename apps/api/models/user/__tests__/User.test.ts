@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import User from '../User.ts';
-import CreateUser from '../services/CreateUser.ts';
-import ReadUser from '../services/ReadUser.ts';
-import DeleteUser from '../services/DeleteUser.ts';
-import DbService from '@/services/dbService.ts';
-import { generateUser } from '@test-utils/testFixtures.ts';
+import User from '../User.js';
+import CreateUser from '../services/CreateUser.js';
+import ReadUser from '../services/ReadUser.js';
+import DeleteUser from '../services/DeleteUser.js';
+import DbService from '@/services/dbService.js';
+import { generateUser } from '@test-utils/testFixtures.js';
 
 // Mock the service classes
 vi.mock('../services/CreateUser.js');

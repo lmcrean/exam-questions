@@ -1,5 +1,5 @@
-import { db } from '../database.ts';
-import { DeleteOption } from '../types.ts';
+import { db } from '../database.js';
+import { DeleteOption } from '../types.js';
 
 /**
  * Delete record(s) from a table

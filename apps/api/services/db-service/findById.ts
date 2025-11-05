@@ -1,5 +1,5 @@
 import { db } from '@repo/db';
-import { DbRecord } from './types.ts';
+import { DbRecord } from './types.js';
 
 /**
  * Find a record by ID

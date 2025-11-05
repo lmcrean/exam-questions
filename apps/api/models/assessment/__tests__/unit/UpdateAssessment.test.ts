@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import UpdateAssessment from '../../services/UpdateAssessment.ts';
-import DbService from '../../../../services/dbService.ts';
-import TransformApiToDb from '../../transformers/TransformApiToDb.ts';
+import UpdateAssessment from '../../services/UpdateAssessment.js';
+import DbService from '../../../../services/dbService.js';
+import TransformApiToDb from '../../transformers/TransformApiToDb.js';
 
 // Mock dependencies
 vi.mock('../../../../services/dbService.js');

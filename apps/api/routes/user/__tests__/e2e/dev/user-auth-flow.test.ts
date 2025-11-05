@@ -2,7 +2,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import supertest from "supertest";
 import { db } from '@repo/db';
-import app from "../../../../../server.ts";
+import app from "../../../../../server.js";
 import { createServer } from "http";
 import jwt from "jsonwebtoken";
 

@@ -15,12 +15,12 @@ vi.mock('@/services/dbService.js', () => ({
   }
 }));
 
-import { editMessage, editMessageWithRegeneration } from '../editMessageRegeneration.ts';
-import { cleanupChildrenMessages } from '../cleanupChildrenMessages.ts';
-import { generateResponseToMessage, generateAndSaveResponse } from '../../../../2-chatbot-message/generateResponse.ts';
-import { updateChatMessage } from '../../database/sendUserMessage.ts';
-import Chat from '../../../../../list/chat.ts';
-import logger from '@/services/logger.ts';
+import { editMessage, editMessageWithRegeneration } from '../editMessageRegeneration.js';
+import { cleanupChildrenMessages } from '../cleanupChildrenMessages.js';
+import { generateResponseToMessage, generateAndSaveResponse } from '../../../../2-chatbot-message/generateResponse.js';
+import { updateChatMessage } from '../../database/sendUserMessage.js';
+import Chat from '../../../../../list/chat.js';
+import logger from '@/services/logger.js';
 
 describe('Edit Message and Regeneration', () => {
   const mockUserId = 'test-user-123';

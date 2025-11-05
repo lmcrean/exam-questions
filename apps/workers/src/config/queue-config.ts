@@ -5,7 +5,7 @@
  */
 
 import { QueueOptions, WorkerOptions } from 'bullmq';
-import { redisConfig } from './redis.ts';
+import { redisConfig } from './redis.js';
 
 // Base queue configuration
 const baseQueueConfig: QueueOptions = {

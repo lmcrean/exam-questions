@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import express, { Express } from 'express';
 import request from 'supertest';
-import User from '../../../../models/user/User.ts';
-import EmailService from '../../../../services/emailService.ts';
+import User from '../../../../models/user/User.js';
+import EmailService from '../../../../services/emailService.js';
 import { Router } from 'express';
 
 // Mock dependencies

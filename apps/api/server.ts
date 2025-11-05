@@ -16,12 +16,12 @@ dotenv.config({ path: join(__dirname, '../../.env') });
 import './config/jwt.js';
 
 // Import route modules
-import assessmentRoutes from "./routes/assessment/index.ts";
-import userRoutes from "./routes/user/index.ts";
-import authRoutes from "./routes/auth/index.ts";
-import setupRoutes from "./routes/setup/index.ts";
-import chatRoutes from "./routes/chat/index.ts";
-import routes from "./routes/index.ts";
+import assessmentRoutes from "./routes/assessment/index.js";
+import userRoutes from "./routes/user/index.js";
+import authRoutes from "./routes/auth/index.js";
+import setupRoutes from "./routes/setup/index.js";
+import chatRoutes from "./routes/chat/index.js";
+import routes from "./routes/index.js";
 
 // Determine environment
 const isProduction = process.env.NODE_ENV === "production";

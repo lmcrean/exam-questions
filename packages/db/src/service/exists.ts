@@ -1,4 +1,4 @@
-import { db } from '../database.ts';
+import { db } from '../database.js';
 
 /**
  * Check if a record exists in a table by ID

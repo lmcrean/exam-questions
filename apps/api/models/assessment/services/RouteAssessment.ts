@@ -1,14 +1,14 @@
-import DbService from '../../../services/dbService.ts';
-import TransformDbToApi from '../transformers/TransformDbToApi.ts';
-import CreateAssessment from './CreateAssessment.ts';
-import UpdateAssessment from './UpdateAssessment.ts';
+import DbService from '../../../services/dbService.js';
+import TransformDbToApi from '../transformers/TransformDbToApi.js';
+import CreateAssessment from './CreateAssessment.js';
+import UpdateAssessment from './UpdateAssessment.js';
 import type {
   AssessmentResult,
   AssessmentListResult,
   AssessmentApiInput,
   AssessmentUpdateInput,
   AssessmentDbRecord
-} from '../types.ts';
+} from '../types.js';
 
 class RouteAssessment {
   /**

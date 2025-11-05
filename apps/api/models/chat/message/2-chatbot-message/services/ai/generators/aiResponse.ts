@@ -1,9 +1,9 @@
-import type { MessageRecord } from '../../../../../types.ts';
-import logger from '../../../../../../../services/logger.ts';
-import { buildAIResponse, buildFallbackResponse } from '../../../../shared/utils/responseBuilders.ts';
-import { formatMessagesForAI } from '../../../../shared/utils/messageFormatters.ts';
+import type { MessageRecord } from '../../../../../types.js';
+import logger from '../../../../../../../services/logger.js';
+import { buildAIResponse, buildFallbackResponse } from '../../../../shared/utils/responseBuilders.js';
+import { formatMessagesForAI } from '../../../../shared/utils/messageFormatters.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { geminiRateLimiter } from '../../../../../../../services/geminiRateLimiter.ts';
+import { geminiRateLimiter } from '../../../../../../../services/geminiRateLimiter.js';
 
 /**
  * Assessment data interface

@@ -10,8 +10,8 @@ import {
   QueueName,
   DocumentProcessingJobData,
   DocumentProcessingJobResult,
-} from '../types/queue-types.ts';
-import { documentProcessingWorkerConfig } from '../config/queue-config.ts';
+} from '../types/queue-types.js';
+import { documentProcessingWorkerConfig } from '../config/queue-config.js';
 
 /**
  * Process document conversion job

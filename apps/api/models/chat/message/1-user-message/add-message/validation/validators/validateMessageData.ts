@@ -1,7 +1,7 @@
-import type { ExtendedValidationResult, MessageRole } from '../../../../../types.ts';
-import { validateRequiredFields } from './validateRequiredFields.ts';
-import { validateMessageContent } from './validateMessageContent.ts';
-import { validateUserId } from './validateUserId.ts';
+import type { ExtendedValidationResult, MessageRole } from '../../../../../types.js';
+import { validateRequiredFields } from './validateRequiredFields.js';
+import { validateMessageContent } from './validateMessageContent.js';
+import { validateUserId } from './validateUserId.js';
 
 /**
  * Message data for validation

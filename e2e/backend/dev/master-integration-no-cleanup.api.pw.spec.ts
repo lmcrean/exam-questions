@@ -1,14 +1,14 @@
 import { test as base, expect } from "@playwright/test";
 
 // Import high-level scenario workflows (using dev scenarios with granular functions)
-import * as scenarios from "./runners/scenarios/index.ts";
+import * as scenarios from "./runners/scenarios/index.js";
 import { 
   checkConversationPreviewInDatabase, 
   checkConversationMessagesInDatabase,
   explainFalsePassInProduction 
-} from "./runners/chat/utils/index.ts";
-import { getConversation } from "./runners/chat/10-getConversation.ts";
-import { getConversationHistory } from "./runners/chat/12-getConversationHistory.ts";
+} from "./runners/chat/utils/index.js";
+import { getConversation } from "./runners/chat/10-getConversation.js";
+import { getConversationHistory } from "./runners/chat/12-getConversationHistory.js";
 
 /**
  * Master Integration Test for Development (No Cleanup)

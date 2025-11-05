@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import jwtConfig from '../../../../config/jwt.ts';
-import { AuthenticatedRequest, AuthUser } from '../../../types.ts';
+import jwtConfig from '../../../../config/jwt.js';
+import { AuthenticatedRequest, AuthUser } from '../../../types.js';
 
 /**
  * Middleware to verify JWT token

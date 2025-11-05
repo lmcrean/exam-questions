@@ -1,6 +1,6 @@
-import { db } from '../database.ts';
-import { findById } from './findById.ts';
-import { DbRecord, PartialDbRecord } from '../types.ts';
+import { db } from '../database.js';
+import { findById } from './findById.js';
+import { DbRecord, PartialDbRecord } from '../types.js';
 
 /**
  * Create a new record with JSON fields auto-stringified

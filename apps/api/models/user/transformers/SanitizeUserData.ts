@@ -1,5 +1,5 @@
-import UserBase from '../base/UserBase.ts';
-import type { UserRecord, UserPublic } from '../types.ts';
+import UserBase from '../base/UserBase.js';
+import type { UserRecord, UserPublic } from '../types.js';
 
 /**
  * User data sanitization utilities

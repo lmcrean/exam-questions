@@ -4,11 +4,11 @@
  * Tests user management flows using granular utility functions for sqlite localhost
  */
 
-import { generateProfileUpdate } from '../user/generateProfileUpdate.ts';
-import { getAllUsers } from '../user/getAllUsers.ts';
-import { getUserById } from '../user/getUserById.ts';
-import { updateUserProfile } from '../user/updateUserProfile.ts';
-import { deleteUser } from '../user/deleteUser.ts';
+import { generateProfileUpdate } from '../user/generateProfileUpdate.js';
+import { getAllUsers } from '../user/getAllUsers.js';
+import { getUserById } from '../user/getUserById.js';
+import { updateUserProfile } from '../user/updateUserProfile.js';
+import { deleteUser } from '../user/deleteUser.js';
 
 /**
  * Complete user management workflow test

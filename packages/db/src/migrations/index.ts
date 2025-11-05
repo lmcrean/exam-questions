@@ -3,17 +3,17 @@
  * Export all migrations for easy access
  */
 
-import * as initialSchema from './initialSchema.ts';
-import * as assessmentSchema from './assessmentSchema.ts';
-import * as updateAssessmentToJsonSchema from './updateAssessmentToJsonSchema.ts';
-import * as addAssessmentFieldsToConversations from './addAssessmentFieldsToConversations.ts';
-import * as addAssessmentObjectToConversations from './addAssessmentObjectToConversations.ts';
-import * as updateFlattenedAssessmentSchema from './updateFlattenedAssessmentSchema.ts';
-import * as fixChatTimestampColumns from './fixChatTimestampColumns.ts';
-import * as addPreviewToConversations from './20240528_add_preview_to_conversations.ts';
-import * as addRefreshTokens from './20250112_add_refresh_tokens.ts';
-import * as addOtherSymptoms from './add-other-symptoms.ts';
-import * as addDeletedAtToUsers from './addDeletedAtToUsers.ts';
+import * as initialSchema from './initialSchema.js';
+import * as assessmentSchema from './assessmentSchema.js';
+import * as updateAssessmentToJsonSchema from './updateAssessmentToJsonSchema.js';
+import * as addAssessmentFieldsToConversations from './addAssessmentFieldsToConversations.js';
+import * as addAssessmentObjectToConversations from './addAssessmentObjectToConversations.js';
+import * as updateFlattenedAssessmentSchema from './updateFlattenedAssessmentSchema.js';
+import * as fixChatTimestampColumns from './fixChatTimestampColumns.js';
+import * as addPreviewToConversations from './20240528_add_preview_to_conversations.js';
+import * as addRefreshTokens from './20250112_add_refresh_tokens.js';
+import * as addOtherSymptoms from './add-other-symptoms.js';
+import * as addDeletedAtToUsers from './addDeletedAtToUsers.js';
 
 // Export as named modules to avoid conflicts
 export {
@@ -31,4 +31,4 @@ export {
 };
 
 // Re-export the main schema creation functions
-export { createTables, dropTables } from './initialSchema.ts';
+export { createTables, dropTables } from './initialSchema.js';

@@ -1,5 +1,5 @@
-import { db } from '../database.ts';
-import { DbRecord, WhereCondition, QueryOptions } from '../types.ts';
+import { db } from '../database.js';
+import { DbRecord, WhereCondition, QueryOptions } from '../types.js';
 
 /**
  * Find records based on where condition

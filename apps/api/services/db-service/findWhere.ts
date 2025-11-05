@@ -1,5 +1,5 @@
 import { db } from '@repo/db';
-import { DbRecord, WhereCondition, QueryOptions } from './types.ts';
+import { DbRecord, WhereCondition, QueryOptions } from './types.js';
 
 /**
  * Find records based on where condition

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { verifyToken, authenticateToken } from './tokens/verifyToken.ts';
-import { optionalToken } from './tokens/optionalToken.ts';
-import refreshTokens from '../../../services/refreshTokenStore.ts';
+import { verifyToken, authenticateToken } from './tokens/verifyToken.js';
+import { optionalToken } from './tokens/optionalToken.js';
+import refreshTokens from '../../../services/refreshTokenStore.js';
 
 // Export database-backed refresh token storage
 export { refreshTokens };

@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import logger from '../../../services/logger.ts';
-import { createConversation } from '../../../models/chat/index.ts';
-import { AuthenticatedRequest } from '../../types.ts';
+import logger from '../../../services/logger.js';
+import { createConversation } from '../../../models/chat/index.js';
+import { AuthenticatedRequest } from '../../types.js';
 
 interface CreateChatBody {
   assessment_id?: string | number;

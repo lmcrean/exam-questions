@@ -10,11 +10,11 @@ import {
   QueueName,
   AIProcessingJobData,
   AIProcessingJobResult,
-} from '../types/queue-types.ts';
-import { aiProcessingWorkerConfig } from '../config/queue-config.ts';
-import { generateAIResponse, buildMenstrualHealthSystemPrompt } from '../services/ai-service.ts';
-import { db } from '../services/database.ts';
-import { webhookDeliveryQueue } from '../queues/index.ts';
+} from '../types/queue-types.js';
+import { aiProcessingWorkerConfig } from '../config/queue-config.js';
+import { generateAIResponse, buildMenstrualHealthSystemPrompt } from '../services/ai-service.js';
+import { db } from '../services/database.js';
+import { webhookDeliveryQueue } from '../queues/index.js';
 
 /**
  * Process AI generation job

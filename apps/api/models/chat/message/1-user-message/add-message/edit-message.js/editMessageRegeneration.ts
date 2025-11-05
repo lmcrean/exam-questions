@@ -1,9 +1,9 @@
-import type { MessageRecord } from '../../../../types.ts';
-import logger from '../../../../../../services/logger.ts';
-import { updateChatMessage } from '../database/sendUserMessage.ts';
-import { generateResponseToMessage } from '../../../2-chatbot-message/generateResponse.ts';
-import Chat from '../../../../list/chat.ts';
-import { cleanupChildrenMessages } from './cleanupChildrenMessages.ts';
+import type { MessageRecord } from '../../../../types.js';
+import logger from '../../../../../../services/logger.js';
+import { updateChatMessage } from '../database/sendUserMessage.js';
+import { generateResponseToMessage } from '../../../2-chatbot-message/generateResponse.js';
+import Chat from '../../../../list/chat.js';
+import { cleanupChildrenMessages } from './cleanupChildrenMessages.js';
 
 /**
  * Edit options interface

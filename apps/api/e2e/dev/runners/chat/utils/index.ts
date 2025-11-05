@@ -9,28 +9,28 @@ export {
   validateConversationCreation,
   validateMessageSendResult,
   validateConversationInHistory
-} from './workflow-helpers.ts';
+} from './workflow-helpers.js';
 
 // Message utils
 export {
   prepareUserMessageStrings,
   getTestUserMessage,
   getRandomTestUserMessage
-} from '../01-prepareUserMessageString.ts';
+} from '../01-prepareUserMessageString.js';
 
 // Validators
 export {
   validateConversationStructure
-} from './structure-validators.ts';
+} from './structure-validators.js';
 
 // Assessment utils
 export {
   collectAssessmentId
-} from './collectAssessmentId.ts';
+} from './collectAssessmentId.js';
 
 // Database validation
 export {
   checkConversationPreviewInDatabase,
   checkConversationMessagesInDatabase,
   explainFalsePassInProduction
-} from './db-validation.ts'; 
+} from './db-validation.js'; 

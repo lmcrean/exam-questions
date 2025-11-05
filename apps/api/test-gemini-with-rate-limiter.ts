@@ -6,7 +6,7 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { geminiRateLimiter } from './services/geminiRateLimiter.ts';
+import { geminiRateLimiter } from './services/geminiRateLimiter.js';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';

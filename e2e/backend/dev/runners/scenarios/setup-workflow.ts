@@ -4,9 +4,9 @@
  * Tests all setup endpoints to verify system health and database connectivity
  */
 
-import { testHealthHello } from '../setup/testHealthHello.ts';
-import { testDatabaseHello } from '../setup/testDatabaseHello.ts';
-import { testDatabaseStatus } from '../setup/testDatabaseStatus.ts';
+import { testHealthHello } from '../setup/testHealthHello.js';
+import { testDatabaseHello } from '../setup/testDatabaseHello.js';
+import { testDatabaseStatus } from '../setup/testDatabaseStatus.js';
 
 /**
  * Complete setup workflow test

@@ -1,5 +1,5 @@
-import db from "./index.ts";
-import { updateAssessmentSchema } from "./migrations/assessmentSchema.ts";
+import db from "./index.js";
+import { updateAssessmentSchema } from "./migrations/assessmentSchema.js";
 
 /**
  * Apply schema updates for tests

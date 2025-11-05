@@ -1,5 +1,5 @@
-import DbService from '../../../services/dbService.ts';
-import TransformDbToApi from '../transformers/TransformDbToApi.ts';
+import DbService from '../../../services/dbService.js';
+import TransformDbToApi from '../transformers/TransformDbToApi.js';
 import type {
   AssessmentDbRecord,
   AssessmentResult,
@@ -7,7 +7,7 @@ import type {
   AssessmentApiResponse,
   TransformerFunction,
   RecordProcessorFunction
-} from '../types.ts';
+} from '../types.js';
 
 class FindAssessment {
   /**

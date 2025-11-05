@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { createAssessmentConversation } from '../createFlow.ts';
-import { createConversation } from '../database/conversationCreate.ts';
-import DbService from '../../../../../services/db-service/dbService.ts';
-import logger from '../../../../../services/logger.ts';
+import { createAssessmentConversation } from '../createFlow.js';
+import { createConversation } from '../database/conversationCreate.js';
+import DbService from '../../../../../services/db-service/dbService.js';
+import logger from '../../../../../services/logger.js';
 
 // Mock dependencies
 vi.mock('../../../../../services/db-service/dbService.js');

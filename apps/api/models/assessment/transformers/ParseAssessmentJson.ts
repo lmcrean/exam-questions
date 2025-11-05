@@ -1,4 +1,4 @@
-import type { Recommendation } from '../types.ts';
+import type { Recommendation } from '../types.js';
 
 class ParseAssessmentJson {
   /**

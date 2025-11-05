@@ -3,7 +3,7 @@ import { describe, test, expect, beforeAll, afterAll } from "vitest";
 import supertest from "supertest";
 import { db } from '@repo/db';
 import jwt from "jsonwebtoken";
-import { setupTestServer, closeTestServer } from "../../../../../../../test-utilities/testSetup.ts";
+import { setupTestServer, closeTestServer } from "../../../../../../../test-utilities/testSetup.js";
 
 // Store test data
 let testUserId;

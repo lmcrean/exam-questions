@@ -1,4 +1,4 @@
-import type { ExtendedValidationResult } from '../../../../../types.ts';
+import type { ExtendedValidationResult } from '../../../../../types.js';
 
 /**
  * Validate required fields are present

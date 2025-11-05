@@ -1,7 +1,7 @@
-import type { ExtendedValidationResult } from '../../../../../types.ts';
-import { validateRequiredFields } from './validateRequiredFields.ts';
-import { validateUserId } from './validateUserId.ts';
-import { validateAssessmentId } from './validateAssessmentId.ts';
+import type { ExtendedValidationResult } from '../../../../../types.js';
+import { validateRequiredFields } from './validateRequiredFields.js';
+import { validateUserId } from './validateUserId.js';
+import { validateAssessmentId } from './validateAssessmentId.js';
 
 /**
  * Conversation data for validation

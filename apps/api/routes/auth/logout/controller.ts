@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { refreshTokens } from '../middleware/index.ts';
-import jwtConfig from '../../../config/jwt.ts';
-import { AuthenticatedRequest } from '../../types.ts';
+import { refreshTokens } from '../middleware/index.js';
+import jwtConfig from '../../../config/jwt.js';
+import { AuthenticatedRequest } from '../../types.js';
 
 interface LogoutRequest {
   refreshToken: string;

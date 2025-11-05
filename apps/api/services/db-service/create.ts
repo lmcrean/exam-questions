@@ -1,6 +1,6 @@
 import { db } from '@repo/db';
-import { findById } from './findById.ts';
-import { DbRecord, PartialDbRecord } from './types.ts';
+import { findById } from './findById.js';
+import { DbRecord, PartialDbRecord } from './types.js';
 
 /**
  * Create a new record

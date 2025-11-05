@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { db } from '@repo/db';
-import Assessment from '../../../models/assessment/Assessment.ts';
-import { AuthenticatedRequest } from '../../types.ts';
+import Assessment from '../../../models/assessment/Assessment.js';
+import { AuthenticatedRequest } from '../../types.js';
 
 /**
  * Get list of all assessments for the authenticated user

@@ -3,7 +3,7 @@
  * Tests the database connection with hello message
  */
 
-import { getExpectedDbType } from '../utils/environment-config.ts';
+import { getExpectedDbType } from '../utils/environment-config.js';
 
 /**
  * Test the database hello endpoint

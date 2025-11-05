@@ -4,10 +4,10 @@
  * Tests authentication flows using granular utility functions for sqlite localhost
  */
 
-import { generateTestUser } from '../auth/generateTestUser.ts';
-import { registerUser } from '../auth/registerUser.ts';
-import { loginUser } from '../auth/loginUser.ts';
-import { verifyToken } from '../auth/verifyToken.ts';
+import { generateTestUser } from '../auth/generateTestUser.js';
+import { registerUser } from '../auth/registerUser.js';
+import { loginUser } from '../auth/loginUser.js';
+import { verifyToken } from '../auth/verifyToken.js';
 
 /**
  * Complete authentication workflow test

@@ -1,12 +1,12 @@
 import express from 'express';
-import loginRoutes from './login/route.ts';
-import logoutRoutes from './logout/route.ts';
-import signupRoutes from './signup/route.ts';
-import refreshRoutes from './refresh/route.ts';
-import verifyRoutes from './verify/route.ts';
-import userRoutes from '../user/index.ts';
+import loginRoutes from './login/route.js';
+import logoutRoutes from './logout/route.js';
+import signupRoutes from './signup/route.js';
+import refreshRoutes from './refresh/route.js';
+import verifyRoutes from './verify/route.js';
+import userRoutes from '../user/index.js';
 // Import other auth routes as needed
-// import resetPasswordRoutes from './resetPassword/route.ts';
+// import resetPasswordRoutes from './resetPassword/route.js';
 
 const router = express.Router();
 

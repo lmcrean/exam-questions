@@ -1,8 +1,8 @@
-import logger from '../../../../../services/logger.ts';
-import DbService from '../../../../../services/dbService.ts';
-import { generateMessageId } from '../../shared/utils/responseBuilders.ts';
-import { verifyParentMessageId } from '../../1-user-message/add-message/database/linkParentMessageId.ts';
-import { updateConversationPreview } from '../../../conversation/read-conversation/getPreviewHook.ts';
+import logger from '../../../../../services/logger.js';
+import DbService from '../../../../../services/dbService.js';
+import { generateMessageId } from '../../shared/utils/responseBuilders.js';
+import { verifyParentMessageId } from '../../1-user-message/add-message/database/linkParentMessageId.js';
+import { updateConversationPreview } from '../../../conversation/read-conversation/getPreviewHook.js';
 
 /**
  * Options for sending a chatbot message

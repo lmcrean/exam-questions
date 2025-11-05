@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import Assessment from '../../Assessment.ts';
-import RouteAssessment from '../../services/RouteAssessment.ts';
+import Assessment from '../../Assessment.js';
+import RouteAssessment from '../../services/RouteAssessment.js';
 
 // Mock the operations class
 vi.mock('../../services/RouteAssessment.js');

@@ -11,9 +11,9 @@ import {
   ScheduledTaskJobData,
   TokenCleanupJobData,
   TokenCleanupJobResult,
-} from '../types/queue-types.ts';
-import { scheduledTasksWorkerConfig } from '../config/queue-config.ts';
-import { db } from '../services/database.ts';
+} from '../types/queue-types.js';
+import { scheduledTasksWorkerConfig } from '../config/queue-config.js';
+import { db } from '../services/database.js';
 
 /**
  * Process scheduled task job

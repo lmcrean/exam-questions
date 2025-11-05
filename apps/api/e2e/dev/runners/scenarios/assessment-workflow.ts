@@ -4,11 +4,11 @@
  * Tests assessment flows using granular utility functions for sqlite localhost
  */
 
-import { generateDefaultAssessment } from '../assessment/generateDefaultAssessment.ts';
-import { createAssessment } from '../assessment/createAssessment.ts';
-import { getAssessments } from '../assessment/getAssessments.ts';
-import { getAssessmentById } from '../assessment/getAssessmentById.ts';
-import { deleteAssessment } from '../assessment/deleteAssessment.ts';
+import { generateDefaultAssessment } from '../assessment/generateDefaultAssessment.js';
+import { createAssessment } from '../assessment/createAssessment.js';
+import { getAssessments } from '../assessment/getAssessments.js';
+import { getAssessmentById } from '../assessment/getAssessmentById.js';
+import { deleteAssessment } from '../assessment/deleteAssessment.js';
 
 /**
  * Complete assessment creation workflow test

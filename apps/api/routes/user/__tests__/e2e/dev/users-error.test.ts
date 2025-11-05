@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import supertest, { SuperTest, Test } from "supertest";
 import { db } from '@repo/db';
-import app from "../../../../../server.ts";
+import app from "../../../../../server.js";
 import { createServer, Server } from "http";
 
 // Test data

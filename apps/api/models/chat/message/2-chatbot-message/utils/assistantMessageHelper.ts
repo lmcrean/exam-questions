@@ -1,13 +1,13 @@
-import type { MessageRecord } from '../../../types.ts';
-import logger from '../../../../../services/logger.ts';
-import { ConfigHelper } from './configHelper.ts';
-import { insertChatMessage } from '../../1-user-message/add-message/database/sendUserMessage.ts';
-import { generateMessageId } from '../../shared/utils/responseBuilders.ts';
-import { generateAIResponse } from '../services/ai/generators/aiResponse.ts';
-import { generateMockResponse } from '../services/mock/generators/mockResponse.ts';
-// import { getConversationHistory } from '../../../read-chat-detail/getWithContext.ts';
-import { updateConversationPreview } from '../../../conversation/read-conversation/getPreviewHook.ts';
-import DbService from '../../../../../services/dbService.ts';
+import type { MessageRecord } from '../../../types.js';
+import logger from '../../../../../services/logger.js';
+import { ConfigHelper } from './configHelper.js';
+import { insertChatMessage } from '../../1-user-message/add-message/database/sendUserMessage.js';
+import { generateMessageId } from '../../shared/utils/responseBuilders.js';
+import { generateAIResponse } from '../services/ai/generators/aiResponse.js';
+import { generateMockResponse } from '../services/mock/generators/mockResponse.js';
+// import { getConversationHistory } from '../../../read-chat-detail/getWithContext.js';
+import { updateConversationPreview } from '../../../conversation/read-conversation/getPreviewHook.js';
+import DbService from '../../../../../services/dbService.js';
 
 /**
  * Response generation result

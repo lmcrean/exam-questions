@@ -1,8 +1,8 @@
 import { test, expect, describe, beforeAll, afterAll } from 'vitest';
 import supertest from 'supertest';
-import app from '../../../../../server.ts';
+import app from '../../../../../server.js';
 import { createServer } from 'http';
-import User from '../../../../../models/user/User.ts';
+import User from '../../../../../models/user/User.js';
 
 // Test constants
 const TEST_PORT = 5024;

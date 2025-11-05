@@ -1,11 +1,11 @@
-import RouteAssessment from './services/RouteAssessment.ts';
+import RouteAssessment from './services/RouteAssessment.js';
 import type {
   AssessmentResult,
   AssessmentListResult,
   AssessmentApiInput,
   AssessmentUpdateInput,
   AssessmentDbRecord
-} from './types.ts';
+} from './types.js';
 
 /**
  * Assessment - Unified entry point for all assessment operations

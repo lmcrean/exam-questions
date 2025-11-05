@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import DbService from '../../../services/dbService.ts';
-import TransformApiToDb from '../transformers/TransformApiToDb.ts';
-import type { AssessmentApiInput, AssessmentDbRecord } from '../types.ts';
+import DbService from '../../../services/dbService.js';
+import TransformApiToDb from '../transformers/TransformApiToDb.js';
+import type { AssessmentApiInput, AssessmentDbRecord } from '../types.js';
 
 class CreateAssessment {
   /**

@@ -10,8 +10,8 @@ import {
   QueueName,
   WebhookDeliveryJobData,
   WebhookDeliveryJobResult,
-} from '../types/queue-types.ts';
-import { webhookDeliveryWorkerConfig } from '../config/queue-config.ts';
+} from '../types/queue-types.js';
+import { webhookDeliveryWorkerConfig } from '../config/queue-config.js';
 
 /**
  * Process webhook delivery job

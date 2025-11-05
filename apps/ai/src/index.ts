@@ -4,10 +4,10 @@
  */
 
 // Export utilities
-export { initGemini, processPDF, processPDFBatch } from './utils/geminiClient.ts';
+export { initGemini, processPDF, processPDFBatch } from './utils/geminiClient.js';
 
 // Export services
-export { geminiRateLimiter } from './services/geminiRateLimiter.ts';
+export { geminiRateLimiter } from './services/geminiRateLimiter.js';
 
 // Export types
 export type {
@@ -15,4 +15,4 @@ export type {
   PDFProcessingResult,
   RateLimitStats,
   TestResult
-} from './types/index.ts';
+} from './types/index.js';

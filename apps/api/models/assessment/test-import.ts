@@ -3,18 +3,18 @@
  */
 
 // Test all imports work correctly
-import Assessment from './Assessment.ts';
-import { AssessmentBase } from './base/AssessmentBase.ts';
-import ValidateAssessmentData from './validators/ValidateAssessmentData.ts';
-import ValidateAssessmentOwnership from './validators/ValidateAssessmentOwnership.ts';
-import ParseAssessmentJson from './transformers/ParseAssessmentJson.ts';
-import TransformApiToDb from './transformers/TransformApiToDb.ts';
-import TransformDbToApi from './transformers/TransformDbToApi.ts';
-import CreateAssessment from './services/CreateAssessment.ts';
-import FindAssessment from './services/FindAssessment.ts';
-import UpdateAssessment from './services/UpdateAssessment.ts';
-import DeleteAssessment from './services/DeleteAssessment.ts';
-import RouteAssessment from './services/RouteAssessment.ts';
+import Assessment from './Assessment.js';
+import { AssessmentBase } from './base/AssessmentBase.js';
+import ValidateAssessmentData from './validators/ValidateAssessmentData.js';
+import ValidateAssessmentOwnership from './validators/ValidateAssessmentOwnership.js';
+import ParseAssessmentJson from './transformers/ParseAssessmentJson.js';
+import TransformApiToDb from './transformers/TransformApiToDb.js';
+import TransformDbToApi from './transformers/TransformDbToApi.js';
+import CreateAssessment from './services/CreateAssessment.js';
+import FindAssessment from './services/FindAssessment.js';
+import UpdateAssessment from './services/UpdateAssessment.js';
+import DeleteAssessment from './services/DeleteAssessment.js';
+import RouteAssessment from './services/RouteAssessment.js';
 
 // Import types
 import type {
@@ -24,7 +24,7 @@ import type {
   AssessmentUpdateInput,
   ValidationResult,
   Recommendation
-} from './types.ts';
+} from './types.js';
 
 console.log('✅ All Assessment model TypeScript imports successful!');
 console.log('\n📦 Imported classes:');

@@ -1,6 +1,6 @@
 import express from 'express';
-import helloRouter from './hello.ts';
-import serverlessRouter from './serverless.ts';
+import helloRouter from './hello.js';
+import serverlessRouter from './serverless.js';
 
 const router = express.Router();
 

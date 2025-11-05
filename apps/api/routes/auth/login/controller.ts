@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import User from '../../../models/user/User.ts';
+import User from '../../../models/user/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { refreshTokens } from '../middleware/index.ts';
-import jwtConfig, { getJWTSecret, getRefreshSecret } from '../../../config/jwt.ts';
-import { AuthenticatedRequest, ApiResponse } from '../../types.ts';
+import { refreshTokens } from '../middleware/index.js';
+import jwtConfig, { getJWTSecret, getRefreshSecret } from '../../../config/jwt.js';
+import { AuthenticatedRequest, ApiResponse } from '../../types.js';
 
 // Login request body type
 interface LoginRequest {

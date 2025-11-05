@@ -1,7 +1,7 @@
-import ValidateCredentials from '../validators/ValidateCredentials.ts';
-import SanitizeUserData from '../transformers/SanitizeUserData.ts';
-import ReadUser from './ReadUser.ts';
-import type { UserPublic, UserRecord, OperationResult, LoginCredentials } from '../types.ts';
+import ValidateCredentials from '../validators/ValidateCredentials.js';
+import SanitizeUserData from '../transformers/SanitizeUserData.js';
+import ReadUser from './ReadUser.js';
+import type { UserPublic, UserRecord, OperationResult, LoginCredentials } from '../types.js';
 
 /**
  * User authentication service

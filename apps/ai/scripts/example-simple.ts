@@ -7,7 +7,7 @@
 import dotenv from 'dotenv';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { processPDF } from '../src/utils/geminiClient.ts';
+import { processPDF } from '../src/utils/geminiClient.js';
 
 // Load environment variables
 const __filename = fileURLToPath(import.meta.url);

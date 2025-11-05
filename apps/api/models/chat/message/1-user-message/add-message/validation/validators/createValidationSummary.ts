@@ -1,4 +1,4 @@
-import type { ExtendedValidationResult } from '../../../../../types.ts';
+import type { ExtendedValidationResult } from '../../../../../types.js';
 
 /**
  * Create a validation summary for logging

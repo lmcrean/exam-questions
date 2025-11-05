@@ -1,6 +1,6 @@
-import DbService from '../../../services/dbService.ts';
-import logger from '../../../services/logger.ts';
-import type { ConversationSummary } from '../types.ts';
+import DbService from '../../../services/dbService.js';
+import logger from '../../../services/logger.js';
+import type { ConversationSummary } from '../types.js';
 
 /**
  * Get all conversations for a user (with preview of last message)

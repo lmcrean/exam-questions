@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { signup } from '../../signup/controller.ts';
-import User from '../../../../models/user/User.ts';
+import { signup } from '../../signup/controller.js';
+import User from '../../../../models/user/User.js';
 import bcrypt from 'bcrypt';
 
 // Spy on User methods

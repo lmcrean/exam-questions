@@ -1,5 +1,5 @@
-import logger from '../../../../../../services/logger.ts';
-import { getChatMessage, getChatMessagesAfterTimestamp, deleteChatMessage } from '../database/sendUserMessage.ts';
+import logger from '../../../../../../services/logger.js';
+import { getChatMessage, getChatMessagesAfterTimestamp, deleteChatMessage } from '../database/sendUserMessage.js';
 
 /**
  * Clean up all messages that came after the edited message

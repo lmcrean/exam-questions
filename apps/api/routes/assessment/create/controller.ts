@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import { validateAssessmentData } from "../validators/index.ts";
-import Assessment from "../../../models/assessment/Assessment.ts";
-import { AuthenticatedRequest } from '../../types.ts';
+import { validateAssessmentData } from "../validators/index.js";
+import Assessment from "../../../models/assessment/Assessment.js";
+import { AuthenticatedRequest } from '../../types.js';
 
 interface CreateAssessmentBody {
   assessmentData: {

@@ -5,11 +5,11 @@
  */
 
 import { Worker } from 'bullmq';
-import { createAIWorker } from './workers/ai-worker.ts';
-import { createDocumentWorker } from './workers/document-worker.ts';
-import { createWebhookWorker } from './workers/webhook-worker.ts';
-import { createSchedulerWorker } from './workers/scheduler-worker.ts';
-import { closeAllQueues } from './queues/index.ts';
+import { createAIWorker } from './workers/ai-worker.js';
+import { createDocumentWorker } from './workers/document-worker.js';
+import { createWebhookWorker } from './workers/webhook-worker.js';
+import { createSchedulerWorker } from './workers/scheduler-worker.js';
+import { closeAllQueues } from './queues/index.js';
 import * as dotenv from 'dotenv';
 
 dotenv.config();

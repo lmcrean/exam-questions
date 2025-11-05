@@ -4,7 +4,7 @@
  * Tests ongoing conversation flow
  */
 
-import { getTestUserMessage } from './01-prepareUserMessageString.ts';
+import { getTestUserMessage } from './01-prepareUserMessageString.js';
 
 /**
  * Send follow-up user message to continue conversation

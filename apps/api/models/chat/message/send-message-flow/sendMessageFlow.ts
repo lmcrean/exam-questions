@@ -1,9 +1,9 @@
-import logger from '../../../../services/logger.ts';
-import { getConversationForUser } from '../../conversation/read-conversation/getConversation.ts';
-import { createConversation } from '../../conversation/create-new-conversation/database/conversationCreate.ts';
-import { addUserMessage, type UserMessageResult } from '../1-user-message/add-message/sendUserMessage.ts';
-import { generateAndSaveResponse } from '../2-chatbot-message/generateResponse.ts';
-import type { ChatbotMessageResult } from '../2-chatbot-message/database/sendChatbotMessage.ts';
+import logger from '../../../../services/logger.js';
+import { getConversationForUser } from '../../conversation/read-conversation/getConversation.js';
+import { createConversation } from '../../conversation/create-new-conversation/database/conversationCreate.js';
+import { addUserMessage, type UserMessageResult } from '../1-user-message/add-message/sendUserMessage.js';
+import { generateAndSaveResponse } from '../2-chatbot-message/generateResponse.js';
+import type { ChatbotMessageResult } from '../2-chatbot-message/database/sendChatbotMessage.js';
 
 /**
  * Send message flow result

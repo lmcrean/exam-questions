@@ -1,6 +1,6 @@
-import type { ValidationResult } from '../../../../../types.ts';
-import { validateMessageLength } from './validateMessageLength.ts';
-import { validateSimpleMessageContent } from './validateSimpleMessageContent.ts';
+import type { ValidationResult } from '../../../../../types.js';
+import { validateMessageLength } from './validateMessageLength.js';
+import { validateSimpleMessageContent } from './validateSimpleMessageContent.js';
 
 /**
  * Combined message text validation

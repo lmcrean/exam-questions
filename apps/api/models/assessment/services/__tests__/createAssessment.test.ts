@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { generateAssessment, generateUser, generateId } from '@/test-utilities/testFixtures.ts';
-import DbService from '@/services/dbService.ts';
-import Assessment from '../../Assessment.ts';
+import { generateAssessment, generateUser, generateId } from '@/test-utilities/testFixtures.js';
+import DbService from '@/services/dbService.js';
+import Assessment from '../../Assessment.js';
 
 // Mock dependencies
 vi.mock('@/services/dbService.js');

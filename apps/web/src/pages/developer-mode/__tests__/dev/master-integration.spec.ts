@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { runSetupTests } from './runners/setup.ts';
-import { runAuthTests } from './runners/auth.ts';
-import { runAssessmentTests, testDeleteAssessments } from './runners/assessment.ts';
+import { runSetupTests } from './runners/setup.js';
+import { runAuthTests } from './runners/auth.js';
+import { runAssessmentTests, testDeleteAssessments } from './runners/assessment.js';
 
 /**
  * Frontend Test Page Master Integration E2E Test

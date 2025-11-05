@@ -1,5 +1,5 @@
 import { db } from '@repo/db';
-import { ConversationPreview } from './types.ts';
+import { ConversationPreview } from './types.js';
 
 interface Conversation {
   id: string | number;

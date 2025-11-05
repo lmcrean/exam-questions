@@ -1,5 +1,5 @@
-import { findById } from './findById.ts';
-import { DbRecord } from './types.ts';
+import { findById } from './findById.js';
+import { DbRecord } from './types.js';
 
 /**
  * Find a record by ID and auto-parse JSON fields

@@ -1,5 +1,5 @@
-import ParseAssessmentJson from './ParseAssessmentJson.ts';
-import type { AssessmentDbRecord, AssessmentApiResponse, Recommendation } from '../types.ts';
+import ParseAssessmentJson from './ParseAssessmentJson.js';
+import type { AssessmentDbRecord, AssessmentApiResponse, Recommendation } from '../types.js';
 
 class TransformDbToApi {
   /**

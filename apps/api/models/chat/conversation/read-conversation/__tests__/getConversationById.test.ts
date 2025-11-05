@@ -1,7 +1,7 @@
 import { describe, beforeEach, afterEach, it, expect, vi } from 'vitest';
-import DbService from '@/services/dbService.ts';
-import logger from '@/services/logger.ts';
-import { getConversation, getConversationForUser, getConversationSummary } from '../getConversation.ts';
+import DbService from '@/services/dbService.js';
+import logger from '@/services/logger.js';
+import { getConversation, getConversationForUser, getConversationSummary } from '../getConversation.js';
 
 // Mock all dependencies
 vi.mock('@/services/dbService.js');

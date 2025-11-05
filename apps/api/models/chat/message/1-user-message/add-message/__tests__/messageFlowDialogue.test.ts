@@ -1,16 +1,16 @@
 import { describe, beforeEach, afterEach, vi } from 'vitest';
-import DbService from '@/services/dbService.ts';
-import logger from '@/services/logger.ts';
+import DbService from '@/services/dbService.js';
+import logger from '@/services/logger.js';
 
 // Import test runners
-import { runMessageCreationTests } from './runners/messageCreation.ts';
-import { runChatbotResponseTests } from './runners/chatbotResponse.ts';
-import { runDialogueSequenceTests } from './runners/dialogueSequence.ts';
-import { runDatabaseIntegrationTests } from './runners/databaseIntegration.ts';
-import { runParentMessageIdTests } from './runners/parentMessageIdValidation.ts';
+import { runMessageCreationTests } from './runners/messageCreation.js';
+import { runChatbotResponseTests } from './runners/chatbotResponse.js';
+import { runDialogueSequenceTests } from './runners/dialogueSequence.js';
+import { runDatabaseIntegrationTests } from './runners/databaseIntegration.js';
+import { runParentMessageIdTests } from './runners/parentMessageIdValidation.js';
 
 // Import mock data
-import { messageFlowTestData } from './mock-data/messageFlowTestData.ts';
+import { messageFlowTestData } from './mock-data/messageFlowTestData.js';
 import { v4 as uuidv4 } from 'uuid';
 
 // Mock all dependencies

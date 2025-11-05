@@ -1,11 +1,11 @@
-import db from "./index.ts";
-import { createTables } from "./migrations/initialSchema.ts";
-import { updateAssessmentSchema } from "./migrations/assessmentSchema.ts";
-import { addAssessmentFieldsToConversations } from "./migrations/addAssessmentFieldsToConversations.ts";
-import { addAssessmentObjectToConversations } from "./migrations/addAssessmentObjectToConversations.ts";
-import { addOtherSymptomsColumn } from "./migrations/add-other-symptoms.ts";
-import { addDeletedAtToUsers } from "./migrations/addDeletedAtToUsers.ts";
-import logger from "../services/logger.ts";
+import db from "./index.js";
+import { createTables } from "./migrations/initialSchema.js";
+import { updateAssessmentSchema } from "./migrations/assessmentSchema.js";
+import { addAssessmentFieldsToConversations } from "./migrations/addAssessmentFieldsToConversations.js";
+import { addAssessmentObjectToConversations } from "./migrations/addAssessmentObjectToConversations.js";
+import { addOtherSymptomsColumn } from "./migrations/add-other-symptoms.js";
+import { addDeletedAtToUsers } from "./migrations/addDeletedAtToUsers.js";
+import logger from "../services/logger.js";
 
 /**
  * Run all database migrations in order

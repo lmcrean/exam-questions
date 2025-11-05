@@ -1,7 +1,7 @@
-import { setupTestClient, closeTestServer } from './setup.ts';
+import { setupTestClient, closeTestServer } from './setup.js';
 import jwt from 'jsonwebtoken';
-import { runAllMigrations } from '../db/runAllMigrations.ts';
-import jwtConfig from '../config/jwt.ts';
+import { runAllMigrations } from '../db/runAllMigrations.js';
+import jwtConfig from '../config/jwt.js';
 
 /**
  * Setup a test server for e2e tests with retry logic for port conflicts

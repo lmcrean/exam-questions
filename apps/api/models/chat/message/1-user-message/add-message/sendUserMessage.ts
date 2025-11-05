@@ -1,8 +1,8 @@
-import logger from '../../../../../services/logger.ts';
-import { insertChatMessage } from './database/sendUserMessage.ts';
-import { generateMessageId } from '../../shared/utils/responseBuilders.ts';
-import { verifyParentMessageId } from './database/linkParentMessageId.ts';
-import Chat from '../../../list/chat.ts';
+import logger from '../../../../../services/logger.js';
+import { insertChatMessage } from './database/sendUserMessage.js';
+import { generateMessageId } from '../../shared/utils/responseBuilders.js';
+import { verifyParentMessageId } from './database/linkParentMessageId.js';
+import Chat from '../../../list/chat.js';
 
 /**
  * Options for sending a user message

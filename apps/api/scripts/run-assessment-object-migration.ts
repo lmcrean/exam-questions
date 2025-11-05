@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import DbService from '../services/db-service/dbService.ts';
-import logger from '../services/logger.ts';
+import DbService from '../services/db-service/dbService.js';
+import logger from '../services/logger.js';
 import { addAssessmentObjectToConversations } from '@repo/db';
 
 const runMigration = async () => {

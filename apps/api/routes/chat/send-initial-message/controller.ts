@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import logger from '../../../services/logger.ts';
-import { sendMessageFlow } from '../../../models/chat/message/send-message-flow/sendMessageFlow.ts';
-import { AuthenticatedRequest } from '../../types.ts';
+import logger from '../../../services/logger.js';
+import { sendMessageFlow } from '../../../models/chat/message/send-message-flow/sendMessageFlow.js';
+import { AuthenticatedRequest } from '../../types.js';
 
 interface SendInitialMessageBody {
   message: string;

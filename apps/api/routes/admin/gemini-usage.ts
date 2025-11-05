@@ -6,7 +6,7 @@
  */
 
 import { Router, Request, Response } from 'express';
-import { geminiRateLimiter } from '../../services/geminiRateLimiter.ts';
+import { geminiRateLimiter } from '../../services/geminiRateLimiter.js';
 
 const router = Router();
 

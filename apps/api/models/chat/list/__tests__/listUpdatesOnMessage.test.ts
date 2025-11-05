@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { getUserConversations } from '../chatGetList.ts';
-import { sendMessage } from '../../message/user-message/add-message/sendMessage.ts';
-import { createAssessmentConversation } from '../../conversation/create-new-conversation/createFlow.ts';
-import DbService from '@/services/dbService.ts';
-import logger from '@/services/logger.ts';
+import { getUserConversations } from '../chatGetList.js';
+import { sendMessage } from '../../message/user-message/add-message/sendMessage.js';
+import { createAssessmentConversation } from '../../conversation/create-new-conversation/createFlow.js';
+import DbService from '@/services/dbService.js';
+import logger from '@/services/logger.js';
 
 // Mock dependencies
 vi.mock('@/services/dbService.js');

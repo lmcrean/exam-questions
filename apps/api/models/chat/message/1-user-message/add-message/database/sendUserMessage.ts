@@ -1,6 +1,6 @@
-import logger from '../../../../../../services/logger.ts';
-import DbService from '../../../../../../services/dbService.ts';
-import { updateConversationPreview } from '../../../../conversation/read-conversation/getPreviewHook.ts';
+import logger from '../../../../../../services/logger.js';
+import DbService from '../../../../../../services/dbService.js';
+import { updateConversationPreview } from '../../../../conversation/read-conversation/getPreviewHook.js';
 
 /**
  * Insert a chat message into the database

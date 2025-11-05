@@ -1,4 +1,4 @@
-import type { ValidationResult } from '../../../../../types.ts';
+import type { ValidationResult } from '../../../../../types.js';
 
 /**
  * Message length validation

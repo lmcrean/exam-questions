@@ -89,7 +89,7 @@ vi.mock('../../../../../services/dbService.js', () => ({
 }));
 
 // Import the controller after all mocks are set up
-import * as sendMessageController from '../../../send-message/controller.ts';
+import * as sendMessageController from '../../../send-message/controller.js';
 
 describe('Send Message Controller', () => {
   let req, res;

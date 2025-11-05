@@ -1,4 +1,4 @@
-import { withValidation, type ValidationWrapperResult } from '../errorHandler.ts';
+import { withValidation, type ValidationWrapperResult } from '../errorHandler.js';
 
 /**
  * Validate with async function using error handling wrapper

@@ -11,70 +11,70 @@ export {
   prepareUserMessageStrings, 
   getTestUserMessage, 
   getRandomTestUserMessage 
-} from './01-prepareUserMessageString.ts';
+} from './01-prepareUserMessageString.js';
 
 export { 
   prepareAssessmentId, 
   validateAssessmentExists 
-} from './02-prepareAssessmentId.ts';
+} from './02-prepareAssessmentId.js';
 
 // Phase 2: Conversation Creation & Validation
 export { 
   createConversation, 
   createConversationDirect 
-} from './03-createConversation.ts';
+} from './03-createConversation.js';
 
 export { 
   validateAssessmentIdWasLinked, 
   hasAssessmentIdLinked 
-} from './04-validateAssessmentIdWasLinked.ts';
+} from './04-validateAssessmentIdWasLinked.js';
 
 export { 
   validateAssessmentObjectWasLinked, 
   quickCheckAssessmentObject 
-} from './05-validateAssessmentObjectWasLinked.ts';
+} from './05-validateAssessmentObjectWasLinked.js';
 
 // Phase 3: Message Exchange
 export { 
   sendUserMessage, 
   sendCustomUserMessage 
-} from './06-sendUserMessage.ts';
+} from './06-sendUserMessage.js';
 
 export { 
   receiveChatbotResponse, 
   waitForChatbotResponse 
-} from './07-recieveChatbotResponse.ts';
+} from './07-recieveChatbotResponse.js';
 
 export { 
   sendUserMessageFollowup, 
   sendCustomUserMessageFollowup 
-} from './08-sendUserMessageFollowup.ts';
+} from './08-sendUserMessageFollowup.js';
 
 export { 
   receiveChatbotResponseFollowup, 
   waitForChatbotResponseFollowup 
-} from './09-recieveChatbotResponseFollowup.ts';
+} from './09-recieveChatbotResponseFollowup.js';
 
 // Phase 4: Conversation Validation
 export { 
   getConversation, 
   getConversationRaw 
-} from './10-getConversation.ts';
+} from './10-getConversation.js';
 
 export { 
   validateMessageOrder, 
   validateAlternatingPattern, 
   advancedMessageOrderValidation 
-} from './11-getConversation-ValidateMessageOrder.ts';
+} from './11-getConversation-ValidateMessageOrder.js';
 
 export { 
   getConversationHistory 
-} from './12-getConversationHistory.ts';
+} from './12-getConversationHistory.js';
 
 // Phase 5: Cleanup
 export { 
   deleteConversation 
-} from './13-deleteConversation.ts';
+} from './13-deleteConversation.js';
 
 /**
  * Complete 13-step workflow runner

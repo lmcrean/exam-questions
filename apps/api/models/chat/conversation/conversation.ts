@@ -1,4 +1,4 @@
-import type { ConversationData } from '../types.ts';
+import type { ConversationData } from '../types.js';
 
 /**
  * Conversation Model

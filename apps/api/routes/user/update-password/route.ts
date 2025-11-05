@@ -1,9 +1,9 @@
 import express from 'express';
-import { updatePassword } from './controller.ts';
-import { authenticateToken } from '../../auth/middleware/index.ts';
-import { validateUserAccess } from '../../auth/middleware/validators/userValidators.ts';
-import { validatePasswordUpdate } from '../../auth/middleware/validators/passwordValidators.ts';
-import { AuthenticatedRequest } from '../../types.ts';
+import { updatePassword } from './controller.js';
+import { authenticateToken } from '../../auth/middleware/index.js';
+import { validateUserAccess } from '../../auth/middleware/validators/userValidators.js';
+import { validatePasswordUpdate } from '../../auth/middleware/validators/passwordValidators.js';
+import { AuthenticatedRequest } from '../../types.js';
 
 const router = express.Router();
 

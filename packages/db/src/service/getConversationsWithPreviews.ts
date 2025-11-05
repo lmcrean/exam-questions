@@ -1,5 +1,5 @@
-import { db } from '../database.ts';
-import { ConversationPreview } from '../types.ts';
+import { db } from '../database.js';
+import { ConversationPreview } from '../types.js';
 
 interface Conversation {
   id: string | number;

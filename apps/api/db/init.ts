@@ -1,5 +1,5 @@
-import db from "./index.ts";
-import { createTables } from "./migrations/initialSchema.ts";
+import db from "./index.js";
+import { createTables } from "./migrations/initialSchema.js";
 
 /**
  * Initialize the database with required tables

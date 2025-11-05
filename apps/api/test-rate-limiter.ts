@@ -5,7 +5,7 @@
  * Simulates multiple Gemini API calls to verify rate limiting works
  */
 
-import { geminiRateLimiter } from './services/geminiRateLimiter.ts';
+import { geminiRateLimiter } from './services/geminiRateLimiter.js';
 
 async function testRateLimiter() {
   console.log('🧪 Testing Gemini Rate Limiter\n');
