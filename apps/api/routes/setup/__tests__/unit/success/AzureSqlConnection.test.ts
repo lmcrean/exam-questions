@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 
-// Mock the database module
-vi.mock('../../../../../db/index.js', () => {
+// Mock the database module - use @repo/db path since we're now using the monorepo package
+vi.mock('@repo/db', () => {
   return {
-    default: {
+    db: {
       raw: vi.fn().mockImplementation((query) => {
         if (query.includes('1 as testValue')) {
           return [{ testValue: 1 }];

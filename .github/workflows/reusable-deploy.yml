@@ -38,6 +38,8 @@ jobs:
     steps:
       - name: 🛒 Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name || github.ref }}
 
       - name: 📋 Load Project Configuration
         id: config
@@ -47,6 +49,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.x'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: 📥 Install Dependencies (Monorepo)
         run: |
@@ -289,6 +293,8 @@ jobs:
     steps:
       - name: 🛒 Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name || github.ref }}
 
       - name: 📋 Load Project Configuration
         id: config
