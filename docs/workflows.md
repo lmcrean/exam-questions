@@ -77,6 +77,58 @@ The workflow system uses GitHub Environments to control deployment access for ex
 - **Action**: Calls `reusable-deploy.yml` → `reusable-test.yml` with main parameters
 - **Result**: Production deployment with summary logged
 
+### Critical: Branch-Specific CI Workflow Logic
+
+**Problem**: The `deploy-branch-preview.yml` workflow uses `pull_request_target` which, by GitHub's design, always runs the workflow file from the **base branch (main)** for security reasons. This prevents malicious PRs from modifying CI workflows to steal secrets.
+
+**Consequence**: Without special handling, deployment branches would always use main's CI workflows, meaning:
+- Tests deleted in a branch would still run (from main's version)
+- Tests added in a branch wouldn't run until merged to main
+- CI configuration changes in branches wouldn't take effect
+- This caused issues where deleted problematic tests continued running
+
+**Solution**: Use **full repository path with branch reference** for reusable workflow calls:
+
+```yaml
+# ❌ Wrong: Uses main's workflow version
+uses: ./.github/workflows/reusable-test.yml
+
+# ✅ Correct: Uses branch's workflow version
+uses: lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@${{ github.head_ref }}
+```
+
+**How it works**:
+1. The trigger workflow file (`deploy-branch-preview.yml`) runs from main (security requirement)
+2. But it explicitly calls the **branch's version** of reusable workflows using `@branch-name`
+3. This ensures the branch's test configuration and CI logic are used
+4. Main deployments continue using local references (`./.github/workflows/...`) which is correct
+
+**Benefits**:
+- ✅ Branch-specific tests run correctly (additions, deletions, modifications)
+- ✅ CI configuration changes in branches take effect immediately
+- ✅ No stale tests from main interfering with branch CI
+- ✅ Security maintained (trigger workflow still from main)
+- ✅ Each branch can iterate on CI independently
+
+**Implementation** (in `deploy-branch-preview.yml`):
+```yaml
+deploy:
+  uses: lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@${{ github.head_ref }}
+  secrets: inherit
+  with:
+    deployment_type: 'branch'
+    branch_name: ${{ github.head_ref }}
+
+test:
+  uses: lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@${{ github.head_ref }}
+  secrets: inherit
+  with:
+    deployment_type: 'branch'
+    branch_name: ${{ github.head_ref }}
+```
+
+This pattern is **essential** for deployment branches to have independent CI configurations from main.
+
 ## Branch Deployments
 
 **Purpose**: Preview deployments for pull requests and feature branches. Enables code reviewers to quickly preview a new feature/fix and confirm it works in production. Identifies specific issues through E2E testing.

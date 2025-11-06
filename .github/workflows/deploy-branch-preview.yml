@@ -1,5 +1,21 @@
 name: Deploy Branch Preview
 
+# IMPORTANT: Branch-Specific CI Workflow Logic
+#
+# This workflow uses `pull_request_target` which normally runs workflows from the BASE branch (main)
+# for security reasons. However, for deployment branches, we want to use the PR branch's version
+# of CI workflows so that:
+#
+# 1. Tests added/removed in the branch are reflected in CI
+# 2. Changes to CI configuration in the branch take effect immediately
+# 3. Deleted problematic tests don't continue running from main's version
+#
+# Solution: Use full repository path with branch ref for reusable workflows:
+#   ✅ uses: owner/repo/.github/workflows/reusable-test.yml@${{ github.head_ref }}
+#   ❌ uses: ./.github/workflows/reusable-test.yml (uses main's version)
+#
+# This ensures deployment branches run THEIR CI workflows, not main's workflows.
+
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, labeled]
@@ -127,7 +143,9 @@ jobs:
   deploy:
     needs: check-authorization
     if: needs.check-authorization.outputs.authorized == 'true'
-    uses: ./.github/workflows/reusable-deploy.yml
+    # Use branch-specific workflow for deployment branches
+    # This ensures deployment branches use THEIR version of CI workflows, not main's
+    uses: lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@${{ github.head_ref || github.ref_name }}
     secrets: inherit
     with:
       deployment_type: 'branch'
@@ -139,7 +157,10 @@ jobs:
 
   test:
     needs: [check-authorization, deploy]
-    uses: ./.github/workflows/reusable-test.yml
+    # Use branch-specific workflow for testing
+    # This ensures deployment branches use THEIR version of test workflows, not main's
+    # Critical for cases where tests are added/removed/modified in the branch
+    uses: lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@${{ github.head_ref || github.ref_name }}
     secrets: inherit
     with:
       api_url: ${{ needs.deploy.outputs.api_url }}
