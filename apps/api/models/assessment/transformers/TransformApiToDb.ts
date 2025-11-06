@@ -13,12 +13,13 @@ class TransformApiToDb {
     const data = assessmentData as any;
 
     // Extract fields, supporting both naming conventions
+    // Use ?? (nullish coalescing) to preserve falsy values like 0
     const age = data.age;
     const pattern = data.pattern;
-    const cycle_length = data.cycle_length || data.cycleLength;
-    const period_duration = data.period_duration || data.periodDuration;
-    const flow_heaviness = data.flow_heaviness || data.flowHeaviness;
-    const pain_level = data.pain_level || data.painLevel;
+    const cycle_length = data.cycle_length ?? data.cycleLength;
+    const period_duration = data.period_duration ?? data.periodDuration;
+    const flow_heaviness = data.flow_heaviness ?? data.flowHeaviness;
+    const pain_level = data.pain_level ?? data.painLevel;
 
     // Handle nested symptoms structure (symptoms.physical/emotional) or flat structure (physical_symptoms/emotional_symptoms)
     let physical_symptoms = data.physical_symptoms;
@@ -27,9 +28,9 @@ class TransformApiToDb {
 
     // Check if symptoms are nested under a 'symptoms' object
     if (data.symptoms && typeof data.symptoms === 'object') {
-      physical_symptoms = physical_symptoms || data.symptoms.physical;
-      emotional_symptoms = emotional_symptoms || data.symptoms.emotional;
-      other_symptoms = other_symptoms || data.symptoms.other;
+      physical_symptoms = physical_symptoms ?? data.symptoms.physical;
+      emotional_symptoms = emotional_symptoms ?? data.symptoms.emotional;
+      other_symptoms = other_symptoms ?? data.symptoms.other;
     }
 
     const recommendations = data.recommendations;
