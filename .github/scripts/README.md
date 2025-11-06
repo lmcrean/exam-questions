@@ -2,27 +2,40 @@
 
 Comprehensive tools for monitoring GitHub Actions CI/CD workflows, designed for use with both Claude Code and manual operations.
 
+## Available Tools
+
+### 1. `monitor-ci.sh` - Single Run Monitor
+Monitors a specific CI run or auto-detects the latest run for your branch.
+
+### 2. `monitor-ci-loop.sh` - Continuous Monitor (NEW!)
+Continuously monitors a branch for new CI runs and automatically analyzes failures.
+
 ## Quick Start
 
-### Basic Usage (Auto-detect latest run)
+### One-Time Monitoring (monitor-ci.sh)
 
 ```bash
 # Monitor the latest CI run for your current branch
 ./.github/scripts/monitor-ci.sh
-```
 
-### Monitor Specific Run
-
-```bash
 # Monitor a specific workflow run by ID
 ./.github/scripts/monitor-ci.sh 19148196827
-```
 
-### List Recent Runs
-
-```bash
 # See all recent workflow runs
 ./.github/scripts/monitor-ci.sh --list
+```
+
+### Continuous Monitoring (monitor-ci-loop.sh)
+
+```bash
+# Continuously monitor main branch (default)
+./.github/scripts/monitor-ci-loop.sh
+
+# Monitor a specific branch continuously
+./.github/scripts/monitor-ci-loop.sh --branch develop
+
+# Custom check interval (default: 60s)
+./.github/scripts/monitor-ci-loop.sh --interval 30
 ```
 
 ## Features
@@ -254,9 +267,64 @@ Provide Claude with the script content and ask it to:
    How should I fix this?
    ```
 
+## Continuous Monitoring (monitor-ci-loop.sh)
+
+The continuous monitoring script automatically watches for new CI runs on a branch and analyzes failures as they occur.
+
+### Features
+
+🔄 **Automatic Detection**: Detects new CI runs as they start
+⏳ **Live Monitoring**: Tracks runs from start to completion
+🚨 **Auto-Analysis**: Automatically analyzes failures when they occur
+📁 **Failure Logging**: Saves detailed failure data for later review
+🎯 **Actionable Insights**: Provides clear next steps when issues arise
+⚡ **Configurable**: Adjust branch and check interval as needed
+
+### Usage Examples
+
+```bash
+# Monitor main branch continuously (Claude Code use case)
+./.github/scripts/monitor-ci-loop.sh
+
+# Monitor a feature branch
+./.github/scripts/monitor-ci-loop.sh --branch feature/new-auth
+
+# Check every 30 seconds instead of 60
+./.github/scripts/monitor-ci-loop.sh --interval 30
+
+# Combined options
+./.github/scripts/monitor-ci-loop.sh --branch develop --interval 45
+```
+
+### When to Use Each Tool
+
+**Use `monitor-ci.sh` when:**
+- You want to check a specific run once
+- You need to analyze a past failure
+- You want a quick status check
+
+**Use `monitor-ci-loop.sh` when:**
+- You want to catch issues immediately as they occur
+- You're actively developing and pushing frequent changes
+- Claude Code is helping you fix CI issues iteratively
+- You need continuous monitoring during active development
+
+### Output Files
+
+Both tools save diagnostic data to `/tmp/`:
+- `ci_failure_<run_id>.json` - Failure summary
+- `workflow_result_<run_id>.json` - Complete workflow data
+- `failed_jobs_<run_id>.json` - Failed job details
+
+### Stopping the Monitor
+
+Press `Ctrl+C` to gracefully stop the continuous monitor. It will display:
+- Total monitoring cycles completed
+- Clean shutdown message
+
 ## Advanced Examples
 
-### Monitor and Fix Loop
+### Monitor and Fix Loop (Manual)
 
 ```bash
 # Monitor the latest run
@@ -274,6 +342,23 @@ git push
 
 # Monitor the new run
 ./.github/scripts/monitor-ci.sh
+```
+
+### Automated Fix Loop with Continuous Monitor
+
+```bash
+# Start continuous monitoring on main branch
+# This will automatically catch and analyze all CI failures
+./.github/scripts/monitor-ci-loop.sh
+
+# The monitor will:
+# 1. Detect new CI runs automatically
+# 2. Track them until completion
+# 3. Analyze failures and save detailed logs
+# 4. Provide actionable insights
+# 5. Continue monitoring for the next run
+
+# Stop with Ctrl+C when done
 ```
 
 ### Custom Repository
