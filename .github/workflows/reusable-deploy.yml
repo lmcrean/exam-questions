@@ -169,13 +169,24 @@ jobs:
           else
             # Clean branch name for use in service names (remove special characters)
             CLEAN_BRANCH=$(echo "${{ inputs.branch_name }}" | sed 's/[^a-zA-Z0-9-]/-/g' | tr '[:upper:]' '[:lower:]' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
+
+            # GCP Cloud Run service names must be max 63 characters
+            # If "api-${CLEAN_BRANCH}" would exceed 63 chars, truncate and add hash
             SERVICE_NAME="api-${CLEAN_BRANCH}"
+            if [ ${#SERVICE_NAME} -gt 63 ]; then
+              # Generate short hash of branch name for uniqueness (first 8 chars)
+              BRANCH_HASH=$(echo -n "${{ inputs.branch_name }}" | sha256sum | cut -c1-8)
+              # Truncate to fit: "api-" (4) + truncated branch (51) + "-" (1) + hash (8) = 63
+              TRUNCATED_BRANCH=$(echo "$CLEAN_BRANCH" | cut -c1-50)
+              SERVICE_NAME="api-${TRUNCATED_BRANCH}-${BRANCH_HASH}"
+              echo "⚠️ Branch name too long, truncated to: $SERVICE_NAME"
+            fi
           fi
 
           IMAGE_NAME="${{ steps.config.outputs.artifact-registry-location }}-docker.pkg.dev/${{ steps.config.outputs.gcp-project-id }}/${{ steps.config.outputs.artifact-registry-repository }}/${SERVICE_NAME}:${{ github.sha }}"
 
           echo "🏷️ Building image: $IMAGE_NAME"
-          echo "🔖 Service name: $SERVICE_NAME"
+          echo "🔖 Service name: $SERVICE_NAME (${#SERVICE_NAME} chars)"
 
           # Build and push the image from repository root with correct context
           docker build -t $IMAGE_NAME -f apps/api/Dockerfile .
