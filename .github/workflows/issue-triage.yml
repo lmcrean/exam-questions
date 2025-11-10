@@ -38,7 +38,7 @@ jobs:
         with:
           script: |
             // Register tsx to handle .ts files
-            require('.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
+            require('./.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
 
             // Load the triage functions from TypeScript file
             const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/triage.ts');
@@ -143,7 +143,7 @@ jobs:
         with:
           script: |
             // Register tsx to handle .ts files
-            require('.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
+            require('./.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
 
             // Load the triage functions from TypeScript file
             const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/triage.ts');
