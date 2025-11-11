@@ -109,40 +109,72 @@ Type Labels (choose ONE):
 - type: security - Security-related issue
 - type: performance - Performance optimization
 
-Component Labels (choose ALL that apply):
-- component: api - Backend API issues
-- component: web - Frontend issues
-- component: auth - Authentication system
-- component: assessment - Assessment/exam features
-- component: chat - Chat and AI features
-- component: deployment - CI/CD, infrastructure
-- component: database - Database-related
-- component: ai - AI/Gemini integration
+Component Labels (ONLY assign if the issue requires code changes in that specific component):
+- component: api - Issues requiring changes to apps/api backend code
+- component: web - Issues requiring changes to apps/web frontend code
+- component: auth - Issues requiring changes to authentication system code
+- component: assessment - Issues requiring changes to assessment/exam features code
+- component: chat - Issues requiring changes to chat/AI response features code
+- component: database - Issues requiring database schema, migration, or query changes
+- component: ai - Issues requiring changes to AI/Gemini integration code
 
-Priority Labels (choose ONE):
+Infrastructure Labels (for non-code issues):
+- component: deployment - ONLY for CI/CD pipeline, GitHub Actions, deployment infrastructure issues that DON'T involve app code changes
+
+Priority Labels (choose EXACTLY ONE - mutually exclusive):
 - priority: critical - System down, security vulnerability, data loss
 - priority: high - Major functionality broken, blocking users
 - priority: medium - Important but has workarounds
 - priority: low - Nice to have, minor improvements
 
-Size Labels (choose ONE):
+Size Labels (choose EXACTLY ONE - mutually exclusive):
 - size: epic - Multi-week project (>2 weeks), needs milestone
 - size: large - Multiple days (3-10 days)
 - size: medium - 1-2 days
 - size: small - Few hours
 
-Status Labels (choose ALL that apply):
-- needs-spec - Missing clear specification or requirements
+Specification Quality Labels (choose EXACTLY ONE):
+- needs-spec - Issue completely lacks specification, requirements, or acceptance criteria
+- improve-spec - Issue has a spec but it's poorly formatted, vague, or incomplete
+- spec-complete - Issue has clear, well-formatted specification with acceptance criteria
+
+Other Status Labels (choose ALL that apply):
 - needs-info - Needs more information from reporter
 
-TRIAGE RULES:
-1. If the issue lacks clear acceptance criteria, add "needs-spec"
-2. If the issue is vague or missing key details, add "needs-info"
-3. For security issues, always set priority to critical or high
-4. For "size: epic" issues, set shouldCreateMilestone to true
-5. Component labels can be multiple (e.g., both api and database)
-6. Be conservative with priority - most issues are medium
-7. Look for keywords: "apps/api", "apps/web", "backend", "frontend", "auth", "assessment", "chat", "deployment", "CI", "database", "AI", "Gemini"
+CRITICAL TRIAGE RULES - FOLLOW STRICTLY:
+
+1. **Component Labels - Be Conservative:**
+   - ONLY assign component labels when the issue EXPLICITLY requires code changes in that component
+   - Mentioning a feature (like "chat" or "assessment") does NOT mean you should assign that component label
+   - CI/CD, GitHub Actions, workflow, and infrastructure issues should ONLY get "component: deployment" if they don't involve app code
+   - If an issue is purely about infrastructure (GitHub Actions, CI/CD, build process), DO NOT assign app component labels (api, web, auth, assessment, chat, database, ai)
+   - When in doubt, assign NO component labels rather than guessing
+
+2. **Priority Labels - Exactly One:**
+   - You MUST choose EXACTLY ONE priority label
+   - NEVER assign multiple priority labels (e.g., both medium and high)
+   - Default to "priority: medium" unless there's clear evidence for higher/lower priority
+   - Be conservative - most issues are medium priority
+
+3. **Size Labels - Exactly One:**
+   - You MUST choose EXACTLY ONE size label
+   - NEVER assign multiple size labels
+
+4. **Specification Quality - Exactly One:**
+   - You MUST choose EXACTLY ONE spec quality label from: needs-spec, improve-spec, or spec-complete
+   - needs-spec: No description, or description is just a title with no details
+   - improve-spec: Has some description but lacks proper formatting, acceptance criteria, or clear requirements
+   - spec-complete: Has detailed description with clear acceptance criteria, expected behavior, and requirements
+   - When in doubt between improve-spec and spec-complete, choose improve-spec
+
+5. **Information Needs:**
+   - Add "needs-info" if the issue is too vague to understand or missing critical context
+   - Can be combined with any spec quality label if additional clarification is needed
+
+6. **Special Cases:**
+   - Security issues: always set priority to critical or high
+   - For "size: epic" issues, set shouldCreateMilestone to true
+   - Infrastructure/CI issues that don't touch app code: use "component: deployment" ONLY, no other components
 
 RESPONSE FORMAT:
 Return ONLY valid JSON (no markdown, no code blocks):
@@ -159,7 +191,7 @@ Analyze the issue and provide your triage recommendation:`;
 }
 
 /**
- * Parse Gemini's JSON response
+ * Parse Gemini's JSON response and validate label rules
  */
 function parseGeminiResponse(text: string): TriageResult {
   try {
@@ -179,8 +211,11 @@ function parseGeminiResponse(text: string): TriageResult {
       throw new Error('Invalid response: missing labels array');
     }
 
+    // Validate and fix conflicting labels
+    const validatedLabels = validateAndFixLabels(result.labels);
+
     return {
-      labels: result.labels || [],
+      labels: validatedLabels,
       reasoning: result.reasoning || 'No reasoning provided',
       shouldCreateMilestone: result.shouldCreateMilestone || false,
       milestoneName: result.milestoneName || null,
@@ -197,13 +232,74 @@ function parseGeminiResponse(text: string): TriageResult {
 }
 
 /**
+ * Validate labels and ensure only one of each mutually exclusive category
+ */
+function validateAndFixLabels(labels: string[]): string[] {
+  const validated: string[] = [];
+
+  // Track mutually exclusive categories
+  let priorityLabel: string | null = null;
+  let sizeLabel: string | null = null;
+  let specLabel: string | null = null;
+
+  for (const label of labels) {
+    // Priority labels - keep only the first one (or highest priority)
+    if (label.startsWith('priority:')) {
+      if (!priorityLabel) {
+        priorityLabel = label;
+      } else {
+        // If multiple priorities, keep the higher one
+        const priorities = ['priority: critical', 'priority: high', 'priority: medium', 'priority: low'];
+        const currentIndex = priorities.indexOf(priorityLabel);
+        const newIndex = priorities.indexOf(label);
+        if (newIndex < currentIndex) {
+          priorityLabel = label;
+        }
+        console.warn(`⚠️ Multiple priority labels detected. Keeping: ${priorityLabel}`);
+      }
+      continue;
+    }
+
+    // Size labels - keep only the first one
+    if (label.startsWith('size:')) {
+      if (!sizeLabel) {
+        sizeLabel = label;
+      } else {
+        console.warn(`⚠️ Multiple size labels detected. Keeping: ${sizeLabel}`);
+      }
+      continue;
+    }
+
+    // Spec quality labels - keep only the first one
+    if (label === 'needs-spec' || label === 'improve-spec' || label === 'spec-complete') {
+      if (!specLabel) {
+        specLabel = label;
+      } else {
+        console.warn(`⚠️ Multiple spec quality labels detected. Keeping: ${specLabel}`);
+      }
+      continue;
+    }
+
+    // All other labels (type, component, etc.)
+    validated.push(label);
+  }
+
+  // Add the single priority, size, and spec labels
+  if (priorityLabel) validated.push(priorityLabel);
+  if (sizeLabel) validated.push(sizeLabel);
+  if (specLabel) validated.push(specLabel);
+
+  return validated;
+}
+
+/**
  * Fallback rule-based triage when Gemini is unavailable
  */
 function fallbackTriage(title: string, body: string, existingLabels: string[]): TriageResult {
   const labels: string[] = [];
   const textToAnalyze = `${title} ${body}`.toLowerCase();
 
-  // Type detection
+  // Type detection (exactly one)
   if (textToAnalyze.includes('bug') || textToAnalyze.includes('error') || textToAnalyze.includes('broken')) {
     labels.push('type: bug');
   } else if (textToAnalyze.includes('feature') || textToAnalyze.includes('add ') || textToAnalyze.includes('new ')) {
@@ -218,58 +314,76 @@ function fallbackTriage(title: string, body: string, existingLabels: string[]): 
     labels.push('type: feature'); // Default
   }
 
-  // Component detection
-  if (textToAnalyze.includes('api') || textToAnalyze.includes('backend') || textToAnalyze.includes('apps/api')) {
-    labels.push('component: api');
-  }
-  if (textToAnalyze.includes('web') || textToAnalyze.includes('frontend') || textToAnalyze.includes('apps/web') || textToAnalyze.includes('ui')) {
-    labels.push('component: web');
-  }
-  if (textToAnalyze.includes('auth') || textToAnalyze.includes('login') || textToAnalyze.includes('authentication')) {
-    labels.push('component: auth');
-  }
-  if (textToAnalyze.includes('assessment') || textToAnalyze.includes('exam') || textToAnalyze.includes('quiz')) {
-    labels.push('component: assessment');
-  }
-  if (textToAnalyze.includes('chat') || textToAnalyze.includes('ai') || textToAnalyze.includes('gemini')) {
-    labels.push('component: chat');
-  }
-  if (textToAnalyze.includes('deploy') || textToAnalyze.includes('ci') || textToAnalyze.includes('cd') || textToAnalyze.includes('workflow')) {
+  // Component detection - BE CONSERVATIVE
+  // Only assign if explicitly mentions that component
+  const isInfrastructure = textToAnalyze.includes('github actions') ||
+                           textToAnalyze.includes('workflow') ||
+                           textToAnalyze.includes('ci/cd') ||
+                           (textToAnalyze.includes('ci') && textToAnalyze.includes('workflow'));
+
+  if (isInfrastructure) {
+    // Pure infrastructure issue - only deployment component
     labels.push('component: deployment');
-  }
-  if (textToAnalyze.includes('database') || textToAnalyze.includes('db') || textToAnalyze.includes('postgres') || textToAnalyze.includes('migration')) {
-    labels.push('component: database');
+  } else {
+    // App code components - only if explicitly mentioned
+    if (textToAnalyze.includes('apps/api') || (textToAnalyze.includes('api') && textToAnalyze.includes('backend'))) {
+      labels.push('component: api');
+    }
+    if (textToAnalyze.includes('apps/web') || (textToAnalyze.includes('web') && textToAnalyze.includes('frontend'))) {
+      labels.push('component: web');
+    }
+    if (textToAnalyze.includes('auth') && (textToAnalyze.includes('login') || textToAnalyze.includes('authentication'))) {
+      labels.push('component: auth');
+    }
+    if (textToAnalyze.includes('assessment') && (textToAnalyze.includes('exam') || textToAnalyze.includes('quiz'))) {
+      labels.push('component: assessment');
+    }
+    if (textToAnalyze.includes('chat') && textToAnalyze.includes('ai')) {
+      labels.push('component: chat');
+    }
+    if (textToAnalyze.includes('database') || textToAnalyze.includes('migration') || textToAnalyze.includes('schema')) {
+      labels.push('component: database');
+    }
   }
 
-  // If no component detected, add needs-info
-  if (!labels.some(l => l.startsWith('component:'))) {
-    labels.push('needs-info');
-  }
-
-  // Spec detection
-  const hasSpec = body && (
+  // Spec quality detection (exactly one)
+  const bodyLength = body ? body.length : 0;
+  const hasGoodSpec = body && (
     body.includes('acceptance criteria') ||
-    body.includes('requirements') ||
     body.includes('expected behavior') ||
-    (body.length > 200 && (body.includes('should') || body.includes('must')))
+    (body.includes('requirements') && bodyLength > 300)
   );
 
-  if (!hasSpec) {
+  const hasBasicSpec = body && bodyLength > 50;
+
+  if (hasGoodSpec) {
+    labels.push('spec-complete');
+  } else if (hasBasicSpec) {
+    labels.push('improve-spec');
+  } else {
     labels.push('needs-spec');
   }
 
-  // Priority (conservative - default to medium)
-  if (textToAnalyze.includes('critical') || textToAnalyze.includes('urgent') || textToAnalyze.includes('security')) {
-    labels.push('priority: high');
-  } else {
-    labels.push('priority: medium');
+  // Additional status labels
+  if (bodyLength < 30 || !body) {
+    labels.push('needs-info');
   }
 
-  // Size estimation (conservative)
-  const bodyLength = body ? body.length : 0;
-  if (bodyLength > 1000 || textToAnalyze.includes('epic') || textToAnalyze.includes('large project')) {
+  // Priority (exactly one - conservative, default to medium)
+  if (textToAnalyze.includes('critical') || textToAnalyze.includes('security vulnerability') || textToAnalyze.includes('data loss')) {
+    labels.push('priority: critical');
+  } else if (textToAnalyze.includes('urgent') || textToAnalyze.includes('blocking') || textToAnalyze.includes('security')) {
+    labels.push('priority: high');
+  } else if (textToAnalyze.includes('low priority') || textToAnalyze.includes('nice to have')) {
+    labels.push('priority: low');
+  } else {
+    labels.push('priority: medium'); // Default
+  }
+
+  // Size estimation (exactly one - conservative)
+  if (bodyLength > 1000 || textToAnalyze.includes('epic') || textToAnalyze.includes('multi-week')) {
     labels.push('size: large');
-  } else if (bodyLength > 400) {
+  } else if (bodyLength > 400 || textToAnalyze.includes('multiple days')) {
     labels.push('size: medium');
   } else {
     labels.push('size: small');
