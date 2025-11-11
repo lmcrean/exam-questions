@@ -30,6 +30,11 @@ jobs:
           cd .github/workflows/actions/issue-triage
           npm install
 
+      - name: Build TypeScript
+        run: |
+          cd .github/workflows/actions/issue-triage
+          npm run build
+
       - name: Triage single issue (event-triggered)
         if: github.event_name == 'issues'
         uses: actions/github-script@v7
@@ -37,11 +42,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           script: |
-            // Register tsx to handle .ts files
-            require('./.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
-
-            // Load the triage functions from TypeScript file
-            const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/triage.ts');
+            // Load the triage functions from compiled JavaScript
+            const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/dist/triage.js');
 
             const issue = context.payload.issue;
 
@@ -142,11 +144,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           script: |
-            // Register tsx to handle .ts files
-            require('./.github/workflows/actions/issue-triage/node_modules/tsx/dist/register.cjs');
-
-            // Load the triage functions from TypeScript file
-            const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/triage.ts');
+            // Load the triage functions from compiled JavaScript
+            const { triageIssue, formatTriageComment } = require('./.github/workflows/actions/issue-triage/dist/triage.js');
 
             console.log('🔍 Running scheduled triage for all open issues');
 
