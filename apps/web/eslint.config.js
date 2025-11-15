@@ -3,18 +3,17 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import { defineConfig } from 'eslint/config';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import unusedImports from 'eslint-plugin-unused-imports';
 import prettier from 'eslint-plugin-prettier/recommended';
 
-export default defineConfig([
+export default [
   {
     ignores: [
       '**/*.config.js',
       '*config.ts',
-      '!**/eslint.config.ts',
+      '!**/eslint.config.js',
       'dist/',
       'tsconfig.json',
       'test-backend-connection.ts',
@@ -42,13 +41,11 @@ export default defineConfig([
       'react-refresh': reactRefresh,
       'unused-imports': unusedImports
     },
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      pluginReact.configs.flat.recommended,
-      jsxA11y.flatConfigs.recommended,
-      prettier
-    ],
+    ...js.configs.recommended,
+    ...tseslint.configs.recommended,
+    ...pluginReact.configs.flat.recommended,
+    ...jsxA11y.flatConfigs.recommended,
+    ...prettier,
 
     languageOptions: {
       ecmaVersion: 2020,
@@ -82,4 +79,4 @@ export default defineConfig([
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
     }
   }
-]);
+];
