@@ -217,14 +217,13 @@ jobs:
     # PLATFORM-LEVEL SECURITY: Cannot be bypassed
     # Admin must approve BEFORE deployment runs (including any CI changes)
     # Configure: Settings → Environments → preview-deployments → Required reviewers
-    environment:
-      name: 'preview-deployments'
     uses: ./.github/workflows/reusable-deploy.yml
     secrets: inherit
     with:
       deployment_type: 'branch'
       branch_name: ${{ github.head_ref || github.ref_name }}
       pr_number: ${{ needs.check-authorization.outputs.pr_number }}
+      environment: 'preview-deployments'
 
   test:
     needs: [check-authorization, deploy-trusted, deploy-external]
