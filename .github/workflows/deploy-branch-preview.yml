@@ -43,6 +43,10 @@ name: Deploy Branch Preview
 # ✅ Maximum flexibility: ALL contributors can test CI changes in branches
 
 on:
+  # For SAME-REPO PRs: Run workflow from PR branch (can test CI changes)
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  # For FORK PRs: Run workflow from main branch (security)
   pull_request_target:
     types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
@@ -57,11 +61,17 @@ permissions:
 jobs:
   check-authorization:
     runs-on: ubuntu-latest
-    # Skip this job if triggered by a label event that's not the deploy-preview label
-    if: github.event_name != 'labeled' || github.event.label.name == 'deploy-preview'
+    # Skip label events that aren't deploy-preview
+    # For pull_request_target: only run for fork PRs (same-repo handled by pull_request trigger)
+    # For workflow_dispatch: always run (manual trigger)
+    if: |
+      (github.event_name != 'labeled' || github.event.label.name == 'deploy-preview') &&
+      (github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' ||
+       (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository))
     outputs:
       authorized: ${{ steps.check.outputs.authorized }}
       pr_number: ${{ steps.check.outputs.pr_number }}
+      is_fork: ${{ steps.check.outputs.is_fork }}
     steps:
       - name: Check if deployment is authorized
         id: check
@@ -96,6 +106,13 @@ jobs:
 
             // Set PR number as output for use by other jobs
             core.setOutput('pr_number', prNumber.toString());
+
+            // Determine if this is a fork PR
+            const isFork = context.payload.pull_request ?
+              context.payload.pull_request.head.repo.full_name !== context.payload.pull_request.base.repo.full_name :
+              false;
+            core.setOutput('is_fork', isFork.toString());
+            console.log(`Is fork PR: ${isFork}`);
 
             // Check if author is a collaborator
             let isCollaborator = false;
@@ -168,15 +185,16 @@ jobs:
 
   # Deploy for SAME-REPO PRs (lmcrean's branches, including claude/* branches)
   # ✅ NO environment protection → auto-deploy immediately
-  # ✅ Uses branch-specific CI → can test CI changes before merging
+  # ✅ Uses branch-specific CI from PR → can test CI changes before merging
+  # ✅ Triggered by pull_request → runs workflow FROM the PR branch
   # ✅ Only runs for same-repo → fork PRs can't use this path
   deploy-trusted:
     needs: check-authorization
-    # Only for same-repo PRs (not forks) where author is authorized
+    # Only for same-repo PRs via pull_request trigger (or workflow_dispatch)
     if: |
-      needs.check-authorization.outputs.authorized == 'true' &&
-      github.event.pull_request.head.repo.full_name == github.repository
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@{0}', github.head_ref || github.ref_name) }}
+      (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') &&
+      needs.check-authorization.outputs.authorized == 'true'
+    uses: ./.github/workflows/reusable-deploy.yml
     secrets: inherit
     with:
       deployment_type: 'branch'
@@ -185,23 +203,23 @@ jobs:
 
   # Deploy for FORK PRs (external contributors)
   # ⚠️ WITH environment protection → REQUIRES approval from lmcrean/admins
-  # 🔒 Uses branch-specific CI → allows contributors to test CI changes
+  # 🔒 Uses main branch CI for security (workflow runs from main)
   # 🛡️ Platform-enforced security → CI only runs AFTER manual approval
   # 🔍 Admin reviews PR (including CI changes) BEFORE approving deployment
+  # ✅ Triggered by pull_request_target → runs workflow FROM main (secure)
   deploy-external:
     needs: check-authorization
-    # Only for fork PRs where author is authorized (has deploy-preview label)
+    # Only for fork PRs via pull_request_target where author is authorized
     if: |
+      github.event_name == 'pull_request_target' &&
       needs.check-authorization.outputs.authorized == 'true' &&
-      github.event.pull_request.head.repo.full_name != github.repository
+      needs.check-authorization.outputs.is_fork == 'true'
     # PLATFORM-LEVEL SECURITY: Cannot be bypassed
     # Admin must approve BEFORE deployment runs (including any CI changes)
     # Configure: Settings → Environments → preview-deployments → Required reviewers
     environment:
       name: 'preview-deployments'
-    # SAFE to use branch-specific CI because approval happens BEFORE it runs
-    # Admin can review CI changes in the PR before approving
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@{0}', github.head_ref || github.ref_name) }}
+    uses: ./.github/workflows/reusable-deploy.yml
     secrets: inherit
     with:
       deployment_type: 'branch'
@@ -212,10 +230,8 @@ jobs:
     needs: [check-authorization, deploy-trusted, deploy-external]
     # Run if either deploy job succeeded
     if: always() && (needs.deploy-trusted.result == 'success' || needs.deploy-external.result == 'success')
-    # ALL PRs use branch-specific CI workflows
-    # Security: Fork PRs already approved before reaching this point (environment protection)
-    # Benefit: Contributors can test CI changes (test additions/removals/modifications)
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@{0}', github.head_ref || github.ref_name) }}
+    # Uses workflow from current branch (PR branch for same-repo, main for forks)
+    uses: ./.github/workflows/reusable-test.yml
     secrets: inherit
     with:
       api_url: ${{ needs.deploy-trusted.result == 'success' && needs.deploy-trusted.outputs.api_url || needs.deploy-external.outputs.api_url }}
