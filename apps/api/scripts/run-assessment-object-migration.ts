@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import DbService from '../services/db-service/dbService.js';
+import { db } from '@repo/db';
 import logger from '../services/logger.js';
 import { addAssessmentObjectToConversations } from '@repo/db';
 
@@ -8,11 +8,8 @@ const runMigration = async (): Promise<void> => {
   try {
     logger.info('Starting assessment object migration...');
 
-    // Get the database instance
-    const db = DbService.getDbInstance();
-
-    // Run the migration
-    await addAssessmentObjectToConversations(db);
+    // Run the migration using the shared db instance
+    await addAssessmentObjectToConversations.addAssessmentObjectToConversations(db);
 
     logger.info('Assessment object migration completed successfully');
     process.exit(0);
