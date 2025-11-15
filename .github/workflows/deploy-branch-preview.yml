@@ -168,7 +168,7 @@ jobs:
 
   # Deploy for SAME-REPO PRs (lmcrean's branches, including claude/* branches)
   # ✅ NO environment protection → auto-deploy immediately
-  # ✅ Uses branch-specific CI → can test CI changes before merging
+  # ✅ Uses main branch workflow → stable CI pipeline
   # ✅ Only runs for same-repo → fork PRs can't use this path
   deploy-trusted:
     needs: check-authorization
@@ -176,7 +176,7 @@ jobs:
     if: |
       needs.check-authorization.outputs.authorized == 'true' &&
       github.event.pull_request.head.repo.full_name == github.repository
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@{0}', github.head_ref || github.ref_name) }}
+    uses: lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@main
     secrets: inherit
     with:
       deployment_type: 'branch'
@@ -185,7 +185,7 @@ jobs:
 
   # Deploy for FORK PRs (external contributors)
   # ⚠️ WITH environment protection → REQUIRES approval from lmcrean/admins
-  # 🔒 Uses branch-specific CI → allows contributors to test CI changes
+  # 🔒 Uses main branch CI for security
   # 🛡️ Platform-enforced security → CI only runs AFTER manual approval
   # 🔍 Admin reviews PR (including CI changes) BEFORE approving deployment
   deploy-external:
@@ -199,9 +199,7 @@ jobs:
     # Configure: Settings → Environments → preview-deployments → Required reviewers
     environment:
       name: 'preview-deployments'
-    # SAFE to use branch-specific CI because approval happens BEFORE it runs
-    # Admin can review CI changes in the PR before approving
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@{0}', github.head_ref || github.ref_name) }}
+    uses: lmcrean/ed-tech-app/.github/workflows/reusable-deploy.yml@main
     secrets: inherit
     with:
       deployment_type: 'branch'
@@ -212,10 +210,7 @@ jobs:
     needs: [check-authorization, deploy-trusted, deploy-external]
     # Run if either deploy job succeeded
     if: always() && (needs.deploy-trusted.result == 'success' || needs.deploy-external.result == 'success')
-    # ALL PRs use branch-specific CI workflows
-    # Security: Fork PRs already approved before reaching this point (environment protection)
-    # Benefit: Contributors can test CI changes (test additions/removals/modifications)
-    uses: ${{ format('lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@{0}', github.head_ref || github.ref_name) }}
+    uses: lmcrean/ed-tech-app/.github/workflows/reusable-test.yml@main
     secrets: inherit
     with:
       api_url: ${{ needs.deploy-trusted.result == 'success' && needs.deploy-trusted.outputs.api_url || needs.deploy-external.outputs.api_url }}
